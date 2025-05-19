@@ -9,3 +9,5 @@ This document must be updated daily every time you finish a work session.
  - Read through today's notes on the website and discussed with teammate (~10 mins)
  - Decided which project option to work on
  - Changed name of/began to update devlog
+ - Deleted old devlog templates since they wouldn't reflect new names
+ - Started drafting proposal on google doc with teammate
