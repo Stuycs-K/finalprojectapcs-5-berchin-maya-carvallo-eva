@@ -2,7 +2,7 @@
 # Technical Details:
 
 
-Maya Berchin, Eva Carvallo --- Period 5
+Maya Berchin, Eva Carvallo---Period 5
 
 !! Group Name TBD !!
 
@@ -29,13 +29,17 @@ Expanded Description:
       - Different goals in different levels
       - POSSIBLY game sounds and/or music
 
-How you will be using the topics covered in class in the project.
+Topics covered in class that we will be using:
+  - Processing
+  - Classes, class hierarchy/inheritance, abstract classes
+  - Random
 
 # Project Design
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 
-
+Classes:
+  - Candy---abstract. String type, ints x and y.
 
 # Intended pacing:
 
