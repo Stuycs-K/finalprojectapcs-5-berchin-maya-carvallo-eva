@@ -13,14 +13,21 @@ they are all touching (again, diagonals don't count), a special candy will be sp
 good at clearing a lot of the board. There are different types of special candies (row-clearing, bomb, etc), and
 the one you get depends on the formation of the normal candies that spawned the special one.
 
+This will be done in Processing.
+
 Expanded Description:
-    Critical features (Minimum Viable Product) - What you want to have after 1.5 weeks.
-    Diagrams can be useful (but will expand this to an extra page if you use them) when your project isn't EXTREMELY well known (e.g. chess, tetris) but you need to annoatate them to explain what you care about.
-    Nice to have features - What you would want to have by the end
 
-(CHANGE THIS!!!!!)
+    Critical features (Minimum Viable Product) - After 1.5 weeks, we must have the following:
+      - At least 1 working level that has the same goal but randomized starting boards each time it is played
+      - Decent graphics (some shading, some animation)
+      - Play Again or Retry feature
+      - A basic way of changing the difficulty (will get replaced if we make multiple levels)
 
-A description of your technical design. This should include:
+    Nice to have features - By the end it would be nice to have:
+      - Multiple levels and a main menu
+      - More detailed graphics and an interesting background
+      - Different goals in different levels
+      - POSSIBLY game sounds and/or music
 
 How you will be using the topics covered in class in the project.
 
