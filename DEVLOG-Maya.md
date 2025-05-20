@@ -10,4 +10,12 @@ This document must be updated daily every time you finish a work session.
  - Decided which project option to work on
  - Changed name of/began to update devlog
  - Deleted old devlog templates since they wouldn't reflect new names
- - Started drafting proposal on google doc with teammate
+ - Started drafting proposal on google doc with teammate (rest of class)
+
+### 2025-05-19 - Worked on prototype
+ - Teammate absent :(
+ - Pasted what we worked on in the doc yesterday (section 1) and edited working to sound better/clearer (~6 mins)
+ - Thought about and wrote extended description (~10 mins)
+ - Did this on a branch and tried merging branch to main for the first time (~5 mins) (it worked!!)
+ - Added more stuff to extended description (~4 mins)
+ - Worked on UML diagrams (rest of class)
