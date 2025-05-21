@@ -19,3 +19,5 @@ This document must be updated daily every time you finish a work session.
  - Did this on a branch and tried merging branch to main for the first time (~5 mins) (it worked!!)
  - Added more stuff to extended description (~4 mins)
  - Worked on UML diagrams (rest of class)
+ - Worked on UML diagram at home (many hours)
+ - Worked on outline of section 2 (~1 hour)
