@@ -4,7 +4,7 @@
 
 Maya Berchin, Eva Carvallo---Period 5
 
-!! Group Name TBD !!
+Jelly Jive
 
 Candy crush: a popular puzzle game. Goals vary by level: collect x candy, clear the board, get n XP in x moves, etc.
 All goals are achieved through the core gameplay: swiping candies with their neighbors (diagonals excluded).
