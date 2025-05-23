@@ -159,7 +159,6 @@ Candy:
  - **setX()** and **setY()** are used when swapping a candy with its neighbor.
  - **scanNeighbors()** scans to see if a swap would be a normal or special move based on the neighbors of the new position.
  - **setX()** and **setY()** are used when swapping a candy with its neighbor.
->>>>>>> 8ef38736f1d861d05a0424ea504d823f9db9b012
 	
 CHILDREN OF CANDY:
 
