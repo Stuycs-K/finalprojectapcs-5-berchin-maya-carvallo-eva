@@ -23,5 +23,4 @@ This document must be updated daily every time you finish a work session.
  - Worked on outline of section 2 (~1 hour)
  
  ### 2025-05-21 - Fixed basic formatting stuff
-  - Fixed basic formatting for section 2 of prototype (~5 mins)
-	
+ - Fixed basic formatting for section 2 of prototype (~10 mins)
