@@ -1,4 +1,4 @@
-public class Level{
+public abstract class Level{
 private Sweet[][] board;
 private int XP;
 private int GOALXP;
@@ -7,17 +7,14 @@ private int movesLeft;
 
 void makeNewBoard()
 {
-  
 }
 
 void display()
-{
-  
+{ 
 }
 
 void changeDifficulty()
-{
-  
+{ 
 }
 
 boolean areSwaps()
