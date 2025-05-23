@@ -1,0 +1,4 @@
+class XPLevel extends ALevel{
+  
+  
+}

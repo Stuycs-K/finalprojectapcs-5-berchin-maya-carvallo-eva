@@ -1,0 +1,3 @@
+class Chocolate extends BSweet{
+  
+}
