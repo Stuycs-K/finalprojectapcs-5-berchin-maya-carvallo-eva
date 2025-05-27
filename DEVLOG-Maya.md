@@ -29,3 +29,9 @@ This document must be updated daily every time you finish a work session.
  - Sent notes of how the UML diagram works to teammate (info from the 9 bajillion tabs I had open on 5/19) (~ 5 mins)
 
  ### 2025-05-21 - Diagrammed in class
+ - Spent most of class working on new diagram based on feedback from Mr. K
+ - Spent ~15 minutes trying to work out a weird alphabetical order loading bug in Processing
+
+### 2025-05-26 - Reworking UML diagram
+ - Spent literal HOURS working on new diagram outline in Google Docs
+ - Began working on fixing the diagram itself, but still need to finish outline before commiting to that
