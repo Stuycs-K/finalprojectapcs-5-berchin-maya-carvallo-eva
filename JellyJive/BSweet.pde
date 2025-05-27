@@ -1,13 +1,15 @@
-abstract class Sweet{
+abstract class BSweet{
   private int x;
   private int y;
   private boolean swappable;
+  private String name;
   
-  public Sweet(int X, int Y, boolean swappable)
+  public BSweet(int X, int Y, boolean swappable, String name)
   {
    x = X;
    y = Y;
    this.swappable = swappable;
+   this.name = name;
   }
   int getX()
   {
@@ -17,9 +19,23 @@ abstract class Sweet{
   {
    return y; 
   }
-  void break()
+  boolean isSwappable()
   {
-    
+    return swappable;
+  }
+  String getName()
+  {
+    return name;
+  }
+  
+  void setX(int x)
+  {
+     this.x = x;
+  }
+  
+  void setY(int y)
+  {
+     this.y = y; 
   }
   
 }
