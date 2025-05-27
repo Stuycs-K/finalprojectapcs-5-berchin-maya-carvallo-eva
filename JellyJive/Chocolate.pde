@@ -4,4 +4,5 @@ class Chocolate extends BSweet{
      super(x, y, false, "Chocolate");
   }
 
+
 }
