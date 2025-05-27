@@ -35,3 +35,5 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-26 - Reworking UML diagram
  - Spent literal HOURS working on new diagram outline in Google Docs
  - Began working on fixing the diagram itself, but still need to finish outline before commiting to that
+
+### 2025-05-27 - Continued diagramming
