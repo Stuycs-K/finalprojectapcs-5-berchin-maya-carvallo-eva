@@ -5,90 +5,25 @@ class Candy extends BSweet{
   }
   boolean scanNeighbors(int x, int y)
   {
-    int checkY = y - 1;
-    String name = board[checkY][x].getName();
-    if (checkY >= 0 && board[checkY][x].isSwappable())
-    {
-      checkY = y + 1;
-      int count = 0;
-      while (checkY < GRID_SIZE && checkY < y + 3 && count < 2)
-      {
-        if (board[checkY][x].isSwappable() && board[checkY][x].getName().equals(name))
-        {
-           count++; 
-        }
-        checkY++;
-      }
-      if (count == 2)
-      {
-        return true;
-      }
-    }
-    checkY = y + 1;
-    name = board[checkY][x].getName();
-    if (checkY <= GRID_SIZE && board[checkY][x].isSwappable())
-    {
-      checkY = y - 1;
-      int count = 0;
-      while (checkY >= 0 && checkY > y - 3 && count < 2)
-      {
-        if (board[checkY][x].isSwappable() && board[checkY][x].getName().equals(name))
-        {
-           count++; 
-        }
-        checkY--;
-      }
-      if (count == 2)
-      {
-        return true;
-      }
-    }
-    int checkX = x + 1;
-    name = board[y][checkX].getName();
-    if (checkX <= GRID_SIZE && board[y][checkX].isSwappable())
-    {
-      checkX = x - 1;
-      int count = 0;
-      while (checkX >= 0 && checkX > x - 3 && count < 2)
-      {
-        if (board[y][checkX].isSwappable() && board[y][checkX].getName().equals(name))
-        {
-           count++; 
-        }
-        checkY--;
-      }
-      if (count == 2)
-      {
-        return true;
-      }
-    }
-    checkX = y - 1;
-    name = board[y][checkX].getName();
-    if (checkX >= 0 && board[y][checkX].isSwappable())
-    {
-      checkX = x + 1;
-      int count = 0;
-      while (checkX < GRID_SIZE && checkX < x + 3 && count < 2)
-      {
-        if (board[y][checkX].isSwappable() && board[y][checkX].getName().equals(name))
-        {
-           count++; 
-        }
-        else
-        {
-         count = 5; 
-        }
-        checkX++;
-      }
-      if (count == 2)
-      {
-        return true;
-      }
-    }
     int[][] directions = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+    int[][] directions2 = new int[][]{{0, 2}, {-2, 0}, {0, -2}, {2, 0}};
     for (int i = 0; i < directions.length; i++)
     {
-       name = board[y + directions[i][0]][x + directions[i][1]].getName();
+       String name = board[y + directions[i][0]][x + directions[i][1]].getName();
+       for (int j = 0; j < directions.length; j++)
+       {
+         if (j != i && y + directions[j][0] >= 0 && y + directions[j][0] < GRID_SIZE && x + directions[j][1] > 0 && x + directions[j][1] < GRID_SIZE && board[y + directions[j][0]][x + directions[j][1]].isSwappable() && board[y + directions[j][0]][x + directions[j][1]].getName().equals(name))
+         {
+           if (y + directions2[j][0] >= 0 && y + directions2[j][0] < GRID_SIZE && x + directions2[j][1] > 0 && x + directions2[j][1] < GRID_SIZE && board[y + directions2[j][0]][x + directions2[j][1]].isSwappable() && board[y + directions2[j][0]][x + directions2[j][1]].getName().equals(name))
+           {
+              return true; 
+           }
+         }
+       }
+    }
+    for (int i = 0; i < directions.length; i++)
+    {
+       String name = board[y + directions[i][0]][x + directions[i][1]].getName();
        String side1 = board[y + directions[(i + 1) % 4][0]][x + directions[(i + 1) % 4][1]].getName();
        String side2 = board[y + directions[(i - 1 + 4) % 4][0]][x + directions[(i - 1 + 4) % 4][1]].getName();
        if ( side1.equals(name) && side2.equals(name))
