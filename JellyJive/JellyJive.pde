@@ -1,3 +1,4 @@
+
 public int GRID_SIZE;
 public BSweet[][] board = new BSweet[GRID_SIZE][GRID_SIZE];
 
@@ -12,3 +13,4 @@ void draw()
  background(255);
  
 }
+

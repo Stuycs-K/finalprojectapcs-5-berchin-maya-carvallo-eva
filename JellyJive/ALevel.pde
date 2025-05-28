@@ -9,8 +9,11 @@ public Level()
 {
   
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> EvaBranch
 void makeNewBoard()
 {
 }

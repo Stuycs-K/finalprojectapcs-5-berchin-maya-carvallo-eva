@@ -1,3 +1,4 @@
+
 abstract class BSweet{
   private int x;
   private int y;
@@ -36,6 +37,5 @@ abstract class BSweet{
   void setY(int y)
   {
      this.y = y; 
-  }
   
 }
