@@ -39,7 +39,11 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-27 - Continued diagramming
  - Spent a lot of class trying to help partner with weird branching issues
  - Spent most of class updating the doc with new UML plans
- - At home: Woohoo, 2.5 more hours and the doc is (mostly) done! 20 pages and much misery. 
+ - At home: Woohoo, 2.5 more hours and the doc is (mostly) done! 20 pages and much misery.
  Will edit tomorrow and then I can... you know... actually diagram it... the good news is, the outline
  basically just needs reformatting and can be pasted into the file!! I want sleep though so that's also
  happenning tomorrow.
+
+### 2025-05-28 - Discussed implementation and deadlines
+ - Spent most of class learning about CS electives for senior year
+ - Then discussed implementation of project with teammate
