@@ -47,3 +47,7 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-28 - Discussed implementation and deadlines
  - Spent most of class learning about CS electives for senior year
  - Then discussed implementation of project with teammate
+ - At home: now have a working doc that can be used well as an outline for the project. Working on formatting 
+ it better to make a neat diagram. The methods have all been extensively planned out, so from here, there
+ shouldn't be too many discrepencies from the outline or diagram and the project. Woohoo! (Please don't 
+ jinx it....)
