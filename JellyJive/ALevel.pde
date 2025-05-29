@@ -1,11 +1,16 @@
 abstract class Level{
-private Sweet[][] board;
+private Board board;
 private int XP;
 private int GOALXP;
 private int maxMoves;
 private int movesLeft;
- 
-public Level()
+private int difficulty;
+public Button playButton;
+private Button back;
+private Button retry;
+private Button main;
+private Button cancelQuit;
+public Level(int goal, int goalXP, int maxMoves, int chocolates, int jellies)
 {
   
 }
