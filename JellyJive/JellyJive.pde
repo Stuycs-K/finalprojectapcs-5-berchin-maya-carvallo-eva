@@ -9,8 +9,8 @@ public BSweet[][] board = new BSweet[GRID_SIZE][GRID_SIZE];
 
 void setup()
 {
-   size(GRID_SIZE * 30, GRID_SIZE * 30);
-
+  //set up instances of buttons: credits, xcredits
+  size(GRID_SIZE * 30, GRID_SIZE * 30);
 }
 
 void displayMain()
@@ -68,4 +68,3 @@ void xCredits()
 {
   
 }
-

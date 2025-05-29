@@ -6,12 +6,14 @@ public class Button{
  private String text;
  private boolean enabled;
  
- public Button(int x, int y, int b, int h)
+ public Button(int x, int y, int b, int h, String text)
  {
    this.x = x;
    this.y = y;
    this.b = b;
    this.h = h;
+   this.text = text;
+   enabled = false;
  }
  
  void displayButton()
@@ -34,8 +36,8 @@ public class Button{
     enabled = false; 
  }
  
- boolean wasPressed()
+ boolean wasPressed(int mx, int my)
  {
-   return true;
+   return mx >= x && mx <= x+b && my >= y && my <= y+h;
  }
 }
