@@ -5,7 +5,6 @@ private Level activeLevel;
 private Level clickedLevel;
 private Board gameBoard;
 private boolean playingLevel;
-public BSweet[][] board = new BSweet[GRID_SIZE][GRID_SIZE];
 
 void setup()
 {
