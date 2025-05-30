@@ -62,7 +62,7 @@ OUTLINE:
  - **Buttons retry, main, cancelQuit**: UI for retrying a level or going back to the main menu or for deciding not to quit  
  - **Sweet target1**: The target the mouse is dragging  
  - **Sweet target2**: The sweet the mouse is dragging towards  
- - -----------------------
+ - - - - - - -
  - **void setup()**: Set up the main menu area and display everything  
  - **void draw()**: Does nothing  
  - **void mouseClicked()**: Check if a button has been pressed  
@@ -76,25 +76,25 @@ OUTLINE:
  - **void mainMenu()**: Go back to the main menu after pressing main  
  - **void cancelQuit()**: Goes back to the level being played  
  - **void retry()**: Makes a new copy of the level that was attempted 
-
+-----------------------------
 ***BUTTON***
  - **int x, int y**: Button top left coordinates  
  - **int b, int h**: Base and height  
  - **String text**: What the button should display  
  - **boolean enabled**: Keeps track of whether the button is enabled  
- - -----------------------
+ - - - - - - -
  - **Button()**: constructor  
  - **boolean isEnabled()**: Returns enabled  
  - **void enable()**: Sets enable to true  
  - **void disable()**: Sets enable to false  
  - **boolean wasPressed()**: Return whether or not this button has been pressed  
  - **void displayButton()**: Draws the button in the right place and displays the right text 
-
+-----------------------------
 ***BOARD***
  - **Sweet[][] board**: The actual board  
  - **ArrayList<Chocolate> chocolates**: Level may contain chocolate  
  - **ArrayList<Chocolate> jellies**: Level may contain jellies  
- - -----------------------
+ - - - - - - -
  - **Board()**: constructor  
  - **boolean areSwaps()**: Decide if there are swaps left on the board  
  - **ArrayList<Sweet> shuffle()**: Shuffle the contents of the board (candy only; chocolate and jellies stay where they are). Returns a list of sweets that were broken by the shuffle.  
@@ -105,7 +105,7 @@ OUTLINE:
  - **ArrayList<Sweet> genNewCandy()**: Generate new candy to fill in all empty spots. Return a list of sweets broken by the generation of this new candy.  
  - **void animateCandyFall()**: Animate candy falling down one layer into an empty space.  
  - **ArrayList<explodeAgain()**: Explode bombs again. (Bombs explode twice)  
-
+-----------------------------
 ***LEVEL***
  - **Button playButton**: Used in main tab to be the button that causes this level to be played  
  - **Board board**: Board which the level is played on  
@@ -117,7 +117,7 @@ OUTLINE:
  - **int movesLeft**: self explanatory
  - **int[][] chocCoords**: So that we can set up board with the same placement of chocolates each time we make a copy  
  - **int[][] jellyCoords**: So that we can set up board with the same placement of jellies each time we make a copy 
- - -----------------------
+ - - - - - - -
  - **Level()**: constructor  
  - **Level copyLevel()**: Returns a deep copy of a level to be stored and modified in activeLevel.  
  - **void display()**: Displays the level  
@@ -132,25 +132,25 @@ OUTLINE:
  - **boolean fulfilledReq()**: Checks if the requirement to win has been fulfilled  
  - **void win()**: Win the game!  
  - **void lose()**: Lose the game :(  
-
+-----------------------------
 ***XPLEVEL***
- - -----------------------
+ - - - - - - -
  - **XPLevel()**: constructor  
  - **XPLevel copyLevel()**: see super
  - **boolean fulfilledReq()**: Return XP >= goalXP  
-
+-----------------------------
 ***CLEARLEVEL***
  - **Sweet clearGoal**: The sweet that needs to be wiped from the board  
- - -----------------------
+ - - - - - - -
  - **ClearLevel()**: constructor  
  - **ClearLevel copyLevel()**: see super
  - **boolean fulfilledReq()**: Return the count of clearGoal on the board == 0  
-
+-----------------------------
 ***COLLECTLEVEL***
  - **Sweet sType**: The sweet that needs to be collected  
  - **int goalSs**: The goal number of sweets we’re trying to collect  
  - **int numSs**: The number of goal sweets we currently have  
- - -----------------------
+ - - - - - - -
  - **CollectLevel()**: constructor  
  - **CollectLevel copyLevel()**: see super
  - **int getGoalSs()**: Returns goalSs  
@@ -158,68 +158,67 @@ OUTLINE:
  - **void addSs()**: After each swap, adds the number of sTypes broken to numSs  
  - **Sweet getSweetType()**: Returns sType  
  - **boolean fulfilledReq()**: Return the count of clearGoal on the board == 0  
-
+-----------------------------
 ***SWEET***
  - **int x, int y**: Location of the candy on the board  
  - **boolean swappable**: Can the sweet be moved by mouseDragged()?  
- - -----------------------
+ - - - - - - -
  - **Sweet()**: constructor  
  - **int getX(), getY()**: Return x / y  
  - **void setX(), setY()**: Set x and y  
  - **boolean isSwappable()**: Return swappable  
  - **void display()**: Display the sweet  
  - **void animateBreak()**: Animate the candy breaking  
-
+-----------------------------
 ***CHOCOLATE***
- - -----------------------
+ - - - - - - -
  - **Chocolate()**: Constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
-
+-----------------------------
 ***JELLY***
  - **int layers**: Number of layers of jelly on this square  
- - -----------------------  
+ - - - - - - -
  - **Jelly()**: Constructor  
  - **int getLayers()**: Return layers  
  - **void subLayer()**: layers– after a swap  
  - **void display()**: Display the jelly  
  - **void animateBreak()**: see super
-
+-----------------------------
 ***CANDY***
  - **Color cColor**: Color of the candy  
- - -----------------------  
+ - - - - - - - 
  - **Candy()**: constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
-
+-----------------------------
 ***COLORBOMB***
- - -----------------------  
+ - - - - - - - 
  - **colorBomb()**: constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
-
+-----------------------------
 ***STRIPED***
  - **boolean vertical**: Will the candy break a column or row when activated?  
- - -----------------------  
+ - - - - - - -
  - **Striped()**: Constructor  
  - **boolean isVertical()**: Return vertical  
  - **void display()**: see super
  - **void animateBreak()**: see super
-
+-----------------------------
 ***BOMB***
- - -----------------------  
+ - - - - - - - 
  - **Bomb()**: Constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
-
+-----------------------------
 ***ACTIVEBOMB***
- - -----------------------  
+ - - - - - - -
  - **ActiveBomb()**: Constructor  
  - **void animateTimer()**: Animate the bomb lighting up and going back to its normal color while it waits to explode  
  - **void display()**: see super
  - **void animateBreak()**: see super
-
-
+-----------------------------
  
 # OUTDATED: Old project design
 ![Alt text](olduml.png?raw=true "Old class hierarchy diagram" )
