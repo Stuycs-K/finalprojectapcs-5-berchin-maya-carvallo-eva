@@ -1,4 +1,3 @@
-
 abstract class BSweet{
   private int x;
   private int y;

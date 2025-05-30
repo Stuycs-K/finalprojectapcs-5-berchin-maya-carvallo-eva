@@ -22,7 +22,7 @@ public class Board
      }
  }
  
- ArrayList<BSweet> shuffle()
+ void shuffle()
  {
     ArrayList<int[]> coordinates = new ArrayList<int[]>();
     for (int i = 0; i < GRID_SIZE; i++)
@@ -67,7 +67,54 @@ public class Board
          ind++;
       }
     }
+    int count = 0;
+    int row = 0;
+    int col = 0;
+    for (int i = 0; i < GRID_SIZE; i++)
+    {
+      while (col < GRID_SIZE)
+      {
+        String name = board[i][j].getName();
+        count++;
+        if 
+      }
+    }
     
+ }
+ 
+ ArrayList<BSweet> swap()
+ {
+   
+ }
+ 
+ ArrayList<BSweet> findToBreak()
+ {
+   
+ }
+ 
+ void animateSwap()
+ {
+   
+ }
+ 
+ void animateFail()
+ {
+   
+ }
+ 
+ ArrayList<BSweet> genNewCandy()
+ {
+   
+ }
+ 
+ void animateCandyFall()
+ {
+   
+ }
+ 
+ ArrayList<BSweet> explodeAgain()
+ {
+   
  }
  
 }
