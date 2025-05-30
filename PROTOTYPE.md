@@ -172,6 +172,11 @@ Striped:
 ColorBomb:
  - Clears the whole board.
  - Clears the whole board. If completed level, will do this before showing winning screen.
+ 
+ 
+ 
+ #OUTDATED: Old project design
+ ![Alt text](olduml.png?raw=true "Old class hierarchy diagram" )
 	
 
 
