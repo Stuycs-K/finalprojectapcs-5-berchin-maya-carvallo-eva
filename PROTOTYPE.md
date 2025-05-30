@@ -117,7 +117,7 @@ OUTLINE:
  - **int movesLeft**: self explanatory
  - **int[][] chocCoords**: So that we can set up board with the same placement of chocolates each time we make a copy  
  - **int[][] jellyCoords**: So that we can set up board with the same placement of jellies each time we make a copy 
-. . . . . . . .
+ . . . . . . . .
  - **Level()**: constructor  
  - **Level copyLevel()**: Returns a deep copy of a level to be stored and modified in activeLevel.  
  - **void display()**: Displays the level  
@@ -134,14 +134,14 @@ OUTLINE:
  - **void lose()**: Lose the game :(  
 -----------------------------
 ***XPLEVEL***
-. . . . . . . .
+ . . . . . . . .
  - **XPLevel()**: constructor  
  - **XPLevel copyLevel()**: see super
  - **boolean fulfilledReq()**: Return XP >= goalXP  
 -----------------------------
 ***CLEARLEVEL***
  - **Sweet clearGoal**: The sweet that needs to be wiped from the board  
-. . . . . . . .
+ . . . . . . . .
  - **ClearLevel()**: constructor  
  - **ClearLevel copyLevel()**: see super
  - **boolean fulfilledReq()**: Return the count of clearGoal on the board == 0  
@@ -150,7 +150,7 @@ OUTLINE:
  - **Sweet sType**: The sweet that needs to be collected  
  - **int goalSs**: The goal number of sweets we’re trying to collect  
  - **int numSs**: The number of goal sweets we currently have  
-. . . . . . . .
+ . . . . . . . .
  - **CollectLevel()**: constructor  
  - **CollectLevel copyLevel()**: see super
  - **int getGoalSs()**: Returns goalSs  
@@ -162,7 +162,7 @@ OUTLINE:
 ***SWEET***
  - **int x, int y**: Location of the candy on the board  
  - **boolean swappable**: Can the sweet be moved by mouseDragged()?  
-. . . . . . . .
+ . . . . . . . .
  - **Sweet()**: constructor  
  - **int getX(), getY()**: Return x / y  
  - **void setX(), setY()**: Set x and y  
@@ -171,14 +171,14 @@ OUTLINE:
  - **void animateBreak()**: Animate the candy breaking  
 -----------------------------
 ***CHOCOLATE***
-. . . . . . . .
+ . . . . . . . .
  - **Chocolate()**: Constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
 -----------------------------
 ***JELLY***
  - **int layers**: Number of layers of jelly on this square  
-. . . . . . . .
+ . . . . . . . .
  - **Jelly()**: Constructor  
  - **int getLayers()**: Return layers  
  - **void subLayer()**: layers– after a swap  
@@ -187,33 +187,33 @@ OUTLINE:
 -----------------------------
 ***CANDY***
  - **Color cColor**: Color of the candy  
-. . . . . . . . 
+ . . . . . . . . 
  - **Candy()**: constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
 -----------------------------
 ***COLORBOMB***
-. . . . . . . . 
+ . . . . . . . . 
  - **colorBomb()**: constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
 -----------------------------
 ***STRIPED***
  - **boolean vertical**: Will the candy break a column or row when activated?  
-. . . . . . . .
+ . . . . . . . .
  - **Striped()**: Constructor  
  - **boolean isVertical()**: Return vertical  
  - **void display()**: see super
  - **void animateBreak()**: see super
 -----------------------------
 ***BOMB***
-. . . . . . . . 
+ . . . . . . . . 
  - **Bomb()**: Constructor  
  - **void display()**: see super
  - **void animateBreak()**: see super
 -----------------------------
 ***ACTIVEBOMB***
-. . . . . . . .
+ . . . . . . . .
  - **ActiveBomb()**: Constructor  
  - **void animateTimer()**: Animate the bomb lighting up and going back to its normal color while it waits to explode  
  - **void display()**: see super
@@ -351,18 +351,45 @@ OUTLINE:
 
 How you are breaking down the project and who is responsible for which parts.
 
-5/25/25 - create all files and classes-both 
-Eva--complete candy and swap logic
-Maya---start animation and displaying of first xp level for just candies
+5/26/25
+ - Basic class structure outline in processing
 
-5/27/25
-Eva---complete logic for special candies, and jellies
-Maya---animation for bombs
+5/30/25
+ - Button done
 
-5/29/25
-Eva---complete/continue working on logic for chocolate/ fixing other logic if not finished
-Maya---do animation and displaying of Jellies and level info
+5/31/25
+ - Very basic Sweet, Candy & Candy's descdendants done (chocolate and jelly are nice to have)
+
+6/1/25
+ - JellyJive and part of Level done
 
 6/2/25
-Eva---work on logic for goals of different difficulty
-Maya---graphics, possibly sounds, main screen if possible. If not, finish graphics - we will discuss any logic not working
+ - Level done, everything functional though not pretty
+
+6/3/25
+ - Chocolate and jelly done
+
+6/5/25
+ - Backgrounds started on, graphics shinier
+
+6/7/25
+ - Great graphics, animations ok, start on sound
+
+6/9/25
+ - Done! With everything. MUST WORK.
+
+~~5/25/25 - create all files and classes-both~~
+~~Eva--complete candy and swap logic~~
+~~Maya---start animation and displaying of first xp level for just candies~~
+
+~~5/27/25~~
+~~Eva---complete logic for special candies, and jellies~~
+~~Maya---animation for bombs~~
+
+~~5/29/25~~
+~~Eva---complete/continue working on logic for chocolate/ fixing other logic if not finished~~
+~~Maya---do animation and displaying of Jellies and level info~~
+
+~~6/2/25~~
+~~Eva---work on logic for goals of different difficulty~~
+~~Maya---graphics, possibly sounds, main screen if possible. If not, finish graphics - we will discuss any logic not working~~
