@@ -1,5 +1,6 @@
 
 abstract class BSweet{
+
   private int x;
   private int y;
   private boolean swappable;
@@ -37,5 +38,9 @@ abstract class BSweet{
   void setY(int y)
   {
      this.y = y; 
+  }
+  
+  abstract void display();
+  abstract void animateBreak();
   
 }

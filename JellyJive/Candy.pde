@@ -1,8 +1,13 @@
 class Candy extends BSweet{
-  public Candy(int x, int y, String Ccolor)
+  
+  color cColor;
+  
+  public Candy(int x, int y, String Ccolor, color c)
   {
      super(x, y, true, Ccolor);
+     cColor = c;
   }
+  
   boolean canSwap(int x, int y)
   {
     int[][] directions = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
@@ -71,5 +76,17 @@ class Candy extends BSweet{
     }
     return possibilities;
   }
+  
+  color getColor() {
+    return cColor;
+  }
+  
+  void display() {
+    fill(this.getColor());
+    //draw different shapes later
+    circle(this.getX(),this.getY(),20);
+  }
+  
+  void animateBreak() {}
   
 }
