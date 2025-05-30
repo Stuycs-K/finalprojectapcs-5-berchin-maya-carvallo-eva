@@ -10,7 +10,7 @@ private Button retry;
 private Button main;
 private Button cancelQuit;
 
-public BSweet[][] board = new BSweet[GRID_SIZE][GRID_SIZE];
+public Sweet[][] board = new Sweet[GRID_SIZE][GRID_SIZE];
 
 void setup()
 {
