@@ -34,6 +34,7 @@ public class Button{
  void enable()
  {
     enabled = true; 
+    displayButton();
  }
  
  void disable()

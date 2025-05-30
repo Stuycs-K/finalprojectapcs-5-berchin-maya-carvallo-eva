@@ -1,93 +1,96 @@
 abstract class Level{
-private Board board;
-private int XP;
-private int GOALXP;
-private int maxMoves;
-private int movesLeft;
-private int difficulty;
-public Button playButton;
-private Button back;
-private Button retry;
-private Button main;
-private Button cancelQuit;
-public Level(int goal, int goalXP, int maxMoves, int chocolates, int jellies)
-{
+  public Button playButton;
+  private Board board;
+  private int XP;
+  private int GOALXP;
+  private int maxMoves;
+  private int movesLeft;
+  private int difficulty;
+  private String goal;
   
-}
-<<<<<<< HEAD
-
-
-=======
->>>>>>> EvaBranch
-void makeNewBoard()
-{
-}
-
-void display()
-{ 
-}
-
-void changeDifficulty()
-{ 
-}
-
-boolean areSwaps()
-{
+  public Level(String goal, int goalXP, int maxMoves, int[][]chocCoords, int[][]jellyCoords)
+  {
+    //fields
+    XP = 0;
+    GOALXP = goalXP;
+    movesLeft = 0;
+    this.maxMoves = maxMoves;
+    difficulty = maxMoves;
+    this.goal = goal;
+    //MUST BE OVERWRITTEN IN CHILD CLASSES
+    playButton = null;
+    board = null;
+  }
   
-}
-private void animateSwap()
-{
+  void makeNewBoard()
+  {
+  }
   
-}
-
-private void genNewcandy()
-{
+  void display()
+  { 
+  }
   
-}
-
-private void animateCandyFall()
-{
+  void changeDifficulty()
+  { 
+  }
   
-}
-
-
-void shuffle()
-{
+  boolean areSwaps()
+  {
+    return false; //COMPILATION
+  }
+  private void animateSwap()
+  {
+    
+  }
   
-}
-
-void swap()
-{
+  private void genNewcandy()
+  {
+    
+  }
   
-}  
-
-int getMovesLeft()
-{
+  private void animateCandyFall()
+  {
+    
+  }
   
-}
-
-void addXP()
-{
   
-}
-
-int getXP()
-{
-  return XP;
-}
-
-int getGoalXP()
-{
-  return GOALXP;
-}
-
-void won()
-{
+  void shuffle()
+  {
+    
+  }
   
-}
-
-void lost()
-{
+  void swap()
+  {
+    
+  }  
   
-}
+  int getMovesLeft()
+  {
+    return 0; //COMPILATION
+  }
+  
+  void addXP()
+  {
+    
+  }
+  
+  int getXP()
+  {
+    return XP;
+  }
+  
+  int getGoalXP()
+  {
+    return GOALXP;
+  }
+  
+  void won()
+  {
+    
+  }
+  
+  void lost()
+  {
+    
+  }
 }

@@ -22,11 +22,20 @@ void setup()
   Button retry = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"RETRY");
   Button main = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"MAIN");
   Button cancelQuit = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"CANCEL");
+  //finally, display the main menu
+  displayMain();
 }
 
 void displayMain()
 {
+  //actually display the background
+  //display the level buttons
+  for (Level l : levels)
+    l.enable();
   credits.enable();
+  xCredits.disable();
+  main.disable();
+  cancelQuit.disable();
 }
 
 void draw()
@@ -37,23 +46,26 @@ void draw()
 
 void playLevel()
 {
-    
+  
 }
 
 void mouseClicked()
 {
   //check each level's button
-  if (activeLevel == null)  // we're on the main menu
+  if (activeLevel == null) {
+    // we're on the main menu
     for (Level l : levels) 
       if (l.playButton.isEnabled() && l.playButton.wasPressed(mouseX, mouseY)) {
         playLevel(l);
         return;
       }
-  //check credits button and xCredits
-  if (credits.isEnabled() && credits.wasPressed(mouseX, mouseY)) 
-    credits();
-  if (xCredits.isEnabled() && xCredits.wasPressed(mouseX, mouseY)) 
-    xCredits();
+    //check credits button and xCredits
+    if (credits.isEnabled() && credits.wasPressed(mouseX, mouseY)) 
+      credits();
+    if (xCredits.isEnabled() && xCredits.wasPressed(mouseX, mouseY)) 
+      displayMain();
+  }
+  //we're not on the main menu (in a level)
 }
 
 void mouseDragged()
@@ -71,22 +83,12 @@ void keyPressed()
   
 }
 
-void enableButtons()
-{
-  
-}
-
-void disableButtons()
-{
-    
-}
-
 void credits()
 {
-  
-}
-
-void xCredits()
-{
-  
+  //display/enable the correct buttons and disable others
+  credits.disable();
+  for (Level l : levels)
+    l.disable();
+  xCredits.enable();
+  text("CREDITS GO HERE"); //TEMPORARY
 }
