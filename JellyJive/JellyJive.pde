@@ -12,6 +12,7 @@ private Button cancelQuit;
 
 public Sweet[][] board = new Sweet[GRID_SIZE][GRID_SIZE];
 
+
 void setup()
 {
   size(GRID_SIZE * 30, GRID_SIZE * 30);

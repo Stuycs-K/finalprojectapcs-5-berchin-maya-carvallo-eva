@@ -22,51 +22,60 @@ abstract class Level{
     board = null;
   }
   
-  void makeNewBoard()
-  {
-  }
-  
   void display()
   { 
   }
   
-  void changeDifficulty()
+  void changeDifficulty(int dif)
   { 
+    if (dif < -3)
+    {
+     dif = -3; 
+    }
+    if (dif > 3)
+    {
+     dif = 3; 
+    }
+    movesLeft-=dif * 5;
+    maxMoves-=dif * 5;
   }
-  
-  boolean areSwaps()
-  {
-    return false; //COMPILATION
-  }
-  private void animateSwap()
-  {
-    
-  }
-  
-  private void genNewcandy()
-  {
-    
-  }
-  
-  private void animateCandyFall()
-  {
-    
-  }
-  
-  
-  void shuffle()
-  {
-    
-  }
-  
-  void swap()
-  {
-    
-  }  
-  
+
   int getMovesLeft()
   {
-    return 0; //COMPILATION
+    return movesLeft;
+  }
+  
+  void addXP(int xp)
+  {
+    if (xp >= 0)
+    {
+      XP+=xp;
+    }
+  }
+
+  int calcXP(Candy[] ls)
+  {
+    return ls.length * 3;
+  }
+  
+  int getXP()
+  {
+    return XP;
+  }
+  
+  int getGoalXP()
+  {
+    return GOALXP;
+  }
+  
+}
+
+  void placeChocolate()
+  {
+   for (int i = 0; i < board.length; i++)
+   {
+       
+   }
   }
   
   void addXP()
