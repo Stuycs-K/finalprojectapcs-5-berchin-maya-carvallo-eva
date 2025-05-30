@@ -50,6 +50,7 @@ Topics covered in class that we will be using:
 
 OUTLINE: 
 
+-----------------------------
 ***JELLYJIVE***
  - **Level[] levels**: Keep track of all levels  
  - **Level activeLevel**: Keep track of the level we’re playing  
@@ -352,31 +353,45 @@ OUTLINE:
 How you are breaking down the project and who is responsible for which parts.
 
 5/26/25
- - Basic class structure outline in processing
+ - Basic class structure outline in processing (Tweaking design = Maya, outline in processing = Eva)
 
 5/30/25
- - Button done
+ - Button done (Maya)
+ - Sweet started (Eva)
 
 5/31/25
  - Very basic Sweet, Candy & Candy's descdendants done (chocolate and jelly are nice to have)
+   - Most functionality = Eva
+	 - Display and animations = Maya 
 
 6/1/25
  - JellyJive and part of Level done
+   - JellyJive: Maya
+	 - Level: Eva
 
 6/2/25
  - Level done, everything functional though not pretty
+   - Swap, genNewCandy, the few weird functions: Maya
+	 - Most smaller functions: Eva
 
 6/3/25
  - Chocolate and jelly done
+   - Display: Maya
+	 - Functionality: Eva
 
 6/5/25
  - Backgrounds started on, graphics shinier
+   - Basically all Maya
 
 6/7/25
  - Great graphics, animations ok, start on sound
+   - Further testing done by Eva
+	 - Possibly different button styles/other extra stuff done by Eva
+	 - Graphics and sound done by Maya
 
 6/9/25
  - Done! With everything. MUST WORK.
+   - Extensive testing: both. Plus get families involved.
 
 ~~5/25/25 - create all files and classes-both~~
 ~~Eva--complete candy and swap logic~~
