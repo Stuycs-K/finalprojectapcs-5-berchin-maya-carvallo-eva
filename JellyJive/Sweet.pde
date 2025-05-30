@@ -1,12 +1,11 @@
-
-abstract class BSweet{
+abstract class Sweet{
 
   private int x;
   private int y;
   private boolean swappable;
   private String name;
   
-  public BSweet(int X, int Y, boolean swappable, String name)
+  public Sweet(int X, int Y, boolean swappable, String name)
   {
    x = X;
    y = Y;

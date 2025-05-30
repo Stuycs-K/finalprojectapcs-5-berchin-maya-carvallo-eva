@@ -1,4 +1,4 @@
-class Candy extends BSweet{
+class Candy extends Sweet{
   
   color cColor;
   
