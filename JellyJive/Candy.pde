@@ -90,7 +90,8 @@ class Candy extends Sweet
   void display() {
     fill(this.getColor());
     //draw different shapes later
-    circle(this.getX(),this.getY(),20);
+    //account for padding later!!
+    circle(this.getX()*GRID_SIZE,this.getY()*GRID_SIZE,20);
   }
   
   void animateBreak() {}

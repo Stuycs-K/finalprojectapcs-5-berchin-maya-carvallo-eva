@@ -1,8 +1,11 @@
 public int GRID_SIZE;
+public int numSqrsPerSide; //LATER, CUSTOMIZE PER LEVEL
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
 private Board gameBoard;
+public color[] candyColors;
+public String[] candyNames;
 private Button credits;
 private Button xCredits;
 private Button back;
@@ -12,10 +15,14 @@ private Button cancelQuit;
 
 void setup()
 {
-  size(GRID_SIZE * 30, GRID_SIZE * 30);
+  size(1000, 1000);
+  GRID_SIZE = 40;
+  numSqrsPerSide = 6; //LATER, CUSTOMIZE PER LEVEL
   
   //initialize certain vars to match up with main menu
   initLevels();
+  candyColors = new color[]{color(255,0,0), color(0,255,0), color(0,0,255)}; //add more colors later
+  candyNames = new String[]{"red", "green", "blue"};
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
