@@ -1,6 +1,10 @@
 public class Board
 {
-  
+ 
+ public final int boardLen = GRID_LEN * GRID_SIZE;
+ public final int xPadding = (width-boardLen)/2;
+ public final int yPadding = (height-boardLen)/2;
+   
  public Sweet[][] board = new Sweet[GRID_SIZE][GRID_SIZE];
  public ArrayList<Chocolate> chocolates;
  public ArrayList<Jelly> jellies;
@@ -163,22 +167,17 @@ public class Board
  
  Sweet hoveringOver(int x, int y) 
  {
-   //return the sweet the mouse is hovering over
-   //account for borders between board and the background
-   //then use int division to find right indices of board[][]
-   //FOR NOW pretending board starts at the top left corner
-   int sweetX = x/GRID_LEN;
-   int sweetY = y/GRID_LEN;
-   return gameBoard.board[sweetX][sweetY];
+   if (x < xPadding || x > xPadding + boardLen || y < yPadding || y > yPadding + boardLen)
+     return null;
+   int sweetY = (y-yPadding)/GRID_LEN;
+   int sweetX = (x-xPadding)/GRID_LEN;
+   return gameBoard.board[sweetY][sweetX];
  }
  
  void display()
  {
    //account for padding later
    fill(color(120,215,225)); //change to better color
-   int boardLen = GRID_LEN * GRID_SIZE;
-   int xPadding = (width-boardLen)/2;
-   int yPadding = (height-boardLen)/2;
    rect(xPadding, yPadding, boardLen, boardLen, 20);
    //make lines to separate different squares in grid
    //now display actual contents of board
