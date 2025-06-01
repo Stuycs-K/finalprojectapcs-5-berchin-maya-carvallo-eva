@@ -4,8 +4,8 @@ private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
 private Board gameBoard;
-public color[] candyColors = new color[]{color(255,0,0), color(0,255,0), color(0,0,255)}; //add more colors later;
-public String[] candyNames = new String[]{"red", "green", "blue"};
+public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
+public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
 private Button credits;
 private Button xCredits;
 private Button back;
@@ -21,8 +21,8 @@ void setup()
   
   //initialize certain vars to match up with main menu
   initLevels();
-  candyColors = new color[]{color(255,0,0), color(0,255,0), color(0,0,255)}; //add more colors later
-  candyNames = new String[]{"red", "green", "blue"};
+  candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
+  candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
