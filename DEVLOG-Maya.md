@@ -55,3 +55,7 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-29 - Outline and diagram done!
  - In class, worked on Button class
  - Reformatted both diagram and outline. Took about 4 hours
+
+### 2025-05-30 - Worked on Button and JellyJive
+ - Spent class finishing button, working on JellyJive
+ - Fixed some stuff in Sweet class, renamed tabs properly
