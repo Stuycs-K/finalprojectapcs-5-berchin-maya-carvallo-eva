@@ -16,7 +16,7 @@ void setup()
   size(GRID_SIZE * 30, GRID_SIZE * 30);
   
   //initialize certain vars to match up with main menu
-  initLevels(levels);
+  initLevels();
   playingLevel = false;
   //make certain vars null, to be modified later in program
   activeLevel = null;
@@ -35,9 +35,9 @@ void setup()
   displayMain();
 }
 
-void initLevels(Level[] Ls) {
+void initLevels() {
   int bSideLen = 30;
-  Ls = new Level[]{
+  levels = new Level[]{
   new XPLevel(new Button(height - bSideLen, width/2, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
   };
 }
@@ -59,9 +59,20 @@ void draw()
  
 }
 
-void playLevel(Level l)
+void playLevel(Level playL)
 {
-  
+  //store values to do with the level being played
+  playingLevel = true;
+  clickedLevel = playL;
+  activeLevel = playL.returnCopy();
+  gameBoard = activeLevel.board;
+  //display the actual level
+  playL.display();
+  //enable/disable the right buttons
+  for (Level l: levels)
+    l.playButton.disable();
+  credits.disable();
+  back.enable();
 }
 
 void mouseClicked()
@@ -70,17 +81,25 @@ void mouseClicked()
   if (activeLevel == null) {
     // we're on the main menu
     for (Level l : levels) 
-      if (l.playButton.isEnabled() && l.playButton.wasPressed(mouseX, mouseY)) {
+      if (l.playButton.wasPressed(mouseX, mouseY)) {
         playLevel(l);
         return;
       }
     //check credits button and xCredits
-    if (credits.isEnabled() && credits.wasPressed(mouseX, mouseY)) 
+    else if (credits.wasPressed(mouseX, mouseY)) 
       credits();
-    if (xCredits.isEnabled() && xCredits.wasPressed(mouseX, mouseY)) 
+    else if (xCredits.wasPressed(mouseX, mouseY)) 
       displayMain();
   }
   //we're not on the main menu (in a level)
+  else if (back.wasPressed(mouseX, mouseY))
+    displayBackConfirmation();
+  else if (main.wasPressed(mouseX, mouseY))
+    displayMain();
+  else if (cancelQuit.wasPressed(mouseX, mouseY))
+    cancelQuit();
+  else if (retry.wasPressed(mouseX, mouseY))
+    playLevel(clickedLevel);
 }
 
 void mouseDragged()
@@ -106,4 +125,23 @@ void credits()
     l.playButton.disable();
   xCredits.enable();
   text("CREDITS GO HERE", width/2, height/2); //TEMPORARY
+}
+
+void displayBackConfirmation() 
+{
+  //draw background of popup screen
+  //enable/disable the right buttons
+  back.disable();
+  main.enable();
+  cancelQuit.enable();
+}
+
+void cancelQuit()
+{
+  //display the level again
+  activeLevel.display();
+  //enable/disable the right buttons
+  back.enable();
+  main.disable();
+  cancelQuit.disable();
 }
