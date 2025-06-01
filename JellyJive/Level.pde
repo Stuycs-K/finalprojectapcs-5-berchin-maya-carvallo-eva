@@ -23,6 +23,11 @@ abstract class Level{
   
   void display()
   { 
+    //display background of level
+    background(255);
+    //display goal and difficulty on top
+    //display board
+    board.display();
   }
   
   void changeDifficulty(int dif)
@@ -74,7 +79,7 @@ abstract class Level{
 
   void placeChocolate()
   {
-   for (int i = 0; i < board.length; i++)
+   for (int i = 0; i < board.board.length; i++)
    {
        
    }

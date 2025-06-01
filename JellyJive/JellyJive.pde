@@ -28,15 +28,14 @@ void setup()
   clickedLevel = null;
   
   //set up instances of buttons
-  credits = new Button(0,0,30,20,"CREDITS");
-  xCredits = new Button(0,0,30,20,"XCREDITS");
+  credits = new Button(0,0,50,20,"CREDITS");
+  xCredits = new Button(0,0,50,20,"XCREDITS");
   back = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"BACK");
   retry = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"RETRY");
   main = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"MAIN");
   cancelQuit = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"CANCEL");
   
   //finally, display the main menu
-  background(255);
   displayMain();
 }
 
@@ -50,6 +49,7 @@ void initLevels() {
 void displayMain()
 {
   //actually display the background
+  background(255);
   //display the level buttons
   for (Level l : levels)
     l.playButton.enable();
