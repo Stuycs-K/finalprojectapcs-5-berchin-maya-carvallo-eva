@@ -1,5 +1,5 @@
+public int GRID_LEN; //LATER, CUSTOMIZE PER LEVEL
 public int GRID_SIZE;
-public int numSqrsPerSide; //LATER, CUSTOMIZE PER LEVEL
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
@@ -16,8 +16,8 @@ private Button cancelQuit;
 void setup()
 {
   size(1000, 1000);
-  GRID_SIZE = 80;
-  numSqrsPerSide = 6; //LATER, CUSTOMIZE PER LEVEL
+  GRID_LEN = 80;
+  GRID_SIZE = 6; //LATER, CUSTOMIZE PER LEVEL
   
   //initialize certain vars to match up with main menu
   initLevels();
@@ -50,6 +50,9 @@ void displayMain()
 {
   //actually display the background
   background(255);
+  //clear bad settings
+  clickedLevel = null;
+  activeLevel = null;
   //display the level buttons
   for (Level l : levels)
     l.playButton.enable();

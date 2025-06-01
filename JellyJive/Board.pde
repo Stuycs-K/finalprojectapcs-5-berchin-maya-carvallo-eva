@@ -17,10 +17,10 @@ public class Board
    for (int row = board.length-1; row >= 0; row--)
      for (int col = 0; col < board[row].length; col++)
        if (board[row][col] == null)
-         genNewCandy(row, col);
+         genNewCandy();
  }
  
- ArrayList<Sweet> findToBreak()
+ ArrayList<Sweet> findToBreak() //careful to removeAll() when removing a result in case of duplicates
  {
    ArrayList<Sweet> result = new ArrayList<Sweet>();
    //loop through rows
@@ -30,7 +30,7 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if (board[i][j].getName().equals(board[i][j - 1].getName()) && !(board[i][j].getName().equals("Chocolate"))) //chocolates don't count
+       if (board[i][j].getName().equals(board[i][j - 1].getName()) && !(board[i][j].getName().equals("chocolate"))) //chocolates don't count
        {
          count++;
        }
@@ -51,7 +51,7 @@ public class Board
      {
        for (int x = 0; x < count; x++)
        {
-         result.add(board[i][board[i].length - x]);
+         result.add(board[i][board[i].length-1 - x]);
        }
      }
    }
@@ -62,7 +62,7 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if (board[j][i].getName().equals(board[j - 1][i].getName()) && !(board[j][i].getName().equals("Chocolate"))) //chocolates don't count
+       if (board[j][i].getName().equals(board[j - 1][i].getName()) && !(board[j][i].getName().equals("chocolate"))) //chocolates don't count
        {
          count++;
        }
@@ -83,23 +83,67 @@ public class Board
      {
        for (int x = 0; x < count; x++)
        {
-         result.add(board[board.length - x][i]);
+         result.add(board[board.length-1 - x][i]);
        }
+     }
+   }
+   //now search for jellies and chocolates that need to be broken
+   for (Sweet s : result) 
+   {
+     int x = s.getX();
+     int y = s.getY();
+     //search through jellies
+     for (Jelly j : jellies)
+       if (j.getX() == x && j.getY() == y)
+         result.add(j);
+     //search through the chocolates
+     int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+     for (int[] thisNeighbor : directions) 
+     {
+       int neighborX = x + thisNeighbor[0];
+       int neighborY = y + thisNeighbor[1];
+       for (Chocolate c : chocolates)
+         if (c.getX() == neighborX && c.getY() == neighborY)
+           result.add(c);
      }
    }
    return result;
  }
  
- public ArrayList<Sweet> genNewCandy(int row, int col) {
-   return genNewCandy(row, col, new ArrayList<Sweet>());
+ public ArrayList<Sweet> genNewCandy() //wrapper method
+ {
+   return genNewCandy(new ArrayList<Sweet>());
  }
  
- public ArrayList<Sweet> genNewCandy(int row, int col, ArrayList<Sweet> brokenCandies)
+ public ArrayList<Sweet> genNewCandy(ArrayList<Sweet> brokenCandies)
  {
-   int colorInd = (int) (Math.random() * candyColors.length);
-   board[row][col] = new Candy(col, row, candyNames[colorInd], candyColors[colorInd]);
-   //later, validate to make sure this didn't form any candy that could break
-   return brokenCandies;
+   //generate new candies in empty slots
+   for (int row = board.length-1; row >= 0; row--)
+     for (int col = 0; col < board[row].length; col++)
+       if (board[row][col] == null) 
+       {
+         int colorInd = (int) (Math.random() * candyColors.length);
+         board[row][col] = new Candy(col, row, candyNames[colorInd], candyColors[colorInd]);
+       }
+   //break all candies that would be a valid swap
+   ArrayList<Sweet> breakThisRound = findToBreak();
+   //return if no candies broken this round (base case)
+   if (breakThisRound.size() == 0)
+     return brokenCandies;
+   //otherwise break the candies and genNewCandy to replace them
+   animateAllBreaking(breakThisRound);
+   for (Sweet s : breakThisRound) {
+     board[s.getY()][s.getX()] = null;
+     brokenCandies.add(s);
+     //LATER, USE DUPLICATES TO CHECK FOR SPECIAL CANDIES TO BE SPAWNED IN
+   }
+   return genNewCandy(brokenCandies);
+ }
+ 
+ void animateAllBreaking(ArrayList<Sweet> toBreak)
+ {
+   //code
+   //loop through all sweets, break by ticks
  }
  
  boolean areSwaps()
