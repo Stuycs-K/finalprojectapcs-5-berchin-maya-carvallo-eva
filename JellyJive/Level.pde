@@ -1,6 +1,6 @@
 abstract class Level{
   public Button playButton;
-  private Board board;
+  public Board board;
   private int XP;
   private int GOALXP;
   private int maxMoves;
@@ -44,6 +44,11 @@ abstract class Level{
     return movesLeft;
   }
   
+  int getMaxMoves() 
+  {
+    return maxMoves;
+  }
+  
   void addXP(int xp)
   {
     if (xp >= 0)
@@ -80,16 +85,6 @@ abstract class Level{
     
   }
   
-  int getXP()
-  {
-    return XP;
-  }
-  
-  int getGoalXP()
-  {
-    return GOALXP;
-  }
-  
   void won()
   {
     
@@ -99,4 +94,6 @@ abstract class Level{
   {
     
   }
+  
+  abstract Level returnCopy();
 }

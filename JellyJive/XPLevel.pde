@@ -4,4 +4,9 @@ class XPLevel extends Level{
   {
     super(play, "Collect " + goalXP + " XP!", goalXP, maxMoves, b);
   }
+  
+  Level returnCopy() 
+  {
+    return new XPLevel(playButton, getGoalXP(), getMaxMoves(), board);
+  }
 }

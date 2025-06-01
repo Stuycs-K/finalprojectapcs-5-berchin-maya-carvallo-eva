@@ -10,4 +10,10 @@ class CollectLevel extends Level {
     goalSs = goalCollect;
     numSs = 0;
   }
+  
+  Level returnCopy() 
+  {
+    return new CollectLevel(playButton, getGoalXP(), getMaxMoves(), board, sType, goalSs);
+  }
+  
 }

@@ -6,4 +6,10 @@ class ClearLevel extends Level{
     super(play, "Clear all the " + cGoal + "!", goalXP, maxMoves, b);
     clearGoal = cGoal;
   }
+  
+  Level returnCopy() 
+  {
+    return new ClearLevel(playButton, getGoalXP(), getMaxMoves(), board, clearGoal);
+  }
+  
 }
