@@ -51,3 +51,7 @@ This document must be updated daily every time you finish a work session.
  it better to make a neat diagram. The methods have all been extensively planned out, so from here, there
  shouldn't be too many discrepencies from the outline or diagram and the project. Woohoo! (Please don't 
  jinx it....)
+
+### 2025-05-29 - Outline and diagram done!
+ - In class, worked on Button class
+ - Reformatted both diagram and outline. Took about 4 hours
