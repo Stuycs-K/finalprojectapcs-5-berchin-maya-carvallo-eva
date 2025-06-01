@@ -62,16 +62,20 @@ public class Board
  void display()
  {
    //account for padding later
-   fill(100); //change to better color
+   fill(color(120,215,225)); //change to better color
+   int boardLen = GRID_SIZE * numSqrsPerSide;
+   int xPadding = (width-boardLen)/2;
+   int yPadding = (height-boardLen)/2;
+   rect(xPadding, yPadding, boardLen, boardLen, 20);
    //make lines to separate different squares in grid
    //now display actual contents of board
    //start with jelly, since that's under the sweets
    for (Jelly j : jellies)
-     j.display();
+     j.display(xPadding, yPadding);
    //now the other sweets
    for (Sweet[] row : board)
      for (Sweet s : row)
-       s.display();
+       s.display(xPadding, yPadding);
  }
  
 }

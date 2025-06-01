@@ -16,7 +16,7 @@ private Button cancelQuit;
 void setup()
 {
   size(1000, 1000);
-  GRID_SIZE = 40;
+  GRID_SIZE = 80;
   numSqrsPerSide = 6; //LATER, CUSTOMIZE PER LEVEL
   
   //initialize certain vars to match up with main menu

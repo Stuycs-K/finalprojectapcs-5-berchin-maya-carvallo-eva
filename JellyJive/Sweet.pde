@@ -53,7 +53,7 @@ abstract class Sweet{
     return getName();
   }
   
-  abstract void display();
+  abstract void display(int xPadding, int yPadding);
   abstract void animateBreak();
   
 }

@@ -87,11 +87,11 @@ class Candy extends Sweet
     return cColor;
   }
   
-  void display() {
+  void display(int xPadding, int yPadding) {
     fill(this.getColor());
     //draw different shapes later
-    //account for padding later!!
-    circle(this.getX()*GRID_SIZE,this.getY()*GRID_SIZE,20);
+    //get coord in board, multiply by grid size to place correctly, add gridsize/2 to center, add padding so it appears on the board instead of screen edge
+    circle(this.getX()*GRID_SIZE+GRID_SIZE/2+xPadding,this.getY()*GRID_SIZE+GRID_SIZE/2+yPadding,GRID_SIZE*.6);
   }
   
   void animateBreak() {}
