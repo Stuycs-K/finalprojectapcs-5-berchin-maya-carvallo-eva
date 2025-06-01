@@ -1,7 +1,15 @@
 public class Board
 {
- public BSweet[][] board = new BSweet[GRID_SIZE][GRID_SIZE];
- public ArrayList<Chocolate> chcolates;
+ public Sweet[][] board = new Sweet[GRID_SIZE][GRID_SIZE];
+ public ArrayList<Chocolate> chocolates;
+ public ArrayList<Jelly> jellies;
+ 
+ public Board(ArrayList<Chocolate> Cs, ArrayList<Jelly> Js) 
+ {
+   chocolates = Cs;
+   jellies = Js;
+   //actually initialize the board with candies and stuff here
+ }
  
  boolean areSwaps()
  {

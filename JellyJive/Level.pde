@@ -1,6 +1,6 @@
 abstract class Level{
   public Button playButton;
-  private Board board;
+  public Board board;
   private int XP;
   private int GOALXP;
   private int maxMoves;
@@ -8,7 +8,7 @@ abstract class Level{
   private int difficulty;
   private String goal;
   
-  public Level(String goal, int goalXP, int maxMoves, int[][]chocCoords, int[][]jellyCoords)
+  public Level(Button play, String goal, int goalXP, int maxMoves, Board b)
   {
     //fields
     XP = 0;
@@ -17,9 +17,8 @@ abstract class Level{
     this.maxMoves = maxMoves;
     difficulty = maxMoves;
     this.goal = goal;
-    //MUST BE OVERWRITTEN IN CHILD CLASSES
-    playButton = null;
-    board = null;
+    playButton = play;
+    board = b;
   }
   
   void display()
@@ -45,6 +44,11 @@ abstract class Level{
     return movesLeft;
   }
   
+  int getMaxMoves() 
+  {
+    return maxMoves;
+  }
+  
   void addXP(int xp)
   {
     if (xp >= 0)
@@ -67,8 +71,6 @@ abstract class Level{
   {
     return GOALXP;
   }
-  
-}
 
   void placeChocolate()
   {
@@ -83,16 +85,6 @@ abstract class Level{
     
   }
   
-  int getXP()
-  {
-    return XP;
-  }
-  
-  int getGoalXP()
-  {
-    return GOALXP;
-  }
-  
   void won()
   {
     
@@ -102,4 +94,6 @@ abstract class Level{
   {
     
   }
+  
+  abstract Level returnCopy();
 }

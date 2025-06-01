@@ -1,11 +1,11 @@
+abstract class Sweet{
 
-abstract class BSweet{
   private int x;
   private int y;
   private boolean swappable;
   private String name;
   
-  public BSweet(int X, int Y, boolean swappable, String name)
+  public Sweet(int X, int Y, boolean swappable, String name)
   {
    x = X;
    y = Y;
@@ -37,5 +37,14 @@ abstract class BSweet{
   void setY(int y)
   {
      this.y = y; 
+  }
+  
+  String toString() 
+  {
+    return getName();
+  }
+  
+  abstract void display();
+  abstract void animateBreak();
   
 }
