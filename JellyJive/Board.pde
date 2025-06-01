@@ -29,58 +29,23 @@ public class Board
     {
        for (int j = 0; j < GRID_SIZE; j++)
        {
-          coordinates.add(new int[]{1, j}); 
+           if (!(board[i][j].getName().equals("Chocoloate")) && !(board[i][j].getName().equals("Jelly")))
+           {
+             coordinates.add(new int[]{i, j}); 
+           }
        }
     }
-    ArrayList<int[]> switches = new ArrayList<int[]>();
-    for (int i = 0; i < coordinates.size(); i++)
-    {
-      boolean valid = true;
-      while (valid){
-      int x = Math.random() * GRID_SIZE;
-      boolean notDouble = true;
-      for (int j = 0; j < switches.size(); j++)
-      {
-        if (coordinates.get(x)[0] == switches.get(j)[0] && coordinates.get(x)[1] == switches.get(j)[1])
-        {
-            notDouble = false;
-        }
-      }
-      if (notDouble)
-      {
-         switches.add(coordinates.get(x)); 
-         valid = false;
-      }
-      }
-    }
-    int ind = 0;
-    for (int i = 0; i < GRID_SIZE; i++)
-    {
-      for (int j = 0; j < GRID_SIZE; j++)
-      {
-         if (!(board[i][j].getName().equals("Chocoloate")) && !(board[i][j].getName().equals("Jelly")) && ind < switches.size())
-         {
-           BSweet temp = board[i][j];
-           board[i][j] = board[switches.get(ind)[0]][switches.get(ind)[1]];
-           board[switches.get(ind)[0]][switches.get(ind)[1]] = temp;
-         }
-         ind++;
-      }
-    }
-    int count = 0;
-    int row = 0;
-    int col = 0;
-    for (int i = 0; i < GRID_SIZE; i++)
-    {
-      while (col < GRID_SIZE)
-      {
-        String name = board[i][j].getName();
-        count++;
-        if 
-      }
-    }
     
- }
+    for (int i = coordinates.size() - 1; i > 0; i--)
+    {
+       int x = (int)(Math.random() * (i + 1));
+       BSweet temp = board[coordinates.get(i)[0]][coordinates.get(i)[1]];
+       board[coordinates.get(i)[0]][coordinates.get(i)[1]] = board[coordinates.get(x)[0]][coordinates.get(x)[1]];
+       board[coordinates.get(x)[0]][coordinates.get(x)[1]] = temp;
+
+      }
+    }
+
  
  ArrayList<BSweet> swap()
  {
@@ -89,7 +54,53 @@ public class Board
  
  ArrayList<BSweet> findToBreak()
  {
-   
+   ArrayList<BSweet> result = new ArrayList<BSweet>();
+   for (int i = 0; i < GRID_SIZE; i++)
+   {
+      int count = 1;
+      for (int j = 1; j < GRID_SIZE; j++)
+      {
+         if (board[i][j].getName().equals(board[i][j - 1].getName()) && !(board[i][j].getName().equals("Chocolate")) && !(board[i][j].getName().equals("Jelly")) && !(board[i][j - 1].getName().equals("Chocolate")) && !(board[i][j - 1].getName().equals("Jelly")))
+         {
+            count++;
+         }
+         else
+         {
+            if (count >= 3)
+            {
+               for (int x = 0; x < count; x++)
+               {
+                  result.add(board[i][j - x]);
+               }
+            }
+            count = 1;
+         }
+      }
+     
+   }
+   for (int i = 0; i < GRID_SIZE; i++)
+   {
+      int count = 1;
+      for (int j = 1; j < GRID_SIZE; j++)
+      {
+         if (board[j][i].getName().equals(board[j - 1][i].getName()) && !(board[j][i].getName().equals("Chocolate")) && !(board[j][i].getName().equals("Jelly")) && !(board[j - 1][i].getName().equals("Chocolate")) && !(board[j - 1][i].getName().equals("Jelly")))
+         {
+            count++;
+         }
+         else
+         {
+            if (count >= 3)
+            {
+               for (int x = 0; x < count; x++)
+               {
+                  result.add(board[j - x][i]);
+               }
+            }
+            count = 1;
+         }
+      }
+     
+   }
  }
  
  void animateSwap()
