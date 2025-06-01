@@ -1,7 +1,7 @@
 public class Board
 {
   
- public Sweet[][] board = new Sweet[GRID_SIZE][GRID_SIZE];
+ public Sweet[][] board = new Sweet[numSqrsPerSide][numSqrsPerSide];
  public ArrayList<Chocolate> chocolates;
  public ArrayList<Jelly> jellies;
  
@@ -26,8 +26,8 @@ public class Board
  
  public ArrayList<Sweet> genNewCandy(int row, int col, ArrayList<Sweet> brokenCandies)
  {
-   int colorInd = (int) (Math.random() * 3);
-   board[row][col] = new Candy(col, row, "red", color(255,0,0));
+   int colorInd = (int) (Math.random() * candyColors.length);
+   board[row][col] = new Candy(col, row, candyNames[colorInd], candyColors[colorInd]);
    //later, validate to make sure this didn't form any candy that could break
    return brokenCandies;
  }

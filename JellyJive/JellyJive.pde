@@ -4,8 +4,8 @@ private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
 private Board gameBoard;
-public color[] candyColors;
-public String[] candyNames;
+public color[] candyColors = new color[]{color(255,0,0), color(0,255,0), color(0,0,255)}; //add more colors later;
+public String[] candyNames = new String[]{"red", "green", "blue"};
 private Button credits;
 private Button xCredits;
 private Button back;
@@ -30,10 +30,10 @@ void setup()
   //set up instances of buttons
   credits = new Button(0,0,50,20,"CREDITS");
   xCredits = new Button(0,0,50,20,"XCREDITS");
-  back = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"BACK");
-  retry = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"RETRY");
-  main = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"MAIN");
-  cancelQuit = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"CANCEL");
+  back = new Button(10,10,30,20,"BACK");
+  retry = new Button((width+100)/2,height/2,30,20,"RETRY");
+  cancelQuit = new Button((width+100)/2,height/2,30,20,"CANCEL");
+  main = new Button(width/2,height/2,30,20,"MAIN");
   
   //finally, display the main menu
   displayMain();
@@ -42,7 +42,7 @@ void setup()
 void initLevels() {
   int bSideLen = 30;
   levels = new Level[]{
-  new XPLevel(new Button(height - bSideLen, width/2, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
+  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
   };
 }
 
