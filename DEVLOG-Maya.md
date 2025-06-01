@@ -55,3 +55,13 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-29 - Outline and diagram done!
  - In class, worked on Button class
  - Reformatted both diagram and outline. Took about 4 hours
+
+### 2025-05-30 - Worked on Button and JellyJive
+ - Spent class finishing button, working on JellyJive
+ - Fixed some stuff in Sweet class, renamed tabs properly
+
+### 2025-05-31 Worked a lot on JellyJive class
+ - Worked for about 2 hrs
+ - Worked on setup, playLevel, button stuff
+ - Also worked on Board class a bit
+ - Fixed some minor stuff to do with abstraction, inheritence, and useless fields in other classes
