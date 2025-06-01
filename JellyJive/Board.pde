@@ -44,12 +44,22 @@ public class Board
        board[coordinates.get(x)[0]][coordinates.get(x)[1]] = temp;
 
       }
+      
+      return findToBreak();
     }
 
  
- ArrayList<BSweet> swap()
+ ArrayList<BSweet> swap(Bsweet c1, Bsweet c2)
  {
-   
+   ArrayList<BSweet> result = new ArrayList<BSweet>();
+   if (!(c1.getName.equals("Chocoloate")) && !(c1.getName.equals("Jelly")) && !(c2.getName.equals("Chocoloate")) && !(c2.getName.equals("Jelly")))
+   {
+     if (Candy.canSwap(c1.getX(), c1, getY()))
+     {
+         
+     }
+   }
+   return result;
  }
  
  ArrayList<BSweet> findToBreak()
@@ -76,7 +86,13 @@ public class Board
             count = 1;
          }
       }
-     
+     if (count >= 3)
+     {
+        for (int x = 0; x < count; x++)
+        {
+           result.add(board[i][j - x]);
+        }
+     }
    }
    for (int i = 0; i < GRID_SIZE; i++)
    {
@@ -99,8 +115,15 @@ public class Board
             count = 1;
          }
       }
-     
+      if (count >= 3)
+      {
+         for (int x = 0; x < count; x++)
+         {
+            result.add(board[j - x][i]);
+         }
+      }
    }
+   return result;
  }
  
  void animateSwap()
