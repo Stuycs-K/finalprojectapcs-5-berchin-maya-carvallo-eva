@@ -12,18 +12,27 @@ abstract class Sweet{
    this.swappable = swappable;
    this.name = name;
   }
+  
   int getX()
   {
    return x; 
   }
+  
   int getY()
   {
    return y; 
   }
+  
   boolean isSwappable()
   {
     return swappable;
   }
+  
+  boolean canSwap() 
+  {
+    return false; //overridden in candy class
+  }
+  
   String getName()
   {
     return name;

@@ -2,7 +2,6 @@ public int GRID_SIZE;
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
-private boolean playingLevel;
 private Board gameBoard;
 private Button credits;
 private Button xCredits;
@@ -17,7 +16,6 @@ void setup()
   
   //initialize certain vars to match up with main menu
   initLevels();
-  playingLevel = false;
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
@@ -62,7 +60,6 @@ void draw()
 void playLevel(Level playL)
 {
   //store values to do with the level being played
-  playingLevel = true;
   clickedLevel = playL;
   activeLevel = playL.returnCopy();
   gameBoard = activeLevel.board;
