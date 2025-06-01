@@ -1,7 +1,7 @@
-class XPLevel extends ALevel{
+class XPLevel extends Level{
   
-  public XPLevel(String goal, int goalXP, int maxMoves, int[][]chocCoords, int[][]jellyCoords)
+  public XPLevel(Button play, int goalXP, int maxMoves, Board b)
   {
-    super(goal, goalXP, maxMoves, chocCoords, jellyCoords);
+    super(play, "Collect " + goalXP + " XP!", goalXP, maxMoves, b);
   }
 }

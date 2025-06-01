@@ -1,30 +1,45 @@
-
 public int GRID_SIZE;
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
 private boolean playingLevel;
 private Board gameBoard;
+private Button credits;
+private Button xCredits;
 private Button back;
 private Button retry;
 private Button main;
 private Button cancelQuit;
 
-public Sweet[][] board = new Sweet[GRID_SIZE][GRID_SIZE];
-
-
 void setup()
 {
   size(GRID_SIZE * 30, GRID_SIZE * 30);
+  
+  //initialize certain vars to match up with main menu
+  initLevels(levels);
+  playingLevel = false;
+  //make certain vars null, to be modified later in program
+  activeLevel = null;
+  clickedLevel = null;
+  
   //set up instances of buttons
-  Button credits = new Button(0,0,30,20,"CREDITS");
-  Button xCredits = new Button(0,0,30,20,"XCREDITS");
-  Button back = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"BACK");
-  Button retry = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"RETRY");
-  Button main = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"MAIN");
-  Button cancelQuit = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"CANCEL");
+  credits = new Button(0,0,30,20,"CREDITS");
+  xCredits = new Button(0,0,30,20,"XCREDITS");
+  back = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"BACK");
+  retry = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"RETRY");
+  main = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"MAIN");
+  cancelQuit = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"CANCEL");
+  
   //finally, display the main menu
+  background(255);
   displayMain();
+}
+
+void initLevels(Level[] Ls) {
+  int bSideLen = 30;
+  Ls = new Level[]{
+  new XPLevel(new Button(height - bSideLen, width/2, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
+  };
 }
 
 void displayMain()
@@ -32,7 +47,7 @@ void displayMain()
   //actually display the background
   //display the level buttons
   for (Level l : levels)
-    l.enable();
+    l.playButton.enable();
   credits.enable();
   xCredits.disable();
   main.disable();
@@ -41,11 +56,10 @@ void displayMain()
 
 void draw()
 {
- background(255);
  
 }
 
-void playLevel()
+void playLevel(Level l)
 {
   
 }
@@ -89,7 +103,7 @@ void credits()
   //display/enable the correct buttons and disable others
   credits.disable();
   for (Level l : levels)
-    l.disable();
+    l.playButton.disable();
   xCredits.enable();
-  text("CREDITS GO HERE"); //TEMPORARY
+  text("CREDITS GO HERE", width/2, height/2); //TEMPORARY
 }

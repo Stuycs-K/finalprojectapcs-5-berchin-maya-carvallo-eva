@@ -39,6 +39,11 @@ abstract class Sweet{
      this.y = y; 
   }
   
+  String toString() 
+  {
+    return getName();
+  }
+  
   abstract void display();
   abstract void animateBreak();
   

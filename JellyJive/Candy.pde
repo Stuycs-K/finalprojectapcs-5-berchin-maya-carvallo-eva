@@ -77,7 +77,8 @@ class Candy extends Sweet{
     return possibilities;
   }
   
-  color getColor() {
+  color getColor() 
+  {
     return cColor;
   }
   
