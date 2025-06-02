@@ -18,12 +18,13 @@ public class Button{
  
  void displayButton()
  {
-   fill(100);
+   fill(255, 100, 200);
    stroke(0);
    int roundedCorners = 10;
-   rect(x,y,b,h,10);
+   rect(x,y,b,h,roundedCorners);
    fill(255);
-   text(text,x,y);
+   textSize(16);
+   text(text,x+3,y+h/1.5);
  }
  
  boolean isEnabled()
@@ -44,6 +45,6 @@ public class Button{
  
  boolean wasPressed(int mx, int my)
  {
-   return mx >= x && mx <= x+b && my >= y && my <= y+h;
+   return isEnabled() && mx >= x && mx <= x+b && my >= y && my <= y+h;
  }
 }

@@ -1,7 +1,19 @@
-class XCollectLevel extends ALevel {
+class CollectLevel extends Level {
 
-  public XCollectLevel(String goal, int goalXP, int maxMoves, int[][]chocCoords, int[][]jellyCoords)
+  Sweet sType;
+  int goalSs;
+  int numSs;
+  
+  public CollectLevel(Button play, int goalXP, int maxMoves, Board b, Sweet s, int goalCollect)
   {
-    super(goal, goalXP, maxMoves, chocCoords, jellyCoords);
+    super(play, "Collect " + goalCollect + " " + s + "s!", goalXP, maxMoves, b);
+    goalSs = goalCollect;
+    numSs = 0;
   }
+  
+  Level returnCopy() 
+  {
+    return new CollectLevel(playButton, getGoalXP(), getMaxMoves(), board, sType, goalSs);
+  }
+  
 }

@@ -1,7 +1,15 @@
-class XClearLevel extends ALevel{
+class ClearLevel extends Level{
+  Sweet clearGoal; //CAN EITHER BE CHOCOLATE OR JELLY, NOT ANYTHING ELSE
   
-  public XPClearLevel(String goal, int goalXP, int maxMoves, int[][]chocCoords, int[][]jellyCoords)
+  public ClearLevel(Button play, int goalXP, int maxMoves, Board b, Sweet cGoal)
   {
-    super(goal, goalXP, maxMoves, chocCoords, jellyCoords);
+    super(play, "Clear all the " + cGoal + "!", goalXP, maxMoves, b);
+    clearGoal = cGoal;
   }
+  
+  Level returnCopy() 
+  {
+    return new ClearLevel(playButton, getGoalXP(), getMaxMoves(), board, clearGoal);
+  }
+  
 }

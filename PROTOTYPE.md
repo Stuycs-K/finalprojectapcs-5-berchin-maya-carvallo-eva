@@ -48,7 +48,7 @@ Topics covered in class that we will be using:
 
 ![Alt text](uml.png?raw=true "Class hierarchy diagram" )
 
-OUTLINE: 
+OUTLINE: (Originally worked on in this google doc: https://docs.google.com/document/d/1COVRXtClf4X_Hok67SoQdzNngFO-xJz6UArWCEkFG-Y/edit?usp=sharing must use doe email)
 
 -----------------------------
 ***JELLYJIVE***
