@@ -23,7 +23,7 @@ public class Button{
    int roundedCorners = 10;
    rect(x,y,b,h,roundedCorners);
    fill(255);
-   text(text,x,y);
+   text(text,x,y+h/2);
  }
  
  boolean isEnabled()

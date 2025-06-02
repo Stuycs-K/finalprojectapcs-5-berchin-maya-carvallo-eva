@@ -1,9 +1,18 @@
+//display fields
+public int GRID_LEN; //LATER, CUSTOMIZE PER LEVEL
 public int GRID_SIZE;
+public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
+public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
+//level and board
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
-private boolean playingLevel;
 private Board gameBoard;
+public Sweet target1;
+public Sweet target2;
+private ArrayList<Sweet> validT2s;
+public boolean targetsSwapped;
+//buttons
 private Button credits;
 private Button xCredits;
 private Button back;
@@ -13,38 +22,48 @@ private Button cancelQuit;
 
 void setup()
 {
-  size(GRID_SIZE * 30, GRID_SIZE * 30);
+  size(1000, 1000);
+  GRID_LEN = 80;
+  GRID_SIZE = 6; //LATER, CUSTOMIZE PER LEVEL
   
   //initialize certain vars to match up with main menu
   initLevels();
-  playingLevel = false;
+  candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
+  candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
+  target1 = null;
+  target2 = null;
+  validT2s = new ArrayList<Sweet>();
+  targetsSwapped = false;
   
   //set up instances of buttons
-  credits = new Button(0,0,30,20,"CREDITS");
-  xCredits = new Button(0,0,30,20,"XCREDITS");
-  back = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"BACK");
-  retry = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"RETRY");
-  main = new Button(GRID_SIZE/2-40,GRID_SIZE/2,30,20,"MAIN");
-  cancelQuit = new Button(GRID_SIZE/2,GRID_SIZE/2,30,20,"CANCEL");
+  credits = new Button(0,0,50,20,"CREDITS");
+  xCredits = new Button(0,0,50,20,"XCREDITS");
+  back = new Button(10,10,30,20,"BACK");
+  retry = new Button((width+100)/2,height/2,30,20,"RETRY");
+  cancelQuit = new Button((width+100)/2,height/2,30,20,"CANCEL");
+  main = new Button(width/2,height/2,30,20,"MAIN");
   
   //finally, display the main menu
-  background(255);
   displayMain();
 }
 
 void initLevels() {
   int bSideLen = 30;
   levels = new Level[]{
-  new XPLevel(new Button(height - bSideLen, width/2, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
+  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
   };
 }
 
 void displayMain()
 {
   //actually display the background
+  background(255);
+  //clear bad settings
+  clickedLevel = null;
+  activeLevel = null;
   //display the level buttons
   for (Level l : levels)
     l.playButton.enable();
@@ -62,7 +81,6 @@ void draw()
 void playLevel(Level playL)
 {
   //store values to do with the level being played
-  playingLevel = true;
   clickedLevel = playL;
   activeLevel = playL.returnCopy();
   gameBoard = activeLevel.board;
@@ -104,12 +122,55 @@ void mouseClicked()
 
 void mouseDragged()
 {
-  
+  if (activeLevel != null && back.isEnabled()) //level is actively being played
+  {
+    if (target1 == null)
+    {
+      target1 = gameBoard.hoveringOver(mouseX,mouseY);
+      target1.setInMotion();
+      int[][] neighbors = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+      for (int[] neighbor : neighbors)
+      {
+        try
+        {
+          validT2s.add(gameBoard.board[target1.getY()+neighbor[1]][target1.getX()+neighbor[0]]);
+        }catch(ArrayIndexOutOfBoundsException e) 
+        {}
+      }
+    }
+    if (target2 == null)
+    {
+      Sweet beingHovered = gameBoard.hoveringOver(mouseX, mouseY);
+      if (validT2s.contains(beingHovered))
+        target2 = beingHovered;
+    }
+    if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
+    {
+      gameBoard.swap(target1, target2);
+      targetsSwapped = true;
+      target1.setStill();
+      gameBoard.display();
+    }
+  }
 }
 
 void mouseReleased()
 {
-    
+  if (activeLevel != null && back.isEnabled()) //level is actively being played
+  {
+    if (target1 != null && target1.isInMotion())
+      target1.setStill();
+    gameBoard.display();
+    ArrayList<Sweet> broken = gameBoard.findToBreak();
+    if (broken.size() == 0)
+      gameBoard.animateFail(target1, target2);
+    else
+      activeLevel.keepPlaying(broken);
+    target1 = null;
+    target2 = null;
+    validT2s = new ArrayList<Sweet>();
+    targetsSwapped = false;
+  }
 }
 
 void keyPressed()

@@ -21,8 +21,49 @@ abstract class Level{
     board = b;
   }
   
+  void keepPlaying(ArrayList<Sweet> brokenBySwap)
+  {
+    //loop:
+    while (brokenBySwap.size() != 0)
+    {
+      board.animateAllBreaking(brokenBySwap);
+      for (Sweet s: brokenBySwap)
+      {
+        //check if this sweet is a jelly
+        if (board.jellies.indexOf(s) != -1)
+        {
+          Jelly thisSweet = board.jellies.get(board.jellies.indexOf(s));
+          thisSweet.sublayer();
+          if (thisSweet.getLayers() == 0)
+          {
+            board.jellies.remove(thisSweet);
+            board.board[s.getY()][s.getX()] = null;
+          }
+        }
+        else
+          board.board[s.getY()][s.getX()] = null;
+      }
+      brokenBySwap = new ArrayList<Sweet>();
+      board.display();
+      if (! board.areSwaps())
+      {
+        //board.shuffle();
+        brokenBySwap = board.findToBreak();
+      }
+    }
+    //genNewCandy to fill in slots
+    //if no breaking, check for possible swaps, then shuffle if none
+    //moves--, check if fulfilledReq(), win/lose
+    //later, add a way to placeChocolate if none broken this round
+  }
+  
   void display()
   { 
+    //display background of level
+    background(255);
+    //display goal and difficulty on top
+    //display board
+    board.display();
   }
   
   void changeDifficulty(int dif)
@@ -74,7 +115,7 @@ abstract class Level{
 
   void placeChocolate()
   {
-   for (int i = 0; i < board.length; i++)
+   for (int i = 0; i < board.board.length; i++)
    {
        
    }
