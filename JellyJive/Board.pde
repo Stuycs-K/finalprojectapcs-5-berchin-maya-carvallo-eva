@@ -291,11 +291,11 @@ public class Board
  
  Sweet hoveringOver(int x, int y) 
  {
-   if (x < xPadding || x > xPadding + boardLen || y < yPadding || y > yPadding + boardLen)
-     return null;
    int sweetY = (y-yPadding)/GRID_LEN;
    int sweetX = (x-xPadding)/GRID_LEN;
-   return gameBoard.board[sweetY][sweetX];
+   if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
+     return gameBoard.board[sweetY][sweetX];
+   return null;
  }
  
  void display()

@@ -74,6 +74,7 @@ abstract class Level{
     //display goal and difficulty on top
     //display board
     board.display();
+    back.displayButton();
   }
   
   void changeDifficulty(int dif)

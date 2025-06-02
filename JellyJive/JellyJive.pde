@@ -142,20 +142,23 @@ void mouseDragged()
         {}
       }
     }
+    Sweet beingHovered = gameBoard.hoveringOver(mouseX, mouseY);
     if (target2 == null)
     {
-      Sweet beingHovered = gameBoard.hoveringOver(mouseX, mouseY);
       if (validT2s.contains(beingHovered))
         target2 = beingHovered;
     }
+    if (beingHovered == null || (target2 != null && ((beingHovered != target1) || (beingHovered != target2))))
+      target1.setStill();
     if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
     {
       gameBoard.swap(target1, target2);
       targetsSwapped = true;
       target1.setStill();
-      activeLevel.display();
     }
   }
+  activeLevel.display();
+  target1.displayMotion(mouseX, mouseY);
 }
 
 void mouseReleased() //handle candy swaps
