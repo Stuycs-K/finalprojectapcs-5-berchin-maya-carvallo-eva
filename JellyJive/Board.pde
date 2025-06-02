@@ -172,7 +172,6 @@ public class Board
      while (! areSwaps())
      {
        shuffle();
-       System.out.println("Shuffled");
        breakThisRound.addAll(findToBreak());
      }
      if (breakThisRound.size() == 0) */
