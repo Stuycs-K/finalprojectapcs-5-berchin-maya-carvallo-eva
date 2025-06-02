@@ -197,7 +197,7 @@ public class Board
     {
       for (int j = 0; j < GRID_SIZE; j++)
       {
-        if (!(board[i][j].getName().equals("chocoloate")))
+        if (!(board[i][j].getName().equals("chocoloate")) && !(board[i][j].getName().equals("Jelly")))
         {
           coordinates.add(new int[]{i, j}); 
         }
