@@ -22,3 +22,8 @@ worked on fixing merging issue with my branches, discussed logic issue with Maya
 added different branch to fix issue, discussed with Maya about logic for different levels, worked on swappable. Will fix swappable later.
 Fixed canSWap and scanNeighbors and discussed with Maya about tonights plans
 
+### 2025-5-29 -
+worked on filling out more things in board, and Level.
+
+### 2025-5-30 -
+worked on shuffle in board

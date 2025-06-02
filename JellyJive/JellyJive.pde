@@ -22,7 +22,7 @@ private Button cancelQuit;
 
 void setup()
 {
-  size(1000, 1000);
+  size(980, 980);
   GRID_LEN = 80;
   GRID_SIZE = 6; //LATER, CUSTOMIZE PER LEVEL
   
