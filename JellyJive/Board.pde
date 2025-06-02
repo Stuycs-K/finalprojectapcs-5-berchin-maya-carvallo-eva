@@ -52,12 +52,21 @@ public class Board
  ArrayList<BSweet> swap(Bsweet c1, Bsweet c2)
  {
    ArrayList<BSweet> result = new ArrayList<BSweet>();
-   if (!(c1.getName.equals("Chocoloate")) && !(c1.getName.equals("Jelly")) && !(c2.getName.equals("Chocoloate")) && !(c2.getName.equals("Jelly")))
+   if (!c1.isSwappable() || !c2.isSwappable() || c1 == null || c2 == null)
    {
-     if (Candy.canSwap(c1.getX(), c1, getY()))
-     {
-         
-     }
+       return result;
+   }
+    
+   BSweet temp = board[c1.getY()][c1.getX()];
+   board[c1.getY()][c1.getX()] = board[c2.getY()][c2.getX()];
+   board[c2.getY()][c2.getX()] = temp;
+   
+   result = findToBreak();
+   if (result.size() == 0)
+   {
+   temp = board[c1.getY()][c1.getX()];
+   board[c1.getY()][c1.getX()] = board[c2.getY()][c2.getX()];
+   board[c2.getY()][c2.getX()] = temp;
    }
    return result;
  }
