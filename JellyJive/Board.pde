@@ -70,7 +70,7 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if (board[i][j].getName().equals(board[i][j - 1].getName()) && !(board[i][j].getName().equals("chocolate"))) //chocolates don't count
+       if (board[i][j].getName().equals(board[i][j - 1].getName()) && board[i][j].isSwappable()) //chocolates don't count
        {
          count++;
        }
@@ -102,7 +102,7 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if (board[j][i].getName().equals(board[j - 1][i].getName()) && !(board[j][i].getName().equals("chocolate"))) //chocolates don't count
+       if (board[j][i].getName().equals(board[j - 1][i].getName()) && board[j][i].isSwappable()) //chocolates don't count
        {
          count++;
        }
@@ -247,7 +247,7 @@ public class Board
     {
       for (int j = 0; j < GRID_SIZE; j++)
       {
-        if (!(board[i][j].getName().equals("chocoloate")) && !(board[i][j].getName().equals("Jelly")))
+        if (board[i][j].isSwappable())
         {
           coordinates.add(new int[]{i, j}); 
         }
@@ -259,7 +259,14 @@ public class Board
       Sweet temp = board[coordinates.get(i)[0]][coordinates.get(i)[1]];
       board[coordinates.get(i)[0]][coordinates.get(i)[1]] = board[coordinates.get(x)[0]][coordinates.get(x)[1]];
       board[coordinates.get(x)[0]][coordinates.get(x)[1]] = temp;
+      int tempX = board[coordinates.get(i)[0]][coordinates.get(i)[1]].getX();
+      int tempY = board[coordinates.get(i)[0]][coordinates.get(i)[1]].getY();
+      board[coordinates.get(i)[0]][coordinates.get(i)[1]].setX(board[coordinates.get(x)[0]][coordinates.get(x)[1]].getX());
+      board[coordinates.get(i)[0]][coordinates.get(i)[1]].setY(board[coordinates.get(x)[0]][coordinates.get(x)[1]].getY());
+      board[coordinates.get(x)[0]][coordinates.get(x)[1]].setX(tempX);
+      board[coordinates.get(x)[0]][coordinates.get(x)[1]].setY(tempY);
     }
+    genNewBoard();
   }
  
  void animateAllBreaking(ArrayList<Sweet> toBreak)
@@ -267,7 +274,7 @@ public class Board
    //code
    //loop through all sweets, break by ticks
  }
- 
+
  boolean areSwaps()
  {
      for (int i = 0; i < board.length; i++)
