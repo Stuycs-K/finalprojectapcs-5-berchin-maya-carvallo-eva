@@ -17,15 +17,15 @@ class Candy extends Sweet
     for (int i = 0; i < directions.length; i++)
     {
       //check if there is a valid neighbor in the grid
-      if (y + directions[i][0] >= 0 && y + directions[i][0] < GRID_LEN && x + directions[i][1] > 0 && x + directions[i][1] < GRID_LEN)
+      if (y + directions[i][0] >= 0 && y + directions[i][0] < GRID_LEN && x + directions[i][1] >= 0 && x + directions[i][1] < GRID_LEN && board[y + directions[i][0]][x + directions[i][1]] != null)
       {
         //find the sweet type of this neighbor
         String name = board[y + directions[i][0]][x + directions[i][1]].getName();
         for (int j = 0; j < directions.length; j++)
         {
-          if (j != i && y + directions[j][0] >= 0 && y + directions[j][0] < GRID_LEN && x + directions[j][1] > 0 && x + directions[j][1] < GRID_LEN && board[y + directions[j][0]][x + directions[j][1]].isSwappable() && board[y + directions[j][0]][x + directions[j][1]].getName().equals(name))
+          if (j != i && y + directions[j][0] >= 0 && y + directions[j][0] < GRID_LEN && x + directions[j][1] >= 0 && x + directions[j][1] < GRID_LEN && board[y + directions[j][0]][x + directions[j][1]] != null && board[y + directions[j][0]][x + directions[j][1]].isSwappable() && board[y + directions[j][0]][x + directions[j][1]].getName().equals(name))
           {
-            if (y + directions2[j][0] >= 0 && y + directions2[j][0] < GRID_LEN && x + directions2[j][1] > 0 && x + directions2[j][1] < GRID_LEN && board[y + directions2[j][0]][x + directions2[j][1]].isSwappable() && board[y + directions2[j][0]][x + directions2[j][1]].getName().equals(name))
+            if (y + directions2[j][0] >= 0 && y + directions2[j][0] < GRID_LEN && x + directions2[j][1] >= 0 && x + directions2[j][1] < GRID_LEN && board[y + directions2[j][0]][x + directions2[j][1]] != null && board[y + directions2[j][0]][x + directions2[j][1]].isSwappable() && board[y + directions2[j][0]][x + directions2[j][1]].getName().equals(name))
             {
               return true; 
             }
@@ -35,10 +35,10 @@ class Candy extends Sweet
     }
     for (int i = 0; i < directions.length; i++)
     {
-      String name = board[y + directions[i][0]][x + directions[i][1]].getName();
-      String side1 = board[y + directions[(i + 1) % 4][0]][x + directions[(i + 1) % 4][1]].getName();
-      String side2 = board[y + directions[(i - 1 + 4) % 4][0]][x + directions[(i - 1 + 4) % 4][1]].getName();
-      if ( side1.equals(name) && side2.equals(name))
+      Sweet name = board[y + directions[i][0]][x + directions[i][1]];
+      Sweet side1 = board[y + directions[(i + 1) % 4][0]][x + directions[(i + 1) % 4][1]];
+      Sweet side2 = board[y + directions[(i - 1 + 4) % 4][0]][x + directions[(i - 1 + 4) % 4][1]];
+      if (name != null && side1 != null && side2 !=null && side1.equals(name) && side2.equals(name))
       {
         return true;
       }
