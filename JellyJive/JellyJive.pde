@@ -39,19 +39,19 @@ void setup()
   targetsSwapped = false;
   
   //set up instances of buttons
-  credits = new Button(0,0,50,20,"CREDITS");
-  xCredits = new Button(0,0,50,20,"XCREDITS");
-  back = new Button(10,10,30,20,"BACK");
-  retry = new Button((width+100)/2,height/2,30,20,"RETRY");
-  cancelQuit = new Button((width+100)/2,height/2,30,20,"CANCEL");
-  main = new Button(width/2,height/2,30,20,"MAIN");
+  credits = new Button(10,10,70,40,"CREDITS");
+  xCredits = new Button(10,10,70,40,"XCREDITS");
+  back = new Button(10,10,70,40,"BACK");
+  retry = new Button((width+25)/2,height/2+30,70,40,"RETRY");
+  cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
+  main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   
   //finally, display the main menu
   displayMain();
 }
 
 void initLevels() {
-  int bSideLen = 30;
+  int bSideLen = 50;
   levels = new Level[]{
   new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
   };
@@ -182,6 +182,7 @@ void keyPressed()
 void credits()
 {
   //display/enable the correct buttons and disable others
+  background(255);
   credits.disable();
   for (Level l : levels)
     l.playButton.disable();
@@ -191,7 +192,14 @@ void credits()
 
 void displayBackConfirmation() 
 {
-  //draw background of popup screen
+  background(255);
+  fill(255, 200, 210);
+  int popupWidth = 200;
+  int popupHeight = 150;
+  rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
+  fill(255);
+  textSize(24);
+  text("Are you sure?", (width-popupWidth)/2+35, height/2);
   //enable/disable the right buttons
   back.disable();
   main.enable();

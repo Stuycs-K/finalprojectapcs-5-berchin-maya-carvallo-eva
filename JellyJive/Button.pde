@@ -18,12 +18,13 @@ public class Button{
  
  void displayButton()
  {
-   fill(100);
+   fill(255, 100, 200);
    stroke(0);
    int roundedCorners = 10;
    rect(x,y,b,h,roundedCorners);
    fill(255);
-   text(text,x,y+h/2);
+   textSize(16);
+   text(text,x+3,y+h/1.5);
  }
  
  boolean isEnabled()
