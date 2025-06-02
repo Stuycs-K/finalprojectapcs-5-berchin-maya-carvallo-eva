@@ -21,9 +21,9 @@ public class Button{
    fill(100);
    stroke(0);
    int roundedCorners = 10;
-   rect(x,y,b,h,10);
+   rect(x,y,b,h,roundedCorners);
    fill(255);
-   text(text,x,y);
+   text(text,x,y+h/2);
  }
  
  boolean isEnabled()
@@ -44,6 +44,6 @@ public class Button{
  
  boolean wasPressed(int mx, int my)
  {
-   return mx >= x && mx <= x+b && my >= y && my <= y+h;
+   return isEnabled() && mx >= x && mx <= x+b && my >= y && my <= y+h;
  }
 }
