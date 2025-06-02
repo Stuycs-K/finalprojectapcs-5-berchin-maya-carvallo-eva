@@ -125,8 +125,9 @@ void mouseDragged()
   if (activeLevel != null && back.isEnabled()) //level is actively being played
   {
     if (target1 == null)
-    {
       target1 = gameBoard.hoveringOver(mouseX,mouseY);
+    if (target1 != null)
+    {
       target1.setInMotion();
       int[][] neighbors = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
       for (int[] neighbor : neighbors)

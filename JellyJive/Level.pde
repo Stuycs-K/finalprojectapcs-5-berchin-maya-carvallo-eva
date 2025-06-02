@@ -24,7 +24,7 @@ abstract class Level{
   void keepPlaying(ArrayList<Sweet> brokenBySwap)
   {
     //loop:
-    while (brokenBySwap.size() != 0)
+    while (brokenBySwap.size() > 0)
     {
       board.animateAllBreaking(brokenBySwap);
       for (Sweet s: brokenBySwap)
@@ -44,17 +44,16 @@ abstract class Level{
           board.board[s.getY()][s.getX()] = null;
       }
       brokenBySwap = new ArrayList<Sweet>();
+      brokenBySwap.addAll(board.genNewCandy());
       board.display();
       if (! board.areSwaps())
       {
         //board.shuffle();
-        brokenBySwap = board.findToBreak();
+        brokenBySwap.addAll(board.findToBreak());
       }
     }
-    //genNewCandy to fill in slots
-    //if no breaking, check for possible swaps, then shuffle if none
     //moves--, check if fulfilledReq(), win/lose
-    //later, add a way to placeChocolate if none broken this round
+    //later (NOT for Monday), add a way to placeChocolate if none broken this round
   }
   
   void display()
