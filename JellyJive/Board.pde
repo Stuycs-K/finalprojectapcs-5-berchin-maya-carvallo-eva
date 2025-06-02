@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Board
 {
  
@@ -58,7 +56,8 @@ public class Board
  
  void animateFail(Sweet s1, Sweet s2)
  {
-   swap(s1, s2);
+   if (s1 != null && s2 != null)
+     swap(s1, s2);
  }
  
  ArrayList<Sweet> findToBreak() //careful to removeAll() when removing a result in case of duplicates
@@ -162,10 +161,7 @@ public class Board
    for (int row = board.length-1; row >= 0; row--)
      for (int col = 0; col < board[row].length; col++)
        if (board[row][col] == null) 
-       {
-         int colorInd = (int) (Math.random() * candyColors.length);
-         board[row][col] = new Candy(col, row, candyNames[colorInd], candyColors[colorInd]);
-       }
+         board[row][col] = randCandy(col,row);
    //break all candies that would be a valid swap
    ArrayList<Sweet> breakThisRound = findToBreak();
    //return if no candies broken this round (base case)
@@ -176,6 +172,7 @@ public class Board
      while (! areSwaps())
      {
        shuffle();
+       System.out.println("Shuffled");
        breakThisRound.addAll(findToBreak());
      }
      if (breakThisRound.size() == 0) */
@@ -188,6 +185,59 @@ public class Board
      //LATER, USE DUPLICATES TO CHECK FOR SPECIAL CANDIES TO BE SPAWNED IN
    }
    return genNewBoard(brokenCandies);
+ }
+ 
+ private Candy randCandy(int x, int y)
+ {
+   int colorInd = (int) (Math.random() * candyColors.length);
+   return new Candy(x, y, candyNames[colorInd], candyColors[colorInd]);
+ }
+ 
+ ArrayList<Sweet> genNewCandy()
+ {
+   animateCandyFall();
+   ArrayList<Sweet> broken = new ArrayList<Sweet>();
+   ArrayList<Sweet> newBroken = findToBreak();
+   while (newBroken.size() > 0)
+   {
+     animateAllBreaking(newBroken);
+     for (Sweet s : newBroken)
+       board[s.getY()][s.getX()] = null;
+     broken.addAll(newBroken);
+     animateCandyFall();
+     newBroken = findToBreak();
+   }
+   return broken;
+ }
+ 
+ void animateCandyFall()
+ {
+   display();
+   //wait a moment for animation purposes
+   /*
+   try
+   {
+     Thread.sleep(200);
+   } catch (InterruptedException e) 
+   {}*/
+   boolean candyFell = false;
+   //search for candies atop null and bring them down one slot
+   for (int row = board.length-2; row >= 0; row--)
+     for (int col = 0; col < board[row].length; col++)
+       if (board[row+1][col] == null && board[row][col] != null)
+       {
+         board[row][col].setY(board[row][col].getY()+1);
+         board[row+1][col] = board[row][col];
+         board[row][col] = null;
+         candyFell = true;
+       }
+   //gen new candies for row 0
+   for (int col = 0; col < board[0].length; col++)
+     if (board[0][col] == null)
+       board[0][col] = randCandy(col,0);
+   //if any candy fell, recurse
+   if (candyFell)
+     animateCandyFall();
  }
  
  void shuffle()
