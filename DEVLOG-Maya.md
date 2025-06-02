@@ -65,3 +65,11 @@ This document must be updated daily every time you finish a work session.
  - Worked on setup, playLevel, button stuff
  - Also worked on Board class a bit
  - Fixed some minor stuff to do with abstraction, inheritence, and useless fields in other classes
+
+### 2025-06-1 Worked on misc functions throughout files
+ - Worked on getting everything to work. Everything.
+ - Worked on JellyJive mouse functions.
+ - Worked on Board class.
+ - Worked on candy displays, sweet, etc
+ - Started working on level function keepPlaying()
+ - Worked for about... 7.5 hours? Ow my eyes
