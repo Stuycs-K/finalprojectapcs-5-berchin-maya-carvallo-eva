@@ -28,12 +28,15 @@ public class Board
  {
    if (s1 == null || ! s1.isSwappable())
      return false;
-   board[s1.getY()][s1.getX()] = null;
+   board[s1.getY()][s1.getX()].setInMotion();
    display();
    if (s2 == null)
      s1.displayMotion(x,y);
    else if (! s2.isSwappable()) 
-     board[s1.getY()][s1.getX()] = s1;
+   {
+     board[s1.getY()][s1.getX()].setStill();
+     display();
+   }
    else
      return true;
    return false;
@@ -215,7 +218,7 @@ public class Board
    //now the other sweets
    for (Sweet[] row : board)
      for (Sweet s : row)
-       if (s != null)
+       if (! s.isInMotion())
          s.display(xPadding, yPadding);
  }
  
