@@ -24,6 +24,34 @@ public class Board
          genNewCandy();
  }
  
+ boolean animateSwap(Sweet s1, Sweet s2, int x, int y) //returns whether it's time to make the swap
+ {
+   if (s1 == null || ! s1.isSwappable())
+     return false;
+   board[s1.getY()][s1.getX()] = null;
+   display();
+   if (s2 == null)
+     s1.displayMotion(x,y);
+   else if (! s2.isSwappable()) 
+     board[s1.getY()][s1.getX()] = s1;
+   else
+     return true;
+   return false;
+ }
+ 
+ void swap(Sweet s1, Sweet s2) 
+ {
+   int tempX = s1.getX();
+   int tempY = s1.getY();
+   s1.setX(s2.getX());
+   s1.setY(s2.getY());
+   s2.setX(tempX);
+   s2.setY(tempY);
+   board[s1.getY()][s1.getX()] = s1;
+   board[s1.getY()][s1.getX()] = s2;
+   display();
+ }
+ 
  ArrayList<Sweet> findToBreak() //careful to removeAll() when removing a result in case of duplicates
  {
    ArrayList<Sweet> result = new ArrayList<Sweet>();
@@ -187,7 +215,8 @@ public class Board
    //now the other sweets
    for (Sweet[] row : board)
      for (Sweet s : row)
-       s.display(xPadding, yPadding);
+       if (s != null)
+         s.display(xPadding, yPadding);
  }
  
 }

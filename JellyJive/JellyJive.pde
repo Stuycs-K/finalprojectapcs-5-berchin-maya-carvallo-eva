@@ -1,11 +1,17 @@
+//display fields
 public int GRID_LEN; //LATER, CUSTOMIZE PER LEVEL
 public int GRID_SIZE;
+public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
+public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
+//level and board
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
 private Board gameBoard;
-public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
-public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
+public Sweet target1;
+public Sweet target2;
+public boolean targetsSwapped;
+//buttons
 private Button credits;
 private Button xCredits;
 private Button back;
@@ -26,6 +32,9 @@ void setup()
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
+  target1 = null;
+  target2 = null;
+  targetsSwapped = false;
   
   //set up instances of buttons
   credits = new Button(0,0,50,20,"CREDITS");
@@ -111,12 +120,63 @@ void mouseClicked()
 
 void mouseDragged()
 {
-  
+  if (activeLevel != null && back.isEnabled()) //level is actively being played
+  {
+    //select the candy being dragged
+    if (target1 == null) 
+      target1 = gameBoard.hoveringOver(mouseX, mouseY);
+    //select the candy that it's being swapped with
+    if (target2 == null)
+    {
+      target2 = gameBoard.hoveringOver(mouseX, mouseY);
+      //can't be the same as target1
+      if (target1 == target2) {
+        target2 = null;
+      }
+      //check if target is a valid neighbor
+      if (target2 != null) 
+      {
+        boolean isValidTarget = false;
+        int[][] options = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+        for (int[] neighborCoords : options) 
+          if (target2.getX() == target1.getX()+neighborCoords[0] && target2.getY() == target1.getX()+neighborCoords[1])
+            isValidTarget = true;
+        if (! isValidTarget)
+          target2 = null;
+      }
+    }
+    //can we swap?
+    if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
+    {
+      //swap
+      gameBoard.swap(target1, target2);
+      targetsSwapped = true;
+    }
+    //give the option to choose a new target2
+    if (targetsSwapped && gameBoard.hoveringOver(mouseX, mouseY).equals(target1)) 
+    {
+      gameBoard.swap(target1, target2);
+      targetsSwapped = false;
+      target2 = null;
+    }
+  }
 }
 
 void mouseReleased()
 {
-    
+  if (target1 != null && target2 != null)
+  {
+    int tempX = target1.getX();
+    int tempY = target2.getY();
+    target1.setX(target2.getX());
+    target1.setY(target2.getY());
+    target2.setX(tempX);
+    target2.setY(tempY);
+    gameBoard.display();
+    target1 = null;
+    target2 = null;
+    targetsSwapped = false;
+  }
 }
 
 void keyPressed()
