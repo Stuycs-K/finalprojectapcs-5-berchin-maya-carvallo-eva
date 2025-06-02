@@ -153,7 +153,7 @@ void mouseDragged()
       gameBoard.swap(target1, target2);
       targetsSwapped = true;
       target1.setStill();
-      gameBoard.display();
+      activeLevel.display();
     }
   }
 }
@@ -164,7 +164,7 @@ void mouseReleased() //handle candy swaps
   {
     if (target1 != null && target1.isInMotion())
       target1.setStill();
-    gameBoard.display();
+    activeLevel.display();
     ArrayList<Sweet> broken = gameBoard.findToBreak();
     if (broken.size() == 0)
       gameBoard.animateFail(target1, target2);

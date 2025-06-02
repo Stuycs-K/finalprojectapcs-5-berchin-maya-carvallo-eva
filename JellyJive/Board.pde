@@ -29,12 +29,12 @@ public class Board
    if (s1 == null || ! s1.isSwappable())
      return false;
    s1.setInMotion();
-   display();
+   activeLevel.display();
    s1.displayMotion(x,y);
    if (s2 != null && ! s2.isSwappable()) 
    {
      s1.setStill();
-     display();
+     activeLevel.display();
    }
    else if (s2 != null)
      return true;
