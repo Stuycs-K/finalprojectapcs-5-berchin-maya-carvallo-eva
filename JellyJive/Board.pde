@@ -23,7 +23,7 @@ public class Board
    for (int row = board.length-1; row >= 0; row--)
      for (int col = 0; col < board[row].length; col++)
        if (board[row][col] == null)
-         genNewCandy();
+         genNewBoard();
  }
  
  boolean animateSwap(Sweet s1, Sweet s2, int x, int y) //returns whether it's time to make the swap
@@ -54,6 +54,11 @@ public class Board
    s2.setX(tempX);
    s2.setY(tempY);
    display();
+ }
+ 
+ void animateFail(Sweet s1, Sweet s2)
+ {
+   swap(s1, s2);
  }
  
  ArrayList<Sweet> findToBreak() //careful to removeAll() when removing a result in case of duplicates
@@ -146,12 +151,12 @@ public class Board
    return result;
  }
  
- public ArrayList<Sweet> genNewCandy() //wrapper method
+ public ArrayList<Sweet> genNewBoard() //wrapper method
  {
-   return genNewCandy(new ArrayList<Sweet>());
+   return genNewBoard(new ArrayList<Sweet>());
  }
  
- public ArrayList<Sweet> genNewCandy(ArrayList<Sweet> brokenCandies)
+ public ArrayList<Sweet> genNewBoard(ArrayList<Sweet> brokenCandies)
  {
    //generate new candies in empty slots
    for (int row = board.length-1; row >= 0; row--)
@@ -165,7 +170,17 @@ public class Board
    ArrayList<Sweet> breakThisRound = findToBreak();
    //return if no candies broken this round (base case)
    if (breakThisRound.size() == 0)
-     return brokenCandies;
+   {
+     //but first, check if there are valid swaps on the board
+     /*
+     while (! areSwaps())
+     {
+       shuffle();
+       breakThisRound.addAll(findToBreak());
+     }
+     if (breakThisRound.size() == 0) */
+       return brokenCandies;
+   }
    //otherwise break the candies and genNewCandy to replace them
    animateAllBreaking(breakThisRound);
    for (Sweet s : breakThisRound) {
@@ -173,8 +188,30 @@ public class Board
      brokenCandies.add(s);
      //LATER, USE DUPLICATES TO CHECK FOR SPECIAL CANDIES TO BE SPAWNED IN
    }
-   return genNewCandy(brokenCandies);
+   return genNewBoard(brokenCandies);
  }
+ 
+ void shuffle()
+ {
+    ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    for (int i = 0; i < GRID_SIZE; i++)
+    {
+      for (int j = 0; j < GRID_SIZE; j++)
+      {
+        if (!(board[i][j].getName().equals("chocoloate")))
+        {
+          coordinates.add(new int[]{i, j}); 
+        }
+      }
+    }
+    for (int i = coordinates.size() - 1; i > 0; i--)
+    {
+      int x = (int)(Math.random() * (i + 1));
+      Sweet temp = board[coordinates.get(i)[0]][coordinates.get(i)[1]];
+      board[coordinates.get(i)[0]][coordinates.get(i)[1]] = board[coordinates.get(x)[0]][coordinates.get(x)[1]];
+      board[coordinates.get(x)[0]][coordinates.get(x)[1]] = temp;
+    }
+  }
  
  void animateAllBreaking(ArrayList<Sweet> toBreak)
  {

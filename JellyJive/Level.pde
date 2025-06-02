@@ -21,6 +21,11 @@ abstract class Level{
     board = b;
   }
   
+  void keepPlaying(ArrayList<Sweet> brokenBySwap)
+  {
+    //code
+  }
+  
   void display()
   { 
     //display background of level

@@ -161,6 +161,11 @@ void mouseReleased()
     if (target1 != null && target1.isInMotion())
       target1.setStill();
     gameBoard.display();
+    ArrayList<Sweet> broken = gameBoard.findToBreak();
+    if (broken.size() == 0)
+      gameBoard.animateFail(target1, target2);
+    else
+      activeLevel.keepPlaying(broken);
     target1 = null;
     target2 = null;
     validT2s = new ArrayList<Sweet>();
