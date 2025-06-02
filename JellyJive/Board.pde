@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Board
 {
  
@@ -28,30 +30,29 @@ public class Board
  {
    if (s1 == null || ! s1.isSwappable())
      return false;
-   board[s1.getY()][s1.getX()].setInMotion();
+   s1.setInMotion();
    display();
-   if (s2 == null)
-     s1.displayMotion(x,y);
-   else if (! s2.isSwappable()) 
+   s1.displayMotion(x,y);
+   if (s2 != null && ! s2.isSwappable()) 
    {
-     board[s1.getY()][s1.getX()].setStill();
+     s1.setStill();
      display();
    }
-   else
+   else if (s2 != null)
      return true;
    return false;
  }
  
  void swap(Sweet s1, Sweet s2) 
  {
+   board[s1.getY()][s1.getX()] = s2;
+   board[s2.getY()][s2.getX()] = s1;
    int tempX = s1.getX();
    int tempY = s1.getY();
    s1.setX(s2.getX());
    s1.setY(s2.getY());
    s2.setX(tempX);
    s2.setY(tempY);
-   board[s1.getY()][s1.getX()] = s1;
-   board[s1.getY()][s1.getX()] = s2;
    display();
  }
  

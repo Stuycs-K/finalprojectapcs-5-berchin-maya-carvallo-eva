@@ -10,6 +10,7 @@ private Level clickedLevel;
 private Board gameBoard;
 public Sweet target1;
 public Sweet target2;
+private ArrayList<Sweet> validT2s;
 public boolean targetsSwapped;
 //buttons
 private Button credits;
@@ -34,6 +35,7 @@ void setup()
   clickedLevel = null;
   target1 = null;
   target2 = null;
+  validT2s = new ArrayList<Sweet>();
   targetsSwapped = false;
   
   //set up instances of buttons
@@ -122,59 +124,46 @@ void mouseDragged()
 {
   if (activeLevel != null && back.isEnabled()) //level is actively being played
   {
-    //select the candy being dragged
-    if (target1 == null) 
-      target1 = gameBoard.hoveringOver(mouseX, mouseY);
-    //select the candy that it's being swapped with
+    if (target1 == null)
+    {
+      target1 = gameBoard.hoveringOver(mouseX,mouseY);
+      target1.setInMotion();
+      int[][] neighbors = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+      for (int[] neighbor : neighbors)
+      {
+        try
+        {
+          validT2s.add(gameBoard.board[target1.getY()+neighbor[1]][target1.getX()+neighbor[0]]);
+        }catch(ArrayIndexOutOfBoundsException e) 
+        {}
+      }
+    }
     if (target2 == null)
     {
-      target2 = gameBoard.hoveringOver(mouseX, mouseY);
-      //can't be the same as target1
-      if (target1 == target2) {
-        target2 = null;
-      }
-      //check if target is a valid neighbor
-      if (target2 != null) 
-      {
-        boolean isValidTarget = false;
-        int[][] options = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
-        for (int[] neighborCoords : options) 
-          if (target2.getX() == target1.getX()+neighborCoords[0] && target2.getY() == target1.getX()+neighborCoords[1])
-            isValidTarget = true;
-        if (! isValidTarget)
-          target2 = null;
-      }
+      Sweet beingHovered = gameBoard.hoveringOver(mouseX, mouseY);
+      if (validT2s.contains(beingHovered))
+        target2 = beingHovered;
     }
-    //can we swap?
     if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
     {
-      //swap
       gameBoard.swap(target1, target2);
       targetsSwapped = true;
-    }
-    //give the option to choose a new target2
-    if (targetsSwapped && gameBoard.hoveringOver(mouseX, mouseY).equals(target1)) 
-    {
-      gameBoard.swap(target1, target2);
-      targetsSwapped = false;
-      target2 = null;
+      target1.setStill();
+      gameBoard.display();
     }
   }
 }
 
 void mouseReleased()
 {
-  if (target1 != null && target2 != null)
+  if (activeLevel != null && back.isEnabled()) //level is actively being played
   {
-    int tempX = target1.getX();
-    int tempY = target2.getY();
-    target1.setX(target2.getX());
-    target1.setY(target2.getY());
-    target2.setX(tempX);
-    target2.setY(tempY);
+    if (target1 != null && target1.isInMotion())
+      target1.setStill();
     gameBoard.display();
     target1 = null;
     target2 = null;
+    validT2s = new ArrayList<Sweet>();
     targetsSwapped = false;
   }
 }
