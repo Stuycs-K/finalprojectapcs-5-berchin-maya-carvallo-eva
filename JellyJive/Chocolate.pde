@@ -4,7 +4,7 @@ class Chocolate extends Sweet{
      super(x, y, false, "Chocolate");
   }
 
-  void display(){}
+  void display(int xPadding, int yPadding){}
   void animateBreak(){};
   
 }

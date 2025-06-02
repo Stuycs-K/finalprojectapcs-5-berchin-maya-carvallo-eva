@@ -182,7 +182,6 @@ public class Board
        return brokenCandies;
    }
    //otherwise break the candies and genNewCandy to replace them
-   animateAllBreaking(breakThisRound);
    for (Sweet s : breakThisRound) {
      board[s.getY()][s.getX()] = null;
      brokenCandies.add(s);
@@ -256,7 +255,7 @@ public class Board
    //now the other sweets
    for (Sweet[] row : board)
      for (Sweet s : row)
-       if (! s.isInMotion())
+       if (!(s == null) && !(s.isInMotion()))
          s.display(xPadding, yPadding);
  }
  

@@ -3,6 +3,7 @@ abstract class Sweet{
   private int x;
   private int y;
   private boolean swappable;
+  private boolean inMotion;
   private String name;
   
   public Sweet(int X, int Y, boolean swappable, String name)
@@ -11,6 +12,7 @@ abstract class Sweet{
    y = Y;
    this.swappable = swappable;
    this.name = name;
+   inMotion = false;
   }
   
   int getX()
@@ -51,6 +53,22 @@ abstract class Sweet{
   String toString() 
   {
     return getName();
+  }
+  
+  boolean isInMotion()
+  {
+    return inMotion;
+  }
+  
+  void setInMotion()
+  {
+    if (isSwappable())
+      inMotion = true;
+  }
+  
+  void setStill()
+  {
+    inMotion = false;
   }
   
   //OVERRIDE IN CANDY
