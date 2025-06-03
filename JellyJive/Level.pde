@@ -48,7 +48,7 @@ abstract class Level{
       display();
       if (! board.areSwaps())
       {
-        //board.shuffle();
+        board.shuffle();
         display();
         brokenBySwap.addAll(board.findToBreak());
       }
@@ -139,12 +139,30 @@ abstract class Level{
   
   void won()
   {
-
+    int popupWidth = 200;
+    int popupHeight = 150;
+    rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
+    fill(255);
+    textSize(24);
+    text("Congratulations", (width-popupWidth)/2+35, height/2);
+    //enable/disable the right buttons
+    back.disable();
+    main.enable();
+    retry.enable();
   }
   
   void lost()
   {
-    
+    int popupWidth = 200;
+    int popupHeight = 150;
+    rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
+    fill(255);
+    textSize(24);
+    text("Try again", (width-popupWidth)/2+35, height/2);
+    //enable/disable the right buttons
+    back.disable();
+    main.enable();
+    retry.enable();
   }
   
   abstract Level returnCopy();
