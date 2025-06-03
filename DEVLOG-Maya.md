@@ -73,3 +73,9 @@ This document must be updated daily every time you finish a work session.
  - Worked on candy displays, sweet, etc
  - Started working on level function keepPlaying()
  - Worked for about... 7.5 hours? Ow my eyes
+
+### 2025-06-02 Worked on getting swap to work better
+ - Out of bounds stuff is no longer animated: moving mouse too far from target stops movement animation
+ - Back button displays when level displays
+ - After each swap, level displays instead of just board displaying
+ - Fixed out of bounds exception/null pointer for swap? Maybe? Bug was rare so we'll see
