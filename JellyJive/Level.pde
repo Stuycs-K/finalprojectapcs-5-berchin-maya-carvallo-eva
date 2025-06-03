@@ -45,15 +45,26 @@ abstract class Level{
       }
       brokenBySwap = new ArrayList<Sweet>();
       brokenBySwap.addAll(board.genNewCandy());
-      board.display();
+      display();
       if (! board.areSwaps())
       {
         //board.shuffle();
+        display();
         brokenBySwap.addAll(board.findToBreak());
       }
     }
     //moves--, check if fulfilledReq(), win/lose
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
+    movesLeft--;
+    if (fulfilledReq())
+    {
+       won(); 
+    }
+    else if (movesLeft <= 0)
+    {
+       lost(); 
+    }
+    display();
   }
   
   void display()
@@ -63,6 +74,7 @@ abstract class Level{
     //display goal and difficulty on top
     //display board
     board.display();
+    back.displayButton();
   }
   
   void changeDifficulty(int dif)
@@ -122,12 +134,12 @@ abstract class Level{
   
   void addXP()
   {
-    
+    XP+=5;
   }
   
   void won()
   {
-    
+
   }
   
   void lost()
@@ -136,4 +148,8 @@ abstract class Level{
   }
   
   abstract Level returnCopy();
+  boolean fulfilledReq()
+  {
+   return XP >= GOALXP; 
+  }
 }

@@ -29,12 +29,12 @@ public class Board
    if (s1 == null || ! s1.isSwappable())
      return false;
    s1.setInMotion();
-   display();
+   activeLevel.display();
    s1.displayMotion(x,y);
    if (s2 != null && ! s2.isSwappable()) 
    {
      s1.setStill();
-     display();
+     activeLevel.display();
    }
    else if (s2 != null)
      return true;
@@ -172,7 +172,6 @@ public class Board
      while (! areSwaps())
      {
        shuffle();
-       System.out.println("Shuffled");
        breakThisRound.addAll(findToBreak());
      }
      if (breakThisRound.size() == 0) */
@@ -292,11 +291,11 @@ public class Board
  
  Sweet hoveringOver(int x, int y) 
  {
-   if (x < xPadding || x > xPadding + boardLen || y < yPadding || y > yPadding + boardLen)
-     return null;
    int sweetY = (y-yPadding)/GRID_LEN;
    int sweetX = (x-xPadding)/GRID_LEN;
-   return gameBoard.board[sweetY][sweetX];
+   if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
+     return gameBoard.board[sweetY][sweetX];
+   return null;
  }
  
  void display()

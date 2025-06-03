@@ -7,6 +7,7 @@ public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "b
 private Level[] levels;
 private Level activeLevel;
 private Level clickedLevel;
+private boolean activelyPlaying;
 private Board gameBoard;
 public Sweet target1;
 public Sweet target2;
@@ -30,13 +31,14 @@ void setup()
   initLevels();
   candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
   candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
+  validT2s = new ArrayList<Sweet>();
+  targetsSwapped = false;
+  activelyPlaying = false;
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
   target1 = null;
   target2 = null;
-  validT2s = new ArrayList<Sweet>();
-  targetsSwapped = false;
   
   //set up instances of buttons
   credits = new Button(10,10,70,40,"CREDITS");
@@ -84,6 +86,7 @@ void playLevel(Level playL)
   clickedLevel = playL;
   activeLevel = playL.returnCopy();
   gameBoard = activeLevel.board;
+  activelyPlaying = true;
   //display the actual level
   playL.display();
   //enable/disable the right buttons
@@ -122,7 +125,7 @@ void mouseClicked()
 
 void mouseDragged()
 {
-  if (activeLevel != null && back.isEnabled()) //level is actively being played
+  if (activelyPlaying) 
   {
     if (target1 == null)
       target1 = gameBoard.hoveringOver(mouseX,mouseY);
@@ -139,29 +142,32 @@ void mouseDragged()
         {}
       }
     }
+    Sweet beingHovered = gameBoard.hoveringOver(mouseX, mouseY);
     if (target2 == null)
     {
-      Sweet beingHovered = gameBoard.hoveringOver(mouseX, mouseY);
       if (validT2s.contains(beingHovered))
         target2 = beingHovered;
     }
+    if (beingHovered == null || (target2 != null && ((beingHovered != target1) || (beingHovered != target2))))
+      target1.setStill();
     if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
     {
       gameBoard.swap(target1, target2);
       targetsSwapped = true;
       target1.setStill();
-      gameBoard.display();
     }
   }
+  activeLevel.display();
+  target1.displayMotion(mouseX, mouseY);
 }
 
-void mouseReleased()
+void mouseReleased() //handle candy swaps
 {
-  if (activeLevel != null && back.isEnabled()) //level is actively being played
+  if (activelyPlaying)
   {
     if (target1 != null && target1.isInMotion())
       target1.setStill();
-    gameBoard.display();
+    activeLevel.display();
     ArrayList<Sweet> broken = gameBoard.findToBreak();
     if (broken.size() == 0)
       gameBoard.animateFail(target1, target2);
@@ -192,6 +198,7 @@ void credits()
 
 void displayBackConfirmation() 
 {
+  activelyPlaying = false;
   background(255);
   fill(255, 200, 210);
   int popupWidth = 200;
@@ -208,6 +215,7 @@ void displayBackConfirmation()
 
 void cancelQuit()
 {
+  activelyPlaying = true;
   //display the level again
   activeLevel.display();
   //enable/disable the right buttons
