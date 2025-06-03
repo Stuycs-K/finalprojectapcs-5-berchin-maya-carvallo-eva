@@ -9,16 +9,18 @@ class Candy extends Sweet
      cColor = c;
   }
   
-  boolean canSwap(int x, int y)
+  boolean canSwap()
   {
     Sweet[][] board = gameBoard.board;
+    int x = this.getX();
+    int y = this.getY();
     int[][] directions = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
     boolean swap = false;
     for (int i = 0; i < directions.length; i++)
     {
       if (y + directions[i][0] >= 0 && y + directions[i][0] < GRID_LEN && x + directions[i][1] >= 0 && x + directions[i][1] < GRID_LEN && board[y + directions[i][0]][x + directions[i][1]] != null)
       {
-          swap(board, board[y][x], board[y + directions[i][0]][x + directions[i][1]]);
+          gameBoard.swap(board[y][x], board[y + directions[i][0]][x + directions[i][1]]);
       }
       if (gameBoard.findToBreak().size() != 0)
       {  
@@ -26,23 +28,12 @@ class Candy extends Sweet
       }
       if (y + directions[i][0] >= 0 && y + directions[i][0] < GRID_LEN && x + directions[i][1] >= 0 && x + directions[i][1] < GRID_LEN && board[y + directions[i][0]][x + directions[i][1]] != null)
       {
-          swap(board, board[y][x], board[y + directions[i][0]][x + directions[i][1]]);
+          gameBoard.swap(board[y][x], board[y + directions[i][0]][x + directions[i][1]]);
       }
     }
     return swap;
   }
   
-   void swap(Sweet[][] board, Sweet s1, Sweet s2) 
- {
-   board[s1.getY()][s1.getX()] = s2;
-   board[s2.getY()][s2.getX()] = s1;
-   int tempX = s1.getX();
-   int tempY = s1.getY();
-   s1.setX(s2.getX());
-   s1.setY(s2.getY());
-   s2.setX(tempX);
-   s2.setY(tempY);
- }
   ArrayList<int[]> scanNeighbors(int x, int y)
   {
     Sweet[][] board = gameBoard.board;
