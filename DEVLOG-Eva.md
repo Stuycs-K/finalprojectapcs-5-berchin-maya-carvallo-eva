@@ -27,3 +27,12 @@ worked on filling out more things in board, and Level.
 
 ### 2025-5-30 -
 worked on shuffle in board
+
+### 2025-6-1 -
+worked on shuffle and swap and canSwap, and helped finalize program for showing
+
+### 2025-6-2 -
+worked on fixing bug with shuffle and canSwap
+
+### 2025-6-3 -
+fixed bug with canSwap, will fix other bug for index out of bounds
