@@ -43,6 +43,8 @@ public class Board
  
  void swap(Sweet s1, Sweet s2) 
  {
+   if (s1 != null && s2 != null)
+   {
    board[s1.getY()][s1.getX()] = s2;
    board[s2.getY()][s2.getX()] = s1;
    int tempX = s1.getX();
@@ -52,6 +54,7 @@ public class Board
    s2.setX(tempX);
    s2.setY(tempY);
    display();
+   }
  }
  
  void animateFail(Sweet s1, Sweet s2)
