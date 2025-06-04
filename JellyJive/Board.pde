@@ -198,21 +198,7 @@ public class Board
  
  ArrayList<Sweet> genNewCandy()
  {
-   System.out.print("Are nulls (genNewCandyCalled) (should be true): ");
-   boolean areNulls = false;
-   for (Sweet[] row : board)
-     for (Sweet s : row)
-       if (! areNulls && s == null)
-         areNulls = true;
-   System.out.println(areNulls);
    animateCandyFall();
-   System.out.print("Are nulls (animateCandyFall first called) (should be false): ");
-   areNulls = false;
-   for (Sweet[] row : board)
-     for (Sweet s : row)
-       if (! areNulls && s == null)
-         areNulls = true;
-   System.out.println(areNulls);
    ArrayList<Sweet> broken = new ArrayList<Sweet>();
    ArrayList<Sweet> newBroken = findToBreak();
    while (newBroken.size() > 0)
@@ -222,22 +208,8 @@ public class Board
        board[s.getY()][s.getX()] = null;
      broken.addAll(newBroken);
      animateCandyFall();
-     System.out.print("Are nulls (animate called in loop) (should be false): ");
-     areNulls = false;
-   for (Sweet[] row : board)
-     for (Sweet s : row)
-       if (! areNulls && s == null)
-         areNulls = true;
-   System.out.println(areNulls);
      newBroken = findToBreak();
    }
-   System.out.print("Are null (function about to end): ");
-   areNulls = false;
-   for (Sweet[] row : board)
-     for (Sweet s : row)
-       if (! areNulls && s == null)
-         areNulls = true;
-   System.out.println(areNulls);
    return broken;
  }
  
@@ -263,11 +235,15 @@ public class Board
          candyFell = true; //<>//
        }
    //gen new candies for row 0
+   boolean addedTopCandy = false;
    for (int col = 0; col < board[0].length; col++) //<>//
      if (board[0][col] == null) //<>//
+     {
        board[0][col] = randCandy(col,0); //<>//
+       addedTopCandy = true;
+     }
    //if any candy fell, recurse
-   if (candyFell) //<>//
+   if (candyFell || addedTopCandy) //<>//
      animateCandyFall(); //<>//
  }
  
