@@ -214,15 +214,7 @@ public class Board
  }
  
  void animateCandyFall()
- {
-   display(); //<>//
-   //wait a moment for animation purposes
-   /*
-   try
-   {
-     Thread.sleep(200);
-   } catch (InterruptedException e) 
-   {}*/
+ { //<>//
    boolean candyFell = false; //<>//
    //search for candies atop null and bring them down one slot
    for (int row = board.length-2; row >= 0; row--)
@@ -242,9 +234,21 @@ public class Board
        board[0][col] = randCandy(col,0); //<>//
        addedTopCandy = true;
      }
+   display();
+   System.out.println("Displayed");
+   //wait a moment for animation purposes
    //if any candy fell, recurse
    if (candyFell || addedTopCandy) //<>//
+   {
+     try
+     {
+       Thread.sleep(200);
+     } catch (InterruptedException e) 
+     {
+       System.out.println("Interrupted (???)");
+     }
      animateCandyFall(); //<>//
+   }
  }
  
  void shuffle()
