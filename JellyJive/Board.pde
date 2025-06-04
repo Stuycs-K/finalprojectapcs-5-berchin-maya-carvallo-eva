@@ -29,12 +29,12 @@ public class Board
    if (s1 == null || ! s1.isSwappable())
      return false;
    s1.setInMotion();
-   display();
+   activeLevel.display();
    s1.displayMotion(x,y);
    if (s2 != null && ! s2.isSwappable()) 
    {
      s1.setStill();
-     display();
+     activeLevel.display();
    }
    else if (s2 != null)
      return true;
@@ -73,6 +73,8 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
+       if(board[i][j] == null)
+         System.out.println(j + " " + i);
        if (board[i][j].getName().equals(board[i][j - 1].getName()) && board[i][j].isSwappable()) //chocolates don't count
        {
          count++;
@@ -105,6 +107,8 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
+       if(board[j][i] == null)
+         System.out.println(i + " " + j);
        if (board[j][i].getName().equals(board[j - 1][i].getName()) && board[j][i].isSwappable()) //chocolates don't count
        {
          count++;
@@ -213,33 +217,41 @@ public class Board
  }
  
  void animateCandyFall()
- {
-   display();
-   //wait a moment for animation purposes
-   /*
-   try
-   {
-     Thread.sleep(200);
-   } catch (InterruptedException e) 
-   {}*/
-   boolean candyFell = false;
+ { //<>//
+   boolean candyFell = false; //<>//
    //search for candies atop null and bring them down one slot
    for (int row = board.length-2; row >= 0; row--)
      for (int col = 0; col < board[row].length; col++)
        if (board[row+1][col] == null && board[row][col] != null)
        {
-         board[row][col].setY(board[row][col].getY()+1);
-         board[row+1][col] = board[row][col];
-         board[row][col] = null;
-         candyFell = true;
+         board[row][col].setY(board[row][col].getY()+1); //<>//
+         board[row+1][col] = board[row][col]; //<>//
+         board[row][col] = null; //<>//
+         candyFell = true; //<>//
        }
    //gen new candies for row 0
-   for (int col = 0; col < board[0].length; col++)
-     if (board[0][col] == null)
-       board[0][col] = randCandy(col,0);
+   boolean addedTopCandy = false;
+   for (int col = 0; col < board[0].length; col++) //<>//
+     if (board[0][col] == null) //<>//
+     {
+       board[0][col] = randCandy(col,0); //<>//
+       addedTopCandy = true;
+     }
+   display();
+   System.out.println("Displayed");
+   //wait a moment for animation purposes
    //if any candy fell, recurse
-   if (candyFell)
-     animateCandyFall();
+   if (candyFell || addedTopCandy) //<>//
+   {
+     try
+     {
+       Thread.sleep(200);
+     } catch (InterruptedException e) 
+     {
+       System.out.println("Interrupted (???)");
+     }
+     animateCandyFall(); //<>//
+   }
  }
  
  void shuffle()
@@ -294,11 +306,11 @@ public class Board
  
  Sweet hoveringOver(int x, int y) 
  {
-   if (x < xPadding || x > xPadding + boardLen || y < yPadding || y > yPadding + boardLen)
-     return null;
    int sweetY = (y-yPadding)/GRID_LEN;
    int sweetX = (x-xPadding)/GRID_LEN;
-   return gameBoard.board[sweetY][sweetX];
+   if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
+     return gameBoard.board[sweetY][sweetX];
+   return null;
  }
  
  void display()

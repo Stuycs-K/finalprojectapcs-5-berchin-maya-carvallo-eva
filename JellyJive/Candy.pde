@@ -73,9 +73,12 @@ class Candy extends Sweet
   
   void displayMotion(int rawX, int rawY)
   {
-    fill(this.getColor());
-    //draw different shapes later
-    circle(rawX, rawY, GRID_LEN*.6);
+    if (isInMotion())
+    {
+      fill(this.getColor());
+      //draw different shapes later
+      circle(rawX, rawY, GRID_LEN*.6);
+    }
   }
   
   void animateBreak() {}
