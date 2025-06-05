@@ -1,7 +1,7 @@
 public class Board
 {
  
- public final int boardLen = GRID_LEN * GRID_SIZE;
+ public final int boardLen = SQUARE_LEN * GRID_SIZE;
  public final int xPadding = (width-boardLen)/2;
  public final int yPadding = (height-boardLen)/2;
    
@@ -308,8 +308,8 @@ public class Board
  
  Sweet hoveringOver(int x, int y) 
  {
-   int sweetY = (y-yPadding)/GRID_LEN;
-   int sweetX = (x-xPadding)/GRID_LEN;
+   int sweetY = (y-yPadding)/SQUARE_LEN;
+   int sweetX = (x-xPadding)/SQUARE_LEN;
    if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
      return gameBoard.board[sweetY][sweetX];
    return null;
