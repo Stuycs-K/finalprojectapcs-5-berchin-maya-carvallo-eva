@@ -1,7 +1,7 @@
 public class Board
 {
  
- public final int boardLen = GRID_LEN * GRID_SIZE;
+ public final int boardLen = SQUARE_LEN * GRID_SIZE;
  public final int xPadding = (width-boardLen)/2;
  public final int yPadding = (height-boardLen)/2;
    
@@ -214,43 +214,45 @@ public class Board
      newBroken = findToBreak();
    }
    return broken;
- }
- 
+ } //<>//
+  //<>//
  void animateCandyFall()
- { //<>//
-   boolean candyFell = false; //<>//
+ { 
+   boolean candyFell = false; 
    //search for candies atop null and bring them down one slot
    for (int row = board.length-2; row >= 0; row--)
-     for (int col = 0; col < board[row].length; col++)
-       if (board[row+1][col] == null && board[row][col] != null)
-       {
-         board[row][col].setY(board[row][col].getY()+1); //<>//
-         board[row+1][col] = board[row][col]; //<>//
-         board[row][col] = null; //<>//
-         candyFell = true; //<>//
-       }
-   //gen new candies for row 0
+     for (int col = 0; col < board[row].length; col++) //<>//
+       if (board[row+1][col] == null && board[row][col] != null) //<>//
+       { //<>//
+         board[row][col].setY(board[row][col].getY()+1);  //<>//
+         board[row+1][col] = board[row][col]; 
+         board[row][col] = null; 
+         candyFell = true; 
+       } //<>//
+   //gen new candies for row 0 //<>//
    boolean addedTopCandy = false;
-   for (int col = 0; col < board[0].length; col++) //<>//
-     if (board[0][col] == null) //<>//
+   for (int col = 0; col < board[0].length; col++)  //<>//
+     if (board[0][col] == null) 
      {
-       board[0][col] = randCandy(col,0); //<>//
+       board[0][col] = randCandy(col,0); 
        addedTopCandy = true;
      }
    display();
-   System.out.println("Displayed");
+   System.out.println("Displayed"); //<>//
    //wait a moment for animation purposes
    //if any candy fell, recurse
-   if (candyFell || addedTopCandy) //<>//
+   if (candyFell || addedTopCandy) 
    {
+     /*
      try
      {
        Thread.sleep(200);
-     } catch (InterruptedException e) 
+     } catch (InterruptedException e)  //<>//
      {
        System.out.println("Interrupted (???)");
      }
-     animateCandyFall(); //<>//
+     */
+     animateCandyFall(); 
    }
  }
  
@@ -306,8 +308,8 @@ public class Board
  
  Sweet hoveringOver(int x, int y) 
  {
-   int sweetY = (y-yPadding)/GRID_LEN;
-   int sweetX = (x-xPadding)/GRID_LEN;
+   int sweetY = (y-yPadding)/SQUARE_LEN;
+   int sweetX = (x-xPadding)/SQUARE_LEN;
    if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
      return gameBoard.board[sweetY][sweetX];
    return null;

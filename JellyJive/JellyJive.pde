@@ -1,5 +1,5 @@
 //display fields
-public int GRID_LEN; //LATER, CUSTOMIZE PER LEVEL
+public int SQUARE_LEN; //LATER, CUSTOMIZE PER LEVEL
 public int GRID_SIZE;
 public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
 public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
@@ -24,7 +24,7 @@ private Button cancelQuit;
 void setup()
 {
   size(980, 980);
-  GRID_LEN = 80;
+  SQUARE_LEN = 80;
   GRID_SIZE = 6; //LATER, CUSTOMIZE PER LEVEL
   
   //initialize certain vars to match up with main menu

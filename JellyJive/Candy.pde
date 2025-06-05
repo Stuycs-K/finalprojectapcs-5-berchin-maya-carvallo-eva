@@ -68,7 +68,7 @@ class Candy extends Sweet
     fill(this.getColor());
     //draw different shapes later
     //get coord in board, multiply by grid size to place correctly, add gridsize/2 to center, add padding so it appears on the board instead of screen edge
-    circle(this.getX()*GRID_LEN+GRID_LEN/2+xPadding,this.getY()*GRID_LEN+GRID_LEN/2+yPadding,GRID_LEN*.6);
+    circle(this.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding,this.getY()*SQUARE_LEN+SQUARE_LEN/2+yPadding,SQUARE_LEN*.6);
   }
   
   void displayMotion(int rawX, int rawY)
@@ -77,7 +77,7 @@ class Candy extends Sweet
     {
       fill(this.getColor());
       //draw different shapes later
-      circle(rawX, rawY, GRID_LEN*.6);
+      circle(rawX, rawY, SQUARE_LEN*.6);
     }
   }
   
