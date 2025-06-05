@@ -20,6 +20,14 @@ private Button back;
 private Button retry;
 private Button main;
 private Button cancelQuit;
+//animation bools and other vars
+private int animFrames;
+private ArrayList<Sweet> brokenBySwapTemp;
+private ArrayList<Sweet> brokenBySwapTotal = new ArrayList<Sweet>();
+private ArrayList<Sweet> toFall = new ArrayList<Sweet>();
+private boolean updateCandyPos = false;
+private boolean animCandiesFalling;
+private boolean animCandiesBreaking;
 
 void setup()
 {
@@ -34,6 +42,10 @@ void setup()
   validT2s = new ArrayList<Sweet>();
   targetsSwapped = false;
   activelyPlaying = false;
+  brokenBySwapTemp = new ArrayList<Sweet>();
+  animFrames = 0;
+  animCandiesBreaking = false;
+  animCandiesFalling = false;
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
@@ -77,7 +89,56 @@ void displayMain()
 
 void draw()
 {
- 
+  //handle candies being broken
+  if (animCandiesBreaking)
+  {
+    gameBoard.breakAll(brokenBySwapTemp);
+    gameBoard.animateAllBreaking(brokenBySwapTemp); //expand into actual animation
+    brokenBySwapTotal.addAll(brokenBySwapTemp);
+    brokenBySwapTemp = new ArrayList<Sweet>();
+    animCandiesBreaking = false;
+    updateCandyPos = true;
+    gameBoard.display();
+  }
+  //update candy positions
+  if (updateCandyPos)
+  {
+    toFall = gameBoard.updateCandyPositions();
+    updateCandyPos = false;
+    if (toFall.size() > 0)
+      animCandiesFalling = true;
+    //toFall.size() == 0, nothing to fall
+    else
+    {
+      gameBoard.display();
+      brokenBySwapTemp = gameBoard.findToBreak();
+      if (brokenBySwapTemp.size() > 0)
+        animCandiesBreaking = true;
+      else
+        activeLevel.keepPlaying(brokenBySwapTotal);
+    }
+  }
+  //handle new candies falling
+  if (animCandiesFalling)
+  {
+    if (toFall.size() > 0)
+    {
+      if (animFrames*5 < SQUARE_LEN)
+      {
+        gameBoard.display();
+        gameBoard.animateCandyFall(toFall, animFrames*5);
+        animFrames++;
+      }
+      else
+      {
+        animFrames = 0;
+        animCandiesFalling = false;
+        updateCandyPos = true;
+        for (Sweet s : toFall)
+          s.setStill();
+      }
+    }
+  }
 }
 
 void playLevel(Level playL)
@@ -156,9 +217,9 @@ void mouseDragged()
       targetsSwapped = true;
       target1.setStill();
     }
+    activeLevel.display();
+    target1.displayMotion(mouseX, mouseY);
   }
-  activeLevel.display();
-  target1.displayMotion(mouseX, mouseY);
 }
 
 void mouseReleased() //handle candy swaps
@@ -168,11 +229,11 @@ void mouseReleased() //handle candy swaps
     if (target1 != null && target1.isInMotion())
       target1.setStill();
     activeLevel.display();
-    ArrayList<Sweet> broken = gameBoard.findToBreak();
-    if (broken.size() == 0)
-      gameBoard.animateFail(target1, target2);
+    brokenBySwapTemp = gameBoard.findToBreak();
+    if (brokenBySwapTemp.size() > 0)
+      animCandiesBreaking = true;
     else
-      activeLevel.keepPlaying(broken);
+      gameBoard.animateFail(target1, target2);
     target1 = null;
     target2 = null;
     validT2s = new ArrayList<Sweet>();
