@@ -75,6 +75,10 @@ abstract class Level{
     //display board
     board.display();
     back.displayButton();
+    textSize(50);
+    fill(0, 0, 0);
+    text("Goal XP: " + GOALXP, 650, 100); 
+    text("Current XP: " + XP, 650, 150); 
   }
   
   void changeDifficulty(int dif)
@@ -105,7 +109,7 @@ abstract class Level{
   {
     if (xp >= 0)
     {
-      XP+=xp;
+      XP= XP + (xp * 5);
     }
   }
 

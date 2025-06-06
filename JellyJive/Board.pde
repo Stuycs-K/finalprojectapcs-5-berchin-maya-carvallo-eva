@@ -53,6 +53,7 @@ public class Board
    s1.setY(s2.getY());
    s2.setX(tempX);
    s2.setY(tempY);
+   activeLevel.addXP(findToBreak().size());
    display();
    }
  }
