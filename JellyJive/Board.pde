@@ -80,7 +80,7 @@ public class Board
        {
          if (count >= 3)
          {
-           for (int x = 0; x < count; x++)
+           for (int x = 1; x <= count; x++)
            {
              result.add(board[i][j - x]);
            }
@@ -114,7 +114,7 @@ public class Board
        {
          if (count >= 3)
          {
-           for (int x = 0; x < count; x++)
+           for (int x = 1; x <= count; x++)
            {
              result.add(board[j - x][i]);
            }
