@@ -23,35 +23,12 @@ abstract class Level{
   
   void keepPlaying(ArrayList<Sweet> brokenBySwap)
   {
-    //loop:
-    while (brokenBySwap.size() > 0)
+    //process xp from input here
+    if (! board.areSwaps())
     {
-      board.animateAllBreaking(brokenBySwap);
-      for (Sweet s: brokenBySwap)
-      {
-        //check if this sweet is a jelly
-        if (board.jellies.indexOf(s) != -1)
-        {
-          Jelly thisSweet = board.jellies.get(board.jellies.indexOf(s));
-          thisSweet.sublayer();
-          if (thisSweet.getLayers() == 0)
-          {
-            board.jellies.remove(thisSweet);
-            board.board[s.getY()][s.getX()] = null;
-          }
-        }
-        else
-          board.board[s.getY()][s.getX()] = null;
-      }
-      brokenBySwap = new ArrayList<Sweet>();
-      brokenBySwap.addAll(board.genNewCandy());
+      board.shuffle();
       display();
-      if (! board.areSwaps())
-      {
-        board.shuffle();
-        display();
-        brokenBySwap.addAll(board.findToBreak());
-      }
+      brokenBySwap.addAll(board.findToBreak());
     }
     //moves--, check if fulfilledReq(), win/lose
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
