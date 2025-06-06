@@ -56,7 +56,7 @@ abstract class Level{
     //moves--, check if fulfilledReq(), win/lose
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
     movesLeft--;
-    if (fulfilledReq())
+    if (XP >= GOALXP)
     {
        won(); 
     }

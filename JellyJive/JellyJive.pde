@@ -55,7 +55,7 @@ void setup()
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
-  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
+  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 100, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
   };
 }
 
