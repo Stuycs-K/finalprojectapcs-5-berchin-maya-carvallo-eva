@@ -18,10 +18,7 @@ public class Board
    for (Chocolate c : chocolates) 
      board[c.getY()][c.getX()] = c;
    //now, fill in the rest with randomly generated candies
-   for (int row = board.length-1; row >= 0; row--)
-     for (int col = 0; col < board[row].length; col++)
-       if (board[row][col] == null)
-         genNewBoard();
+   genNewBoard();
  }
  
  boolean animateSwap(Sweet s1, Sweet s2, int x, int y) //returns whether it's time to make the swap
@@ -202,7 +199,6 @@ public class Board
  
  ArrayList<Sweet> genNewCandy()
  {
-   animateCandyFall();
    ArrayList<Sweet> broken = new ArrayList<Sweet>();
    ArrayList<Sweet> newBroken = findToBreak();
    while (newBroken.size() > 0)
@@ -211,50 +207,46 @@ public class Board
      for (Sweet s : newBroken)
        board[s.getY()][s.getX()] = null;
      broken.addAll(newBroken);
-     animateCandyFall();
      newBroken = findToBreak();
    }
    return broken;
- } //<>//
-  //<>//
- void animateCandyFall()
- { 
-   boolean candyFell = false; 
+ } 
+  
+  void animateCandyFall(ArrayList<Sweet> toFall, int frameNum)
+  { 
+    for (Sweet s : toFall)
+    {
+      int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding;
+      int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum;
+      float radius = SQUARE_LEN * .3;
+      if (rawY - radius > yPadding)
+        s.displayMotion(rawX,rawY);
+    }
+  }
+ 
+ ArrayList<Sweet> updateCandyPositions()
+ {
+   ArrayList<Sweet> toFall = new ArrayList<Sweet>(); 
    //search for candies atop null and bring them down one slot
    for (int row = board.length-2; row >= 0; row--)
-     for (int col = 0; col < board[row].length; col++) //<>//
-       if (board[row+1][col] == null && board[row][col] != null) //<>//
-       { //<>//
-         board[row][col].setY(board[row][col].getY()+1);  //<>//
+     for (int col = 0; col < board[row].length; col++) 
+       if (board[row+1][col] == null && board[row][col] != null) 
+       { 
+         toFall.add(board[row][col]); 
+         board[row][col].setInMotion();
+         board[row][col].setY(board[row][col].getY()+1);  
          board[row+1][col] = board[row][col]; 
          board[row][col] = null; 
-         candyFell = true; 
-       } //<>//
-   //gen new candies for row 0 //<>//
-   boolean addedTopCandy = false;
-   for (int col = 0; col < board[0].length; col++)  //<>//
+       } 
+   //gen new candies for row 0 
+   for (int col = 0; col < board[0].length; col++)  
      if (board[0][col] == null) 
      {
        board[0][col] = randCandy(col,0); 
-       addedTopCandy = true;
+       board[0][col].setInMotion();
+       toFall.add(board[0][col]); 
      }
-   display();
-   System.out.println("Displayed"); //<>//
-   //wait a moment for animation purposes
-   //if any candy fell, recurse
-   if (candyFell || addedTopCandy) 
-   {
-     /*
-     try
-     {
-       Thread.sleep(200);
-     } catch (InterruptedException e)  //<>//
-     {
-       System.out.println("Interrupted (???)");
-     }
-     */
-     animateCandyFall(); 
-   }
+   return toFall;
  }
  
  void shuffle()
@@ -285,52 +277,75 @@ public class Board
     }
     genNewBoard();
   }
+  
+  void breakAll(ArrayList<Sweet> toBreak)
+  {
+    for (Sweet s : toBreak)
+    {
+      //check if this sweet is a jelly
+      if (jellies.indexOf(s) != -1)
+      {
+        Jelly thisSweet = jellies.get(jellies.indexOf(s));
+        thisSweet.sublayer();
+        if (thisSweet.getLayers() == 0)
+        {
+          jellies.remove(thisSweet);
+          board[s.getY()][s.getX()] = null;
+        }
+      }
+      //regular sweet (candy, chocolate, etc)
+      else
+        gameBoard.board[s.getY()][s.getX()] = null;
+    }
+  }
  
- void animateAllBreaking(ArrayList<Sweet> toBreak)
- {
-   //code
-   //loop through all sweets, break by ticks
- }
+  void animateAllBreaking(ArrayList<Sweet> toBreak)
+  {
+    //code
+    //loop through all sweets, break by ticks
+  }
 
- boolean areSwaps()
- {
-     for (int i = 0; i < board.length; i++)
-     {
+  boolean areSwaps()
+  {
+    for (int i = 0; i < board.length; i++)
+      {
         for (int j = 0; j < board[i].length; j++)
         {
           if (board[i][j].canSwap())
           {
-             return true; 
+            return true; 
           }
         }
-     }
-   return false;
- }
+      }
+    return false;
+  }
  
- Sweet hoveringOver(int x, int y) 
- {
-   int sweetY = (y-yPadding)/SQUARE_LEN;
-   int sweetX = (x-xPadding)/SQUARE_LEN;
-   if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
-     return gameBoard.board[sweetY][sweetX];
-   return null;
- }
- 
- void display()
- {
-   //account for padding later
-   fill(color(120,215,225)); //change to better color
-   rect(xPadding, yPadding, boardLen, boardLen, 20);
-   //make lines to separate different squares in grid
-   //now display actual contents of board
-   //start with jelly, since that's under the sweets
-   for (Jelly j : jellies)
-     j.display(xPadding, yPadding);
-   //now the other sweets
-   for (Sweet[] row : board)
-     for (Sweet s : row)
-       if (!(s == null) && !(s.isInMotion()))
-         s.display(xPadding, yPadding);
- }
+  Sweet hoveringOver(int x, int y) 
+  {
+    int sweetY = (y-yPadding)/SQUARE_LEN;
+    int sweetX = (x-xPadding)/SQUARE_LEN;
+    if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
+      return gameBoard.board[sweetY][sweetX];
+    return null;
+  }
+  
+  void display()
+  {
+    //account for padding later
+    fill(color(120,215,225)); //change to better color
+    rect(xPadding, yPadding, boardLen, boardLen, 20);
+    //make lines to separate different squares in grid
+    //now display actual contents of board
+    //start with jelly, since that's under the sweets
+    for (Jelly j : jellies)
+      j.display(xPadding, yPadding);
+    //now the other sweets
+    for (Sweet[] row : board)
+    {
+      for (Sweet s : row)
+        if (s != null && ! s.isInMotion())
+          s.display(xPadding, yPadding); 
+    }
+  }
  
 }
