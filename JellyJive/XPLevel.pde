@@ -12,7 +12,7 @@ class XPLevel extends Level{
   
   boolean fulfilledReq()
   {
-     return XP >= GOALXP; 
+     return activeLevel.getXP() >= activeLevel.getGoalXP(); 
   }
 
 }

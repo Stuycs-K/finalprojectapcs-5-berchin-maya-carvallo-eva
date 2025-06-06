@@ -34,7 +34,7 @@ abstract class Level{
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
     addXP(brokenBySwap.size());
     movesLeft--;
-    if (XP >= GOALXP)
+    if (fulfilledReq())
     {
        win(); 
     }
@@ -137,7 +137,7 @@ abstract class Level{
     rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
     fill(255);
     textSize(24);
-    text("Try again", (width-popupWidth)/2+35, height/2);d
+    text("Try again", (width-popupWidth)/2+35, height/2);
   }
   
   abstract Level returnCopy();
