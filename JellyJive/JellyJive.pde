@@ -5,9 +5,9 @@ public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color
 public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
 //level and board
 private Level[] levels;
-private Level activeLevel;
+public Level activeLevel;
 private Level clickedLevel;
-private boolean activelyPlaying;
+public boolean activelyPlaying;
 private Board gameBoard;
 public Sweet target1;
 public Sweet target2;
@@ -28,6 +28,8 @@ private ArrayList<Sweet> toFall = new ArrayList<Sweet>();
 private boolean updateCandyPos = false;
 private boolean animCandiesFalling;
 private boolean animCandiesBreaking;
+private boolean gameWon = false;
+private boolean gameLost = false;
 
 void setup()
 {
@@ -138,6 +140,16 @@ void draw()
           s.setStill();
       }
     }
+  }
+  if (gameWon)
+  {
+    activeLevel.won();
+    endGame();
+  }
+  if (gameLost)
+  {
+    activeLevel.lost();
+    endGame();
   }
 }
 
@@ -283,4 +295,32 @@ void cancelQuit()
   back.enable();
   main.disable();
   cancelQuit.disable();
+}
+
+void wait(int waitTime)
+{
+  try
+  {
+    Thread.sleep(waitTime);
+  } catch (InterruptedException e)
+  {}
+}
+
+public void win()
+{
+  gameWon = true;
+}
+
+public void lose()
+{
+  gameLost = true;
+}
+
+void endGame()
+{
+  activeLevel = null;
+  activelyPlaying = false;
+  back.disable();
+  main.enable();
+  retry.enable();
 }
