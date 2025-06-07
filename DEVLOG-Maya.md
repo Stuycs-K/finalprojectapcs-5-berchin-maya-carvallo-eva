@@ -79,3 +79,23 @@ This document must be updated daily every time you finish a work session.
  - Back button displays when level displays
  - After each swap, level displays instead of just board displaying
  - Fixed out of bounds exception/null pointer for swap? Maybe? Bug was rare so we'll see
+
+### 2025-06-03 Worked on debugging animateCandySwap
+ - Worked on this during class
+
+### 2025-06-04 Still debugging...
+ - Fixed a NullPointerEcxeption in function genNewCandy
+ - animateCandyFall STILL doesn't work....
+ - Spent class time on this
+ 
+### 2025-06-05 FINALLY GOT ANIMATION TO WORK
+ - That took forever and it turns out I just forgot how processing works
+ - At least now I know the display is only updated during draw() and will not mess up on future animations
+ - Had to rewrite a few animate function things, write draw, and add a bunch of booleans to main tab
+ - Looked for images to replace basic candy designs
+ - Worked for about 3-4 hours
+
+### 2025-06-06
+ - Fixed minor issue in findToBreak() returning wrong candies to be broken
+ - Added code to display win/lose screens
+ - Neatened code until the end of class
