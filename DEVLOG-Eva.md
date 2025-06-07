@@ -36,3 +36,9 @@ worked on fixing bug with shuffle and canSwap
 
 ### 2025-6-3 -
 fixed bug with canSwap, will fix other bug for index out of bounds
+
+### 2025-6-4 -
+fixed index out of bounds again
+
+### 2025-6-6 -
+worked on displaying the XP and started level stuff. Then worked on debugging another null pointer exception

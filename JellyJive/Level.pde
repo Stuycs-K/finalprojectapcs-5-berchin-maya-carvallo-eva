@@ -13,7 +13,7 @@ abstract class Level{
     //fields
     XP = 0;
     GOALXP = goalXP;
-    movesLeft = 0;
+    movesLeft = maxMoves;
     this.maxMoves = maxMoves;
     difficulty = maxMoves;
     this.goal = goal;
@@ -32,8 +32,9 @@ abstract class Level{
     }
     //moves--, check if fulfilledReq(), win/lose
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
+    addXP(brokenBySwap.size());
     movesLeft--;
-    if (fulfilledReq())
+    if (XP >= GOALXP)
     {
        won(); 
     }
@@ -52,6 +53,11 @@ abstract class Level{
     //display board
     board.display();
     back.displayButton();
+    textSize(40);
+    fill(0, 0, 0);
+    text("Goal XP: " + GOALXP, 650, 50); 
+    text("Current XP: " + XP, 650, 100); 
+    text("Moves left: " + movesLeft, 650, 150); 
   }
   
   void changeDifficulty(int dif)
@@ -82,7 +88,7 @@ abstract class Level{
   {
     if (xp >= 0)
     {
-      XP+=xp;
+      XP= XP + (xp * 5);
     }
   }
 
@@ -116,6 +122,8 @@ abstract class Level{
   
   void won()
   {
+    activeLevel = null;
+    activelyPlaying = false;
     int popupWidth = 200;
     int popupHeight = 150;
     rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
@@ -130,6 +138,8 @@ abstract class Level{
   
   void lost()
   {
+    activeLevel = null;
+    activelyPlaying = false;
     int popupWidth = 200;
     int popupHeight = 150;
     rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
