@@ -79,6 +79,10 @@ abstract class Level{
     return movesLeft;
   }
   
+  void subMovesLeft()
+  {
+    movesLeft--;
+  }
   int getMaxMoves() 
   {
     return maxMoves;
