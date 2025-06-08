@@ -76,15 +76,16 @@ class Candy extends Sweet
     //set up display vars
     float radius = SQUARE_LEN*.6;
     color baseColor = this.getColor();
-    color darkColor = lerpColor(baseColor, color(0), .03);
-    color lightColor = lerpColor(baseColor, color(255), .4);
+    color darkColor = lerpColor(baseColor, color(0), .05);
+    color darkestColor = lerpColor(baseColor, color(0), .3);
+    color lightColor = lerpColor(baseColor, color(255), .3);
     //base circle
-    stroke(lightColor);
+    stroke(darkestColor);
     fill(baseColor);
     circle(rawX,rawY,radius);
     //shading
     radius *= .65;
-    stroke(darkColor);
+    stroke(lightColor);
     fill(darkColor);
     circle(rawX,rawY,radius);
   }
