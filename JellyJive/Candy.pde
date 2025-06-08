@@ -65,20 +65,28 @@ class Candy extends Sweet
   }
   
   void display(int xPadding, int yPadding) {
-    fill(this.getColor());
-    //draw different shapes later
-    //get coord in board, multiply by grid size to place correctly, add gridsize/2 to center, add padding so it appears on the board instead of screen edge
-    circle(this.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding,this.getY()*SQUARE_LEN+SQUARE_LEN/2+yPadding,SQUARE_LEN*.6);
+    int rawX = this.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding;
+    int rawY = this.getY()*SQUARE_LEN+SQUARE_LEN/2+yPadding;
+    displayRaw(rawX,rawY);
   }
   
-  void displayMotion(int rawX, int rawY)
+  
+  void displayRaw(int rawX, int rawY)
   {
-    if (isInMotion())
-    {
-      fill(this.getColor());
-      //draw different shapes later
-      circle(rawX, rawY, SQUARE_LEN*.6);
-    }
+    //set up display vars
+    float radius = SQUARE_LEN*.6;
+    color baseColor = this.getColor();
+    color darkColor = lerpColor(baseColor, color(0), .03);
+    color lightColor = lerpColor(baseColor, color(255), .4);
+    //base circle
+    stroke(lightColor);
+    fill(baseColor);
+    circle(rawX,rawY,radius);
+    //shading
+    radius *= .65;
+    stroke(darkColor);
+    fill(darkColor);
+    circle(rawX,rawY,radius);
   }
   
   void animateBreak() {}

@@ -29,7 +29,7 @@ public class Board
      return false;
    s1.setInMotion();
    activeLevel.display();
-   s1.displayMotion(x,y);
+   s1.displayRaw(x,y);
    if (s2 != null && ! s2.isSwappable()) 
    {
      s1.setStill();
@@ -221,7 +221,7 @@ public class Board
       int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum; //<>//
       float radius = SQUARE_LEN * .3;
       if (rawY - radius > yPadding)
-        s.displayMotion(rawX,rawY);
+        s.displayRaw(rawX,rawY);
     }
   }
   //<>//
