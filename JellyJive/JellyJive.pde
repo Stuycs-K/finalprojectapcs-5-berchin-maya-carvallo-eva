@@ -62,13 +62,13 @@ void setup()
   //finally, display the main menu
   displayMain(); //<>//
 }
-  ArrayList<int[]> coordinatesClear(int goalCount)
+  ArrayList<int[]> coordinatesClear(int goalCount, int maxY)
   {
     ArrayList<int[]> coordinates = new ArrayList<int[]>();
     while (coordinates.size() < goalCount)
     {
      int x = (int)(Math.random() * GRID_SIZE);
-     int y = (int)(Math.random() * GRID_SIZE);
+     int y = maxY+(int)(Math.random() * (GRID_SIZE-maxY));
      
       if (coordinates.indexOf(new int[]{x,y}) == -1)
       {
@@ -80,7 +80,7 @@ void setup()
   
   ArrayList<Jelly> generateJellies(int goalCount)
   {
-    ArrayList<int[]> coordinates = coordinatesClear(goalCount);
+    ArrayList<int[]> coordinates = coordinatesClear(goalCount,0);
     ArrayList<Jelly> jellies = new ArrayList<Jelly>();
     for (int[] cor : coordinates)
     {
@@ -90,11 +90,19 @@ void setup()
   }
     ArrayList<Chocolate> generateChocolates(int goalCount)
   {
-    ArrayList<int[]> coordinates = coordinatesClear(goalCount);
+    ArrayList<int[]> coordinates = coordinatesClear(goalCount,3);
     ArrayList<Chocolate> chocolates = new ArrayList<Chocolate>();
     for (int[] cor : coordinates)
     {
       chocolates.add(new Chocolate(cor[0], cor[1]));
+      //add chocolates below each toplayer chocolate
+      for (int cY = cor[1]+1; cY < GRID_SIZE; cY++)
+      {
+        if (coordinates.indexOf(new int[]{cor[0],cY}) == -1) //no chocolate below previous chocolate
+        {
+          chocolates.add(new Chocolate(cor[0],cY));
+        }
+      }
     }
     return chocolates;
   } 
