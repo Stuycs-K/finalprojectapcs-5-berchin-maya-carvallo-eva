@@ -5,14 +5,16 @@ abstract class Sweet{
   private boolean swappable;
   private boolean inMotion;
   private String name;
+  private color cColor;
   
-  public Sweet(int X, int Y, boolean swappable, String name)
+  public Sweet(int X, int Y, boolean swappable, String name, color c)
   {
    x = X;
    y = Y;
    this.swappable = swappable;
    this.name = name;
    inMotion = false;
+   cColor = c;
   }
   
   int getX()
@@ -40,6 +42,11 @@ abstract class Sweet{
     return name;
   }
   
+  color getColor()
+  {
+    return cColor;
+  }
+  
   void setX(int x)
   {
      this.x = x;
@@ -62,8 +69,7 @@ abstract class Sweet{
   
   void setInMotion()
   {
-    if (isSwappable())
-      inMotion = true;
+    inMotion = true;
   }
   
   void setStill()
