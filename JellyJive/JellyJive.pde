@@ -62,7 +62,7 @@ void setup()
   cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   //finally, display the main menu
-  displayMain();
+  displayMain(); //<>//
 }
   ArrayList<int[]> coordinatesClear(int goalCount)
   {
@@ -112,8 +112,7 @@ void setup()
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
-  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
-new ClearLevel(new Button(50,50,70,40,"Jelly Level"), 500, 15,new Board(new ArrayList<Chocolate>(), generateJellies(8)), true, false) };
+  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))};
 }
 
 
@@ -196,7 +195,7 @@ void draw()
     activeLevel.lost();
     endGame();
   }
-}
+  }
 
 void playLevel(Level playL)
 {

@@ -17,6 +17,8 @@ public class Board
    //first, fill in the chocolates
    for (Chocolate c : chocolates) 
      board[c.getY()][c.getX()] = c;
+   for (Jelly j : jellies) 
+     board[j.getY()][j.getX()] = j;
    //now, fill in the rest with randomly generated candies
    genNewBoard();
  }
