@@ -72,8 +72,7 @@ abstract class Sweet{
   }
   
   //OVERRIDE IN CANDY
-  void displayMotion(int rawX, int rawY){}
-  
+  void displayRaw(int rawX, int rawY){}
   abstract void display(int xPadding, int yPadding);
   abstract void animateBreak();
   

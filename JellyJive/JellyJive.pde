@@ -1,28 +1,29 @@
-//display fields
+//candy display fields
+public color[] candyColors = new color[]{color(252,204,255), color(185,255,140), color(124,255,198), color(147,224,255), color(201,199,255)};
+public String[] candyNames = new String[]{"pink", "lime", "teal", "blue", "lilac"};
+//board display fields
 public int SQUARE_LEN; //LATER, CUSTOMIZE PER LEVEL
 public int GRID_SIZE;
-public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
-public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
 //level and board
+public boolean activelyPlaying;
 private Level[] levels;
 public Level activeLevel;
 private Level clickedLevel;
-public boolean activelyPlaying;
 private Board gameBoard;
 public Sweet target1;
 public Sweet target2;
-private ArrayList<Sweet> validT2s;
+private ArrayList<Sweet> validT2s = new ArrayList<Sweet>();
 public boolean targetsSwapped;
 //buttons
-private Button credits;
-private Button xCredits;
-private Button back;
-private Button retry;
-private Button main;
-private Button cancelQuit;
+private Button credits = new Button(10,10,70,40,"CREDITS");
+private Button xCredits = new Button(10,10,70,40,"XCREDITS");
+private Button back = new Button(10,10,70,40,"BACK");
+private Button retry = new Button((width+25)/2,height/2+30,70,40,"RETRY");
+private Button cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
+private Button main = new Button(width/2-80,height/2+30,70,40,"MAIN");
 //animation bools and other vars
 private int animFrames;
-private ArrayList<Sweet> brokenBySwapTemp;
+private ArrayList<Sweet> brokenBySwapTemp = new ArrayList<Sweet>();
 private ArrayList<Sweet> brokenBySwapTotal = new ArrayList<Sweet>();
 private ArrayList<Sweet> toFall = new ArrayList<Sweet>();
 private boolean updateCandyPos = false;
@@ -39,28 +40,17 @@ void setup()
   
   //initialize certain vars to match up with main menu
   initLevels();
-  candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
-  candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
-  validT2s = new ArrayList<Sweet>();
   targetsSwapped = false;
   activelyPlaying = false;
-  brokenBySwapTemp = new ArrayList<Sweet>();
   animFrames = 0;
   animCandiesBreaking = false;
   animCandiesFalling = false;
+  
   //make certain vars null, to be modified later in program
   activeLevel = null;
   clickedLevel = null;
   target1 = null;
   target2 = null;
-  
-  //set up instances of buttons
-  credits = new Button(10,10,70,40,"CREDITS");
-  xCredits = new Button(10,10,70,40,"XCREDITS");
-  back = new Button(10,10,70,40,"BACK");
-  retry = new Button((width+25)/2,height/2+30,70,40,"RETRY");
-  cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
-  main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   
   //finally, display the main menu
   displayMain();
@@ -230,7 +220,8 @@ void mouseDragged()
       target1.setStill();
     }
     activeLevel.display();
-    target1.displayMotion(mouseX, mouseY);
+    if (target1.isInMotion())
+      target1.displayRaw(mouseX, mouseY);
   }
 }
 
