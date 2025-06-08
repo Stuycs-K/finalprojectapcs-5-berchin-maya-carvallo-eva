@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 //candy display fields
 public color[] candyColors = new color[]{color(252,204,255), color(185,255,140), color(124,255,198), color(147,224,255), color(201,199,255)};
 public String[] candyNames = new String[]{"pink", "lime", "teal", "blue", "lilac"};
@@ -67,21 +69,13 @@ void setup()
     ArrayList<int[]> coordinates = new ArrayList<int[]>();
     while (coordinates.size() < goalCount)
     {
-     int x = (int)Math.random() * GRID_SIZE;
-     int y = (int)Math.random() * GRID_SIZE;
+     int x = (int)(Math.random() * GRID_SIZE);
+     int y = (int)(Math.random() * GRID_SIZE);
      
-     boolean duplicate =  false;
-     for (int i = 0; i < coordinates.size(); i++)
-     {
-       if (coordinates.get(i)[0] == x && coordinates.get(i)[1] == y)
-       {
-        duplicate = true; 
-       }
-     }
-     if (!duplicate)
-     {
-         coordinates.add(new int[]{x, y});
-     }
+      if (coordinates.indexOf(new int[]{x,y}) == -1)
+      {
+        coordinates.add(new int[]{x,y});
+      }
     }
     return coordinates;
   }
@@ -111,7 +105,7 @@ void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
   new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
-  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()), false),
+  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 15, new Board(generateChocolates(10), generateJellies(10)), false),
   new CollectLevel(new Button(width/2, height - 600, bSideLen, bSideLen, "L3"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()), new Candy(0,0, candyNames[0], candyColors[0]), 50)
   };
 }
@@ -212,6 +206,9 @@ void playLevel(Level playL)
     l.playButton.disable();
   credits.disable();
   back.enable();
+  for (Sweet[] row : gameBoard.board)
+    System.out.println(Arrays.toString(row));
+  System.out.println();
 }
 
 void mouseClicked()
@@ -231,6 +228,12 @@ void mouseClicked()
       displayMain();
   }
   //we're not on the main menu (in a level)
+  if (activeLevel != null)
+  {
+    for (Sweet[] row : gameBoard.board)
+      System.out.println(Arrays.toString(row));
+    System.out.println();
+  }
   else if (back.wasPressed(mouseX, mouseY))
     displayBackConfirmation();
   else if (main.wasPressed(mouseX, mouseY))
