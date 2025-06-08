@@ -1,17 +1,17 @@
 class ClearLevel extends Level{
-  Sweet cGoal;
   boolean jellyGoal;
   boolean chocolateGoal;
-  public ClearLevel(Button play, int goalXP, int maxMoves, Board b, Sweet cGoal, boolean goalj, boolean goalC)
+  public ClearLevel(Button play, int goalXP, int maxMoves, Board b, boolean goalj, boolean goalC)
   {
-    super(play, "Clear all the " + cGoal.getName() + "!", goalXP, maxMoves, b);
+    super(play, "Clears!", goalXP, maxMoves, b);
+
     jellyGoal = goalj;
     chocolateGoal = goalC;
   }
   
   Level returnCopy() 
   {
-    return new ClearLevel(playButton, getGoalXP(), getMaxMoves(), board, cGoal, jellyGoal, chocolateGoal);
+    return new ClearLevel(playButton, getGoalXP(), getMaxMoves(), board, jellyGoal, chocolateGoal);
   }
   
   int getJellyLeft()
