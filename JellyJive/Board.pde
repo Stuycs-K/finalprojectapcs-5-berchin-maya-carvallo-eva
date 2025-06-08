@@ -215,25 +215,31 @@ public class Board
     {
       int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding; //<>//
       int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum; //<>//
-      float radius = SQUARE_LEN * .3; //<>//
-      if (rawY - radius > yPadding) //<>//
-        s.displayRaw(rawX,rawY);
-    }
-  }
+      float radius = SQUARE_LEN * .3; //<>// //<>//
+      if (! s.isSwappable()) //chocolate //<>//
+      {
+        //need to adjust: rect is drawn from top left corner
+        rawX -= SQUARE_LEN/2;
+        rawY -= SQUARE_LEN/2;
+      }
+      if (rawY - radius > yPadding) //<>// //<>//
+        s.displayRaw(rawX,rawY); //<>//
+    } //<>//
+  } //<>//
   //<>//
  ArrayList<Sweet> updateCandyPositions() //<>//
  { //<>// //<>//
-   ArrayList<Sweet> toFall = new ArrayList<Sweet>();  //<>// //<>//
-   //search for candies atop null and bring them down one slot //<>//
+   ArrayList<Sweet> toFall = new ArrayList<Sweet>();  //<>// //<>// //<>//
+   //search for candies atop null and bring them down one slot //<>// //<>//
    for (int row = board.length-2; row >= 0; row--) //<>//
-     for (int col = 0; col < board[row].length; col++) 
+     for (int col = 0; col < board[row].length; col++)  //<>//
        if (board[row+1][col] == null && board[row][col] != null)  //<>//
        {  //<>//
          toFall.add(board[row][col]);  //<>//
          board[row][col].setInMotion(); //<>// //<>//
          board[row][col].setY(board[row][col].getY()+1);  
          board[row+1][col] = board[row][col];  //<>//
-         board[row][col] = null; 
+         board[row][col] = null;  //<>//
        } 
    //gen new candies for row 0 
    for (int col = 0; col < board[0].length; col++)  
@@ -242,7 +248,7 @@ public class Board
        board[0][col] = randCandy(col,0);  //<>//
        board[0][col].setInMotion();
        toFall.add(board[0][col]); 
-     }
+     } //<>//
    return toFall;
  }
  
@@ -322,7 +328,8 @@ public class Board
     int sweetY = (y-yPadding)/SQUARE_LEN;
     int sweetX = (x-xPadding)/SQUARE_LEN;
     if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
-      return gameBoard.board[sweetY][sweetX];
+      if (gameBoard.board[sweetY][sweetX].isSwappable())
+        return gameBoard.board[sweetY][sweetX];
     return null;
   }
   
