@@ -111,7 +111,7 @@ void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
   new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
-  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 15, new Board(generateChocolates(10), generateJellies(10)), false),
+  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 25, new Board(generateChocolates(10), generateJellies(10)), false),
   new CollectLevel(new Button(width/2, height - 600, bSideLen, bSideLen, "L3"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()), new Candy(0,0, candyNames[0], candyColors[0]), 50)
   };
 }
@@ -216,20 +216,16 @@ void playLevel(Level playL)
 
 void mouseClicked()
 {
-  //check each level's button
-  if (activeLevel == null) {
-    // we're on the main menu
-    for (Level l : levels) 
-      if (l.playButton.wasPressed(mouseX, mouseY)) {
-        playLevel(l);
-        return;
-      }
+  for (Level l : levels) 
+    if (l.playButton.wasPressed(mouseX, mouseY)) {
+      playLevel(l);
+      return;
+    }
     //check credits button and xCredits
-    else if (credits.wasPressed(mouseX, mouseY)) 
-      credits();
-    else if (xCredits.wasPressed(mouseX, mouseY)) 
-      displayMain();
-  }
+  else if (credits.wasPressed(mouseX, mouseY)) 
+    credits();
+  else if (xCredits.wasPressed(mouseX, mouseY)) 
+    displayMain();
   //we're not on the main menu (in a level)
   else if (back.wasPressed(mouseX, mouseY))
     displayBackConfirmation();
@@ -266,7 +262,7 @@ void mouseDragged()
       if (validT2s.contains(beingHovered))
         target2 = beingHovered;
     }
-    if (beingHovered == null || (target2 != null && ((beingHovered != target1) || (beingHovered != target2))))
+    if (target1 != null && (beingHovered == null || (target2 != null && ((beingHovered != target1) || (beingHovered != target2)))))
       target1.setStill();
     if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
     {
@@ -275,7 +271,7 @@ void mouseDragged()
       target1.setStill();
     }
     activeLevel.display();
-    if (target1.isInMotion())
+    if (target1 != null && target1.isInMotion())
       target1.displayRaw(mouseX, mouseY);
   }
 }
