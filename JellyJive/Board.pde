@@ -183,7 +183,6 @@ public class Board
    for (Sweet s : breakThisRound) {
      board[s.getY()][s.getX()] = null;
      brokenCandies.add(s);
-     //LATER, USE DUPLICATES TO CHECK FOR SPECIAL CANDIES TO BE SPAWNED IN
    }
    return genNewBoard(brokenCandies);
  }
@@ -193,68 +192,53 @@ public class Board
    int colorInd = (int) (Math.random() * candyColors.length);
    return new Candy(x, y, candyNames[colorInd], candyColors[colorInd]);
  }
- 
- ArrayList<Sweet> genNewCandy()
- {
-   ArrayList<Sweet> broken = new ArrayList<Sweet>();
-   ArrayList<Sweet> newBroken = findToBreak();
-   while (newBroken.size() > 0)
-   {
-     animateAllBreaking(newBroken);
-     for (Sweet s : newBroken)
-       board[s.getY()][s.getX()] = null;
-     broken.addAll(newBroken);
-     newBroken = findToBreak();
-   }
-   return broken;
- } 
   
   void animateCandyFall(ArrayList<Sweet> toFall, int frameNum)
   { 
     for (Sweet s : toFall)
     {
-      int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding; //<>//
-      int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum; //<>//
-      float radius = SQUARE_LEN * .3; //<>// //<>// //<>//
-      if (! s.isSwappable()) //chocolate //<>// //<>//
+      int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding; 
+      int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum;   
+      if (! s.isSwappable()) //chocolate  
       {
         //need to adjust: rect is drawn from top left corner
         rawX -= SQUARE_LEN/2;
         rawY -= SQUARE_LEN/2;
       }
-      if (rawY - radius > yPadding) //<>// //<>// //<>//
-        s.displayRaw(rawX,rawY); //<>// //<>//
-    } //<>// //<>//
-  } //<>// //<>//
-  //<>//
- ArrayList<Sweet> updateCandyPositions() //<>//
- { //<>// //<>//
-   ArrayList<Sweet> toFall = new ArrayList<Sweet>();  //<>// //<>// //<>// //<>//
-   //search for candies atop null and bring them down one slot //<>// //<>// //<>//
-   for (int row = board.length-2; row >= 0; row--) //<>//
-     for (int col = 0; col < board[row].length; col++)  //<>// //<>//
-       if (board[row+1][col] == null && board[row][col] != null)  //<>//
-       {  //<>//
-         toFall.add(board[row][col]);  //<>//
-         board[row][col].setInMotion(); //<>// //<>//
+      float radius = SQUARE_LEN * .3; 
+      if (rawY - radius > yPadding)   
+        s.displayRaw(rawX,rawY);  
+    }  
+  }  
+  
+ ArrayList<Sweet> updateCandyPositions() 
+ {  
+   ArrayList<Sweet> toFall = new ArrayList<Sweet>();     
+   //search for candies atop null and bring them down one slot   
+   for (int row = board.length-2; row >= 0; row--) 
+     for (int col = 0; col < board[row].length; col++)   
+       if (board[row+1][col] == null && board[row][col] != null)  
+       {  
+         toFall.add(board[row][col]);  
+         board[row][col].setInMotion();  
          board[row][col].setY(board[row][col].getY()+1);  
-         board[row+1][col] = board[row][col];  //<>//
-         board[row][col] = null;  //<>// //<>//
+         board[row+1][col] = board[row][col];  
+         board[row][col] = null;   
        } 
    //gen new candies for row 0 
    for (int col = 0; col < board[0].length; col++)  
-     if (board[0][col] == null)  //<>//
+     if (board[0][col] == null)  
      {
-       board[0][col] = randCandy(col,0);  //<>//
+       board[0][col] = randCandy(col,0);  
        board[0][col].setInMotion();
        toFall.add(board[0][col]); 
-     } //<>// //<>//
+     }  
    return toFall;
  }
  
- void shuffle() //<>//
+ void shuffle() 
  {
-    ArrayList<int[]> coordinates = new ArrayList<int[]>(); //<>//
+    ArrayList<int[]> coordinates = new ArrayList<int[]>(); 
     for (int i = 0; i < GRID_SIZE; i++)
     {
       for (int j = 0; j < GRID_SIZE; j++)
@@ -302,10 +286,25 @@ public class Board
     }
   }
  
-  void animateAllBreaking(ArrayList<Sweet> toBreak)
+  void animateAllBreaking(ArrayList<Sweet> toBreak, int frameNum)
   {
-    //code
-    //loop through all sweets, break by ticks
+    display();
+    float ellipseWidth = SQUARE_LEN*.6/(frameNum*1.5);
+    int opacity = 100;
+    if (frameNum != 0)
+      opacity /= (frameNum*.5);
+    for (Sweet s : toBreak)
+    {
+      stroke(lerpColor(s.getColor(),color(255),.2),opacity);
+      fill(s.getColor(),opacity);
+      int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding; 
+      int rawY = s.getY()*SQUARE_LEN+SQUARE_LEN/2+yPadding; 
+      ellipse(rawX-(5*frameNum),rawY-(5*frameNum),ellipseWidth,ellipseWidth*.6);
+      ellipse(rawX+(5*frameNum),rawY-(4*frameNum),ellipseWidth,ellipseWidth*.6);
+      ellipse(rawX+(4*frameNum),rawY+(4*frameNum),ellipseWidth,ellipseWidth*.6);
+      ellipse(rawX-(3*frameNum),rawY+(5*frameNum),ellipseWidth,ellipseWidth*.6);
+      ellipse(rawX+(.5*frameNum),rawY+(.2*frameNum),ellipseWidth,ellipseWidth*.6);
+    }
   }
 
   boolean areSwaps()
@@ -353,6 +352,11 @@ public class Board
         if (s != null && ! s.isInMotion())
           s.display(xPadding, yPadding); 
     }
+  }
+  
+  Board copyBoard()
+  {
+    return new Board(chocolates,jellies);
   }
  
 }

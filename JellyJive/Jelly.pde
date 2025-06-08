@@ -4,14 +4,15 @@ class Jelly extends Sweet{
   
   public Jelly(int x, int y)
   {
-     super(x, y, false, "Jelly");
+     super(x, y, false, "jelly",color(173, 216, 230));
      layers = 3;
   }
   
   void display(int xPadding, int yPadding){
-    fill (173, 216, 230, 100);
+    fill (getColor(), 100);
     noStroke();
-    rect(xPadding + getX() * SQUARE_LEN, yPadding + getY() * SQUARE_LEN, SQUARE_LEN, SQUARE_LEN);
+    for (int l = 0; l < layers; l++)
+      rect(xPadding + getX() * SQUARE_LEN, yPadding + getY() * SQUARE_LEN, SQUARE_LEN, SQUARE_LEN,10);
   }
   
   void sublayer()

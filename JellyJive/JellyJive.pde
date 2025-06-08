@@ -60,7 +60,7 @@ void setup()
   cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   //finally, display the main menu
-  displayMain(); //<>//
+  displayMain(); 
 }
   ArrayList<int[]> coordinatesClear(int goalCount, int maxY)
   {
@@ -139,13 +139,24 @@ void draw()
   //handle candies being broken
   if (animCandiesBreaking)
   {
-    gameBoard.breakAll(brokenBySwapTemp);
-    gameBoard.animateAllBreaking(brokenBySwapTemp); //expand into actual animation
-    brokenBySwapTotal.addAll(brokenBySwapTemp);
-    brokenBySwapTemp = new ArrayList<Sweet>();
-    animCandiesBreaking = false;
-    updateCandyPos = true;
-    gameBoard.display();
+    if (animFrames < 5)
+    {
+      gameBoard.animateAllBreaking(brokenBySwapTemp,animFrames*2); //expand into actual animation
+      animFrames++;
+      //wait a minute so the user catches up with what just happened
+      try {
+        Thread.sleep(20);
+      }catch(InterruptedException e)
+      {}
+    }
+    else
+    {
+      animFrames = 0;
+      gameBoard.display();
+      animCandiesBreaking = false;
+      updateCandyPos = true;
+      brokenBySwapTemp = new ArrayList<Sweet>();
+    }
   }
   //update candy positions
   if (updateCandyPos)
@@ -160,7 +171,11 @@ void draw()
       gameBoard.display();
       brokenBySwapTemp = gameBoard.findToBreak();
       if (brokenBySwapTemp.size() > 0)
+      {
         animCandiesBreaking = true;
+        gameBoard.breakAll(brokenBySwapTemp);
+        brokenBySwapTotal.addAll(brokenBySwapTemp);
+      }
       else
         activeLevel.keepPlaying(brokenBySwapTotal);
     }
@@ -196,7 +211,7 @@ void draw()
     activeLevel.lost();
     endGame();
   }
-  }
+}
 
 void playLevel(Level playL)
 {
@@ -207,6 +222,7 @@ void playLevel(Level playL)
   activelyPlaying = true;
   //display the actual level
   playL.display();
+  gameBoard.display();
   //enable/disable the right buttons
   for (Level l: levels)
     l.playButton.disable();
@@ -285,7 +301,11 @@ void mouseReleased() //handle candy swaps
     activeLevel.display();
     brokenBySwapTemp = gameBoard.findToBreak();
     if (brokenBySwapTemp.size() > 0)
+    {
       animCandiesBreaking = true;
+      gameBoard.breakAll(brokenBySwapTemp);
+      brokenBySwapTotal.addAll(brokenBySwapTemp);
+    }
     else
       gameBoard.animateFail(target1, target2);
     target1 = null;

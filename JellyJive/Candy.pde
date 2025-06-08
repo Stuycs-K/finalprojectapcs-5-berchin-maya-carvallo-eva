@@ -1,12 +1,9 @@
 class Candy extends Sweet
 {
   
-  color cColor;
-  
-  public Candy(int x, int y, String Ccolor, color c)
+  public Candy(int x, int y, String colorName, color c)
   {
-     super(x, y, true, Ccolor);
-     cColor = c;
+     super(x, y, true, colorName,c);
   }
   
   boolean canSwap()
@@ -57,11 +54,6 @@ class Candy extends Sweet
       }
     }
     return possibilities;
-  }
-  
-  color getColor() 
-  {
-    return cColor;
   }
   
   void display(int xPadding, int yPadding) {
