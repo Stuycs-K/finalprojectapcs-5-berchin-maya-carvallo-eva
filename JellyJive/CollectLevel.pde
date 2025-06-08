@@ -53,6 +53,9 @@ class CollectLevel extends Level {
     fill(0, 0, 0);
     text("Collect " + goalSs + " pink candies", 550, 50); 
     text("# collected: " + numSs, 550, 100); 
+        text("Goal XP: " + activeLevel.getGoalXP(), 270, 50); 
+    text("Current XP: " + activeLevel.getXP(), 270, 100); 
+    text("Moves left: " + activeLevel.getMovesLeft(), 270, 150); 
   }
   
     void keepPlaying(ArrayList<Sweet> brokenBySwap)
