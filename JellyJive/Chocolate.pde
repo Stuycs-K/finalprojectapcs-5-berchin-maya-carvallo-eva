@@ -11,10 +11,5 @@ class Chocolate extends Sweet{
     rect(xPadding + getX() * SQUARE_LEN, yPadding + getY() * SQUARE_LEN, SQUARE_LEN, SQUARE_LEN);
   }
   void animateBreak(){};
-  
-  String toString()
-  {
-    return "chocolate";
-  }
  
 }

@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 //candy display fields
 public color[] candyColors = new color[]{color(252,204,255), color(185,255,140), color(124,255,198), color(147,224,255), color(201,199,255)};
 public String[] candyNames = new String[]{"pink", "lime", "teal", "blue", "lilac"};
@@ -206,9 +204,6 @@ void playLevel(Level playL)
     l.playButton.disable();
   credits.disable();
   back.enable();
-  for (Sweet[] row : gameBoard.board)
-    System.out.println(Arrays.toString(row));
-  System.out.println();
 }
 
 void mouseClicked()
@@ -228,12 +223,6 @@ void mouseClicked()
       displayMain();
   }
   //we're not on the main menu (in a level)
-  if (activeLevel != null)
-  {
-    for (Sweet[] row : gameBoard.board)
-      System.out.println(Arrays.toString(row));
-    System.out.println();
-  }
   else if (back.wasPressed(mouseX, mouseY))
     displayBackConfirmation();
   else if (main.wasPressed(mouseX, mouseY))

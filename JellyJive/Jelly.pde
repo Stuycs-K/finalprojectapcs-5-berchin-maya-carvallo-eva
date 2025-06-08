@@ -25,10 +25,5 @@ class Jelly extends Sweet{
   }
   
   void animateBreak(){}
-  
-  String toString()
-  {
-    return "jelly";
-  }
 
 }
