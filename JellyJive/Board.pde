@@ -17,8 +17,6 @@ public class Board
    //first, fill in the chocolates
    for (Chocolate c : chocolates) 
      board[c.getY()][c.getX()] = c;
-   for (Jelly j : jellies) 
-     board[j.getY()][j.getX()] = j;
    //now, fill in the rest with randomly generated candies
    genNewBoard();
  }
@@ -72,8 +70,6 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if(board[i][j] == null)
-         System.out.println(j + " " + i);
        if (board[i][j].getName().equals(board[i][j - 1].getName()) && board[i][j].isSwappable()) //chocolates don't count
        {
          count++;
@@ -106,8 +102,6 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if(board[j][i] == null)
-         System.out.println(i + " " + j);
        if (board[j][i].getName().equals(board[j - 1][i].getName()) && board[j][i].isSwappable()) //chocolates don't count
        {
          count++;
@@ -134,6 +128,7 @@ public class Board
      }
    }
    //now search for jellies and chocolates that need to be broken
+   ArrayList<Sweet> nonCandies = new ArrayList<Sweet>();
    for (Sweet s : result) 
    {
      int x = s.getX();
@@ -141,7 +136,7 @@ public class Board
      //search through jellies
      for (Jelly j : jellies)
        if (j.getX() == x && j.getY() == y)
-         result.add(j);
+         nonCandies.add(j);
      //search through the chocolates
      int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
      for (int[] thisNeighbor : directions) 
@@ -150,9 +145,10 @@ public class Board
        int neighborY = y + thisNeighbor[1];
        for (Chocolate c : chocolates)
          if (c.getX() == neighborX && c.getY() == neighborY)
-           result.add(c);
+           nonCandies.add(c);
      }
    }
+   result.addAll(nonCandies);
    return result;
  }
  
@@ -219,31 +215,31 @@ public class Board
     {
       int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding; //<>//
       int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum; //<>//
-      float radius = SQUARE_LEN * .3;
-      if (rawY - radius > yPadding)
+      float radius = SQUARE_LEN * .3; //<>//
+      if (rawY - radius > yPadding) //<>//
         s.displayRaw(rawX,rawY);
     }
   }
   //<>//
  ArrayList<Sweet> updateCandyPositions() //<>//
- { //<>//
-   ArrayList<Sweet> toFall = new ArrayList<Sweet>();  //<>//
-   //search for candies atop null and bring them down one slot
-   for (int row = board.length-2; row >= 0; row--)
+ { //<>// //<>//
+   ArrayList<Sweet> toFall = new ArrayList<Sweet>();  //<>// //<>//
+   //search for candies atop null and bring them down one slot //<>//
+   for (int row = board.length-2; row >= 0; row--) //<>//
      for (int col = 0; col < board[row].length; col++) 
        if (board[row+1][col] == null && board[row][col] != null)  //<>//
        {  //<>//
-         toFall.add(board[row][col]); 
-         board[row][col].setInMotion(); //<>//
+         toFall.add(board[row][col]);  //<>//
+         board[row][col].setInMotion(); //<>// //<>//
          board[row][col].setY(board[row][col].getY()+1);  
-         board[row+1][col] = board[row][col]; 
+         board[row+1][col] = board[row][col];  //<>//
          board[row][col] = null; 
        } 
    //gen new candies for row 0 
    for (int col = 0; col < board[0].length; col++)  
      if (board[0][col] == null)  //<>//
      {
-       board[0][col] = randCandy(col,0); 
+       board[0][col] = randCandy(col,0);  //<>//
        board[0][col].setInMotion();
        toFall.add(board[0][col]); 
      }
@@ -252,7 +248,7 @@ public class Board
  
  void shuffle() //<>//
  {
-    ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    ArrayList<int[]> coordinates = new ArrayList<int[]>(); //<>//
     for (int i = 0; i < GRID_SIZE; i++)
     {
       for (int j = 0; j < GRID_SIZE; j++)
