@@ -61,17 +61,60 @@ void setup()
   retry = new Button((width+25)/2,height/2+30,70,40,"RETRY");
   cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
-  
   //finally, display the main menu
-  displayMain();
+  displayMain(); //<>//
 }
-
+  ArrayList<int[]> coordinatesClear(int goalCount)
+  {
+    ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    while (coordinates.size() < goalCount)
+    {
+     int x = (int)Math.random() * GRID_SIZE;
+     int y = (int)Math.random() * GRID_SIZE;
+     
+     boolean duplicate =  false;
+     for (int i = 0; i < coordinates.size(); i++)
+     {
+       if (coordinates.get(i)[0] == x && coordinates.get(i)[1] == y)
+       {
+        duplicate = true; 
+       }
+     }
+     if (!duplicate)
+     {
+         coordinates.add(new int[]{x, y});
+     }
+    }
+    return coordinates;
+  }
+  
+  ArrayList<Jelly> generateJellies(int goalCount)
+  {
+    ArrayList<int[]> coordinates = coordinatesClear(goalCount);
+    ArrayList<Jelly> jellies = new ArrayList<Jelly>();
+    for (int[] cor : coordinates)
+    {
+      jellies.add(new Jelly(cor[0], cor[1]));
+    }
+    return jellies;
+  }
+    ArrayList<Chocolate> generateChocolates(int goalCount)
+  {
+    ArrayList<int[]> coordinates = coordinatesClear(goalCount);
+    ArrayList<Chocolate> chocolates = new ArrayList<Chocolate>();
+    for (int[] cor : coordinates)
+    {
+      chocolates.add(new Chocolate(cor[0], cor[1]));
+    }
+    return chocolates;
+  } 
+  
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
-  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 100, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))
-  };
+  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))};
 }
+
 
 void displayMain()
 {
@@ -87,6 +130,7 @@ void displayMain()
   xCredits.disable();
   main.disable();
   cancelQuit.disable();
+  
 }
 
 void draw()
@@ -151,7 +195,7 @@ void draw()
     activeLevel.lost();
     endGame();
   }
-}
+  }
 
 void playLevel(Level playL)
 {
@@ -323,4 +367,9 @@ void endGame()
   back.disable();
   main.enable();
   retry.enable();
+  updateCandyPos = false;
+  animCandiesFalling = false;
+  animCandiesBreaking = false;
+  gameWon = false;
+  gameLost = false;
 }

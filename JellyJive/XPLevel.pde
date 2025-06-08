@@ -9,5 +9,10 @@ class XPLevel extends Level{
   {
     return new XPLevel(playButton, getGoalXP(), getMaxMoves(), board);
   }
+  
+  boolean fulfilledReq()
+  {
+     return activeLevel.getXP() >= activeLevel.getGoalXP(); 
+  }
 
 }

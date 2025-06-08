@@ -34,13 +34,13 @@ abstract class Level{
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
     addXP(brokenBySwap.size());
     movesLeft--;
-    if (XP >= GOALXP)
+    if (fulfilledReq())
     {
-       won(); 
+       win(); 
     }
     else if (movesLeft <= 0)
     {
-       lost(); 
+       lose(); 
     }
     display();
   }
@@ -122,34 +122,22 @@ abstract class Level{
   
   void won()
   {
-    activeLevel = null;
-    activelyPlaying = false;
     int popupWidth = 200;
     int popupHeight = 150;
     rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
     fill(255);
     textSize(24);
     text("Congratulations", (width-popupWidth)/2+35, height/2);
-    //enable/disable the right buttons
-    back.disable();
-    main.enable();
-    retry.enable();
   }
   
   void lost()
   {
-    activeLevel = null;
-    activelyPlaying = false;
     int popupWidth = 200;
     int popupHeight = 150;
     rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
     fill(255);
     textSize(24);
     text("Try again", (width-popupWidth)/2+35, height/2);
-    //enable/disable the right buttons
-    back.disable();
-    main.enable();
-    retry.enable();
   }
   
   abstract Level returnCopy();

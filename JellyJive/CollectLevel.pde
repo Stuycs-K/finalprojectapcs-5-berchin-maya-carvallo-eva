@@ -16,4 +16,28 @@ class CollectLevel extends Level {
     return new CollectLevel(playButton, getGoalXP(), getMaxMoves(), board, sType, goalSs);
   }
   
+  int getGoalSs()
+  {
+    return goalSs;
+  }
+  
+  int getNumSs()
+  {
+     return numSs; 
+  }
+  
+  void addSs(int Ss)
+  {
+    numSs += Ss * 5;
+  }
+  
+  Sweet getSweetType()
+  {
+     return sType; 
+  }
+  
+  boolean fulfilledReq()
+  {
+     return numSs >= goalSs; 
+  }
 }
