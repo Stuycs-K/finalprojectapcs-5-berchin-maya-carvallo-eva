@@ -65,7 +65,51 @@ void setup()
   //finally, display the main menu
   displayMain();
 }
-
+  ArrayList<int[]> coordinatesClear(int goalCount)
+  {
+    ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    while (coordinates.size() < goalCount)
+    {
+     int x = (int)Math.random() * GRID_SIZE;
+     int y = (int)Math.random() * GRID_SIZE;
+     
+     boolean duplicate =  false;
+     for (int i = 0; i < coordinates.size(); i++)
+     {
+       if (coordinates.get(i)[0] == x && coordinates.get(i)[1] == y)
+       {
+        duplicate = true; 
+       }
+     }
+     if (!duplicate)
+     {
+         coordinates.add(new int[]{x, y});
+     }
+    }
+    return coordinates;
+  }
+  
+  ArrayList<Jelly> generateJellies(int goalCount)
+  {
+    ArrayList<int[]> coordinates = coordinatesClear(goalCount);
+    ArrayList<Jelly> jellies = new ArrayList<Jelly>();
+    for (int[] cor : coordinates)
+    {
+      jellies.add(new Jelly(cor[0], cor[1]));
+    }
+    return jellies;
+  }
+    ArrayList<Chocolate> generateChocolates(int goalCount)
+  {
+    ArrayList<int[]> coordinates = coordinatesClear(goalCount);
+    ArrayList<Chocolate> chocolates = new ArrayList<Chocolate>();
+    for (int[] cor : coordinates)
+    {
+      chocolates.add(new Chocolate(cor[0], cor[1]));
+    }
+    return chocolates;
+  } 
+  
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
