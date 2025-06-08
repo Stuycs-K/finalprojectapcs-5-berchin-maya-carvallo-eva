@@ -29,6 +29,7 @@ private ArrayList<Sweet> toFall = new ArrayList<Sweet>();
 private boolean updateCandyPos = false;
 private boolean animCandiesFalling;
 private boolean animCandiesBreaking;
+private boolean animShuffle = false;
 private boolean gameWon = false;
 private boolean gameLost = false;
 
@@ -177,7 +178,21 @@ void draw()
         brokenBySwapTotal.addAll(brokenBySwapTemp);
       }
       else
-        activeLevel.keepPlaying(brokenBySwapTotal);
+      {
+        if (! gameBoard.areSwaps())
+        {
+          animShuffle = true;
+            for (Sweet[] row : gameBoard.board)
+              for (Sweet s : row)
+                if (s.isSwappable())
+                {
+                  s.setInMotion();
+                  toFall.add(s);
+                }
+        }
+        else
+          activeLevel.keepPlaying(brokenBySwapTotal);
+      }
     }
   }
   //handle new candies falling
@@ -198,6 +213,46 @@ void draw()
         updateCandyPos = true;
         for (Sweet s : toFall)
           s.setStill();
+      }
+    }
+  }
+  if (animShuffle)
+  {
+    if (animFrames < 5)
+    {
+      gameBoard.animateAllBreaking(toFall,animFrames*2); //expand into actual animation
+      animFrames++;
+      //wait a minute so the user catches up with what just happened
+      try {
+        Thread.sleep(20);
+      }catch(InterruptedException e)
+      {}
+    }
+    else
+    {
+      animFrames = 0;
+      animShuffle = false;
+      gameBoard.shuffle();
+      gameBoard.display();
+      brokenBySwapTemp = gameBoard.findToBreak();
+      if (brokenBySwapTemp.size() > 0)
+      {
+        animCandiesBreaking = true;
+        gameBoard.breakAll(brokenBySwapTemp);
+        brokenBySwapTotal.addAll(brokenBySwapTemp);
+        for (Sweet s : toFall)
+          s.setStill();
+        toFall = new ArrayList<Sweet>();
+      }
+      else if (! gameBoard.areSwaps())
+        animShuffle = true;
+      else
+      {
+        for (Sweet s : toFall)
+          s.setStill();
+        toFall = new ArrayList<Sweet>();
+        activeLevel.keepPlaying(brokenBySwapTotal);
+        brokenBySwapTotal = new ArrayList<Sweet>();
       }
     }
   }
