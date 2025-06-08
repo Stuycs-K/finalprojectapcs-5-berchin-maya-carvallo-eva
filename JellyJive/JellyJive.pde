@@ -52,7 +52,6 @@ void setup()
   target1 = null;
   target2 = null;
   
-<<<<<<< HEAD
   //set up instances of buttons
   credits = new Button(10,10,70,40,"CREDITS");
   xCredits = new Button(10,10,70,40,"XCREDITS");
@@ -60,8 +59,6 @@ void setup()
   retry = new Button((width+25)/2,height/2+30,70,40,"RETRY");
   cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
-=======
->>>>>>> 94100f2e25f9bdb28636d00741b010b00e65293e
   //finally, display the main menu
   displayMain(); //<>//
 }
@@ -113,7 +110,10 @@ void setup()
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
-  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()))};
+  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
+  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()), false),
+  new CollectLevel(new Button(width/2, height - 600, bSideLen, bSideLen, "L3"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()), new Candy(0,0, candyNames[0], candyColors[0]), 50)
+  };
 }
 
 
