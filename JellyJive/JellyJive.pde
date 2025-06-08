@@ -1,6 +1,6 @@
 //candy display fields
-public color[] candyColors = new color[]{color(255,0,0), color(255,120,0), color(255,255,0), color(0,255,0), color(0,0,255)};
-public String[] candyNames = new String[]{"red", "orange", "yellow", "green", "blue"};
+public color[] candyColors = new color[]{color(252,204,255), color(185,255,140), color(124,255,198), color(147,224,255), color(201,199,255)};
+public String[] candyNames = new String[]{"pink", "lime", "teal", "blue", "lilac"};
 //board display fields
 public int SQUARE_LEN; //LATER, CUSTOMIZE PER LEVEL
 public int GRID_SIZE;
@@ -220,7 +220,8 @@ void mouseDragged()
       target1.setStill();
     }
     activeLevel.display();
-    target1.displayMotion(mouseX, mouseY);
+    if (target1.isInMotion())
+      target1.displayRaw(mouseX, mouseY);
   }
 }
 
