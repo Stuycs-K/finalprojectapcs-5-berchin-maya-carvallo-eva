@@ -311,6 +311,8 @@ void mouseDragged()
     }
     if (target1 != null && (beingHovered == null || (target2 != null && ((beingHovered != target1) || (beingHovered != target2)))))
       target1.setStill();
+    if (target1 != null && target2 != null && ! target2.isSwappable())
+      target1.setStill();
     if (! targetsSwapped && gameBoard.animateSwap(target1, target2, mouseX, mouseY))
     {
       gameBoard.swap(target1, target2);
