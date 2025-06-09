@@ -1,6 +1,6 @@
 class Candy extends Sweet
 {
-  
+
   public Candy(int x, int y, String colorName, color c)
   {
      super(x, y, true, colorName,c);
