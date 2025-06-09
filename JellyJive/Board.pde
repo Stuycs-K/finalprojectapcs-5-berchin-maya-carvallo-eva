@@ -59,53 +59,8 @@ public class Board
    if (s1 != null && s2 != null)
      swap(s1, s2);
  }
- 
- ArrayList<Sweet> breakStriped(Sweet s1, Sweet s2)
- {
-    ArrayList<Sweet> result = new ArrayList<Sweet>();
-    if (s2.getX() > s1.getX() || s2.getX() < s1.getX())
-    {
-      for (int i = 0; i < GRID_SIZE; i++)
-      {
-         result.add(board[s1.getY()][i]); 
-      }
-    }
-    else
-    {
-      for (int i = 0; i < GRID_SIZE; i++)
-      {
-         result.add(board[i][s1.getY()]); 
-      }
-    }
-    return result;
- }
- 
- boolean colorMatch(color c1, color c2)
- {
-    return red(c1) == red(c2) && green(c1) == green(c2) && blue(c1) == blue(c2); 
- }
- 
- ArrayList<Sweet> toBreakS(Striped st)
-  {
-    ArrayList<Sweet> result = new ArrayList<Sweet>();
-    if (st.isVertical())
-    {
-      for (int i = 0; i < GRID_SIZE; i++)
-      {
-        result.add(board[i][st.getX()]);
-      }
-    }
-    else
-    {
-      for (int i = 0; i < GRID_SIZE; i++)
-      {
-        result.add(board[st.getX()][i]);
-      }
-    }
-    return result;
-  }
   
-  ArrayList<Sweet> findToBreak() //careful to removeAll() when removing a result in case of duplicates
+  ArrayList<Sweet> findToBreak() 
  {
    ArrayList<Sweet> result = new ArrayList<Sweet>();
    //loop through rows
@@ -115,7 +70,7 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if (board[i][j].getName().equals(board[i][j - 1].getName()) && board[i][j].isSwappable()) //chocolates don't count
+       if (board[i][j].getColor()==(board[i][j - 1].getColor()) && board[i][j].isSwappable()) //chocolates don't count
        {
          count++;
        }
@@ -147,7 +102,7 @@ public class Board
      int count = 1;
      for (int j = 1; j < GRID_SIZE; j++)
      {
-       if (board[j][i].getName().equals(board[j - 1][i].getName()) && board[j][i].isSwappable()) //chocolates don't count
+       if (board[j][i].getColor()==(board[j - 1][i].getColor()) && board[j][i].isSwappable()) //chocolates don't count
        {
          count++;
        }
@@ -172,8 +127,31 @@ public class Board
        }
      }
    }
+   ArrayList<Sweet> resultTemp = new ArrayList<Sweet>();
+   //search for special candies
+   for (Sweet s : result) 
+   {
+     //striped
+     if (s.getName().contains("striped"))
+     {
+       if (s.getName().contains("vertical"))
+         for (int row = 0; row < GRID_SIZE; row++)
+           resultTemp.add(board[row][s.getX()]);
+       else
+         for (int col = 0; col < GRID_SIZE; col++)
+           resultTemp.add(board[s.getY()][col]);
+     }
+     //bomb
+     else if (s.getName().contains("bomb"))
+       for (int r = s.getY()-1; r < s.getY()+1; r++)
+         for (int c = s.getX()-1; c < s.getX()+1; c++)
+           if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE)
+             resultTemp.add(board[r][c]);
+   }
+   for (Sweet s : resultTemp)
+     if (result.indexOf(s) == -1)
+       result.add(s);
    //now search for jellies and chocolates that need to be broken
-   ArrayList<Sweet> nonCandies = new ArrayList<Sweet>();
    for (Sweet s : result) 
    {
      int x = s.getX();
@@ -181,7 +159,7 @@ public class Board
      //search through jellies
      for (Jelly j : jellies)
        if (j.getX() == x && j.getY() == y)
-         nonCandies.add(j);
+         resultTemp.add(j);
      //search through the chocolates
      int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
      for (int[] thisNeighbor : directions) 
@@ -190,10 +168,10 @@ public class Board
        int neighborY = y + thisNeighbor[1];
        for (Chocolate c : chocolates)
          if (c.getX() == neighborX && c.getY() == neighborY)
-           nonCandies.add(c);
+           resultTemp.add(c);
      }
    }
-   result.addAll(nonCandies);
+   result.addAll(resultTemp);
    return result;
  }
  
@@ -217,37 +195,37 @@ public class Board
      //but first, check if there are valid swaps on the board
      /*
      while (! areSwaps())
-     { //<>//
-       shuffle(); //<>//
+     { 
+       shuffle(); 
        breakThisRound.addAll(findToBreak());
      }
      if (breakThisRound.size() == 0) */
        return brokenCandies;
    }
-   //otherwise break the candies and genNewCandy to replace them //<>//
-   for (Sweet s : breakThisRound) { //<>//
-     board[s.getY()][s.getX()] = null; //<>//
-     brokenCandies.add(s); //<>//
+   //otherwise break the candies and genNewCandy to replace them 
+   for (Sweet s : breakThisRound) { 
+     board[s.getY()][s.getX()] = null; 
+     brokenCandies.add(s); 
    }
    return genNewBoard(brokenCandies);
  }
-  //<>//
- private Sweet randCandy(int x, int y) //<>//
+  
+ private Sweet randCandy(int x, int y) 
  {
-   int colorInd = (int) (Math.random() * candyColors.length); //<>//
+   int colorInd = (int) (Math.random() * candyColors.length); 
    int randStr = (int)(Math.random() * 10);
    int vertical = (int)(Math.random() * 2);
-   if (randStr >=1) //<>//
-   { //<>//
+   if (randStr >=1) 
+   { 
      return new Candy(x, y, candyNames[colorInd], candyColors[colorInd]);
    }
-   else if (vertical == 0) //<>//
+   else if (vertical == 0) 
    {
      return new Striped(x, y, candyColors[colorInd], true);
-   } //<>//
-   else //<>//
-   { //<>//
-     return new Striped(x, y, candyColors[colorInd], false); //<>//
+   } 
+   else 
+   { 
+     return new Striped(x, y, candyColors[colorInd], false); 
    }
  }
   
