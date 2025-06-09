@@ -42,3 +42,9 @@ fixed index out of bounds again
 
 ### 2025-6-6 -
 worked on displaying the XP and started level stuff. Then worked on debugging another null pointer exception
+
+### 2025-6-7 -
+worked on fixing levels and main menu
+
+### 2025-6-8 -
+worked on special candies and finalizing program
