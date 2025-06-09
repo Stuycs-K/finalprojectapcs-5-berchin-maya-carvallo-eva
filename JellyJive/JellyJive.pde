@@ -146,10 +146,7 @@ void draw()
       gameBoard.animateAllBreaking(brokenBySwapTemp,animFrames*2); //expand into actual animation
       animFrames++;
       //wait a minute so the user catches up with what just happened
-      try {
-        Thread.sleep(20);
-      }catch(InterruptedException e)
-      {}
+      wait(20);
     }
     else
     {
@@ -206,20 +203,14 @@ void draw()
     if (animFrames == 0)
     {
       //no more possible switches, shuffling popup
-      try {
-        Thread.sleep(1200);
-      }catch(InterruptedException e)
-      {}
+      wait(1200);
     }
     if (animFrames < 5)
     {
       gameBoard.animateAllBreaking(toFall,animFrames*2); //expand into actual animation
       animFrames++;
       //wait a minute so the user catches up with what just happened
-      try {
-        Thread.sleep(20);
-      }catch(InterruptedException e)
-      {}
+      wait(20);
     }
     else
     {
