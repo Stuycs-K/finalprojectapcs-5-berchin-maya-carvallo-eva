@@ -203,7 +203,7 @@ void draw()
   {
     if (animFrames == 0)
     {
-      //no more possible switches, shuffling popup
+      popUpTab(300,200,"No more possible switches. Shuffling...");
       wait(1200);
     }
     if (animFrames < 5)
