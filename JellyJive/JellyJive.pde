@@ -21,6 +21,8 @@ private Button back = new Button(10,10,70,40,"BACK");
 private Button retry = new Button((width+25)/2,height/2+30,70,40,"RETRY");
 private Button cancelQuit = new Button((width+25)/2,height/2+30,70,40,"CANCEL");
 private Button main = new Button(width/2-80,height/2+30,70,40,"MAIN");
+//CHEAT BUTTONS
+private Button cheatShuffle = new Button(840,200,120,40,"CHEATSHUFFLE");
 //animation bools and other vars
 private int animFrames;
 private ArrayList<Sweet> brokenBySwapTemp = new ArrayList<Sweet>();
@@ -177,6 +179,7 @@ void draw()
           candyShuffleMode();
         else
         {
+          activelyPlaying = true;
           activeLevel.keepPlaying(brokenBySwapTotal);
           brokenBySwapTotal = new ArrayList<Sweet>();
         }
@@ -208,8 +211,7 @@ void draw()
   {
     if (animFrames == 0)
     {
-      popUpTab(300,200,"No more possible switches. Shuffling...");
-      wait(1200);
+      wait(100);
     }
     if (animFrames < 5)
     {
@@ -234,10 +236,17 @@ void draw()
       {
         for (Sweet s : toFall)
           s.setStill();
+        activelyPlaying = true;
         activeLevel.keepPlaying(brokenBySwapTotal);
         brokenBySwapTotal = new ArrayList<Sweet>();
       }
     }
+  }
+  if (activeLevel != null && ! animCandiesBreaking && ! updateCandyPos && ! animCandiesFalling && ! animShuffle)
+  {
+    activelyPlaying = true;
+    back.enable();
+    cheatShuffle.enable(); //CHEAT
   }
 }
 
@@ -258,6 +267,8 @@ void playLevel(Level playL)
     l.playButton.disable();
   credits.disable();
   back.enable();
+  //CHEAT
+  cheatShuffle.enable();
 }
 
 void mouseClicked()
@@ -282,6 +293,8 @@ void mouseClicked()
     cancelQuit();
   else if (retry.wasPressed(mouseX, mouseY))
     playLevel(clickedLevel);
+  else if (cheatShuffle.wasPressed(mouseX, mouseY))
+    candyShuffleMode();
 }
 
 void mouseDragged()
@@ -386,6 +399,8 @@ void displayBackConfirmation()
   back.disable();
   main.enable();
   cancelQuit.enable();
+  //CHEAT
+  cheatShuffle.disable();
 }
 
 void cancelQuit()
@@ -397,6 +412,8 @@ void cancelQuit()
   back.enable();
   main.disable();
   cancelQuit.disable();
+  //CHEAT
+  cheatShuffle.enable();
 }
 
 void wait(int waitTime)
@@ -429,6 +446,7 @@ void endGame()
   activeLevel = null;
   activelyPlaying = false;
   back.disable();
+  cheatShuffle.disable(); //CHEAT
   main.enable();
   retry.enable();
   updateCandyPos = false;
@@ -439,6 +457,7 @@ void endGame()
 
 boolean candyBreakMode()
 {
+  activelyPlaying = false;
   animFrames = 0;
   brokenBySwapTemp = gameBoard.findToBreak();
   if (brokenBySwapTemp.size() > 0)
@@ -452,6 +471,7 @@ boolean candyBreakMode()
 
 void updatePosMode()
 {
+  activelyPlaying = false;
   animFrames = 0;
   gameBoard.display();
   updateCandyPos = true;
@@ -460,6 +480,7 @@ void updatePosMode()
 
 void candyShuffleMode()
 {
+  activelyPlaying = false;
   animFrames = 0;
   animShuffle = true;
   for (Sweet[] row : gameBoard.board)
