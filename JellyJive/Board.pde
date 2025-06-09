@@ -429,7 +429,11 @@ public class Board
   
   Board copyBoard()
   {
-    return new Board(chocolates,jellies);
+    ArrayList<Chocolate> c = new ArrayList<Chocolate>();
+    ArrayList<Jelly> j = new ArrayList<Jelly>();
+    c.addAll(chocolates);
+    j.addAll(jellies);
+    return new Board(c,j);
   }
  
 }
