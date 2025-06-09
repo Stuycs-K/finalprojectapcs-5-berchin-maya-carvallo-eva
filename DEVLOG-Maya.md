@@ -99,3 +99,21 @@ This document must be updated daily every time you finish a work session.
  - Fixed minor issue in findToBreak() returning wrong candies to be broken
  - Added code to display win/lose screens
  - Neatened code until the end of class
+
+### 2025-06-07 Worked on board display
+ - Most of the work I did was to do with displaying stuff
+ - Picked color scheme
+ - Wasted hours on photos I never ended up using for candy display
+ - Did basic candy display
+ - Found background photos
+ 
+### 2025-06-08 Finished everything. EVERYTHING.
+ - Break animation.
+ - Shuffle stuff.
+ - Win/lose screen stuff.
+ - Fixed buttons multiple times (prettier, functional, etc)
+ - Changed level display to look better
+ - Added those background images
+ - Worked on special candies: display, spawning, breaking, etc
+ - Whatever else I forgot to put here. Did like 9-10 hours of work total today?
+ - Anyway it works. Did I mention that? I never want to see this again
