@@ -422,6 +422,7 @@ public void lose()
 
 void endGame()
 {
+  image(lvlbg,0,0,width,height*1.5);
   gameEnded = true;
   animFrames = 0;
   activeLevel = null;
