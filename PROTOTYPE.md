@@ -63,9 +63,21 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **Buttons retry, main, cancelQuit**: UI for retrying a level or going back to the main menu or for deciding not to quit  
  - **Sweet target1**: The target the mouse is dragging  
  - **Sweet target2**: The sweet the mouse is dragging towards  
+ - ADDED THE FOLLOWING:
+ - **color[] candyColors, String[] candyNames**: stores all candy color options so one can be chosen using a random index
+ - **Candies targt1, target2**: candies in a swap
+ - **ArrayList<Sweet> validT2s**: all valid target2 options based on target1. AKA swappable neighbors of target1
+ - **boolean targetsSwapped**: used to find if the user has made a swap during this turn so that new targets are not selected
+ - **Button main**: displays the main menu
+ - **Button cheatShuffle: added for demo purposes, causes a shuffle to occur
+ - **ArrayList<Sweet> brokenBySwapTemp, brokenBySwapTotal, toFall**: store info on candies in need of animating throughout the turn
+ - **booleans updateCandyPos, animCandiesFalling, animCandiesBreaking, animShuffle**: all booleans to help draw() animate candy correctly
+ - **color popUpColor**: the background color used in popups like credits, back confirmation, win/lose notification, etc.
+ - **boolean gameEnded**: used to stop levels from displaying over a win/lose popup when the game ends
+ - **PImage mainbg, lvlbg**: backgrounds for main and level
 . . . . . . . .
  - **void setup()**: Set up the main menu area and display everything  
- - **void draw()**: Does nothing  
+ - **void draw()**: ~~Does nothing~~ haha that's a lie, in charge of all animations because processing!
  - **void mouseClicked()**: Check if a button has been pressed  
  - **void mouseDragged()**: Move a candy with the mouse  
  - **void mouseReleased()**: See if the swap is viable.  
@@ -77,6 +89,13 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **void mainMenu()**: Go back to the main menu after pressing main  
  - **void cancelQuit()**: Goes back to the level being played  
  - **void retry()**: Makes a new copy of the level that was attempted 
+ - ADDED THE FOLLOWING:
+ - **void initLevels()**: helper for displayMain(), initializes levels
+ - **void wait()**: Thread.sleep(input), for animation purposes
+ - **void win(), void lose()**: end the game and display a popup
+ - **void endGame()**: helper for win/lose, does everything except popup: enables the right buttons, takes care of level vars like activeLevel, etc
+ - **boolean candyBreakMode()**: returns whether draw should animate candies breaking, sets up vars to do so if that's the case
+ - **void updatePosMode(), candyShuffleMode(): set up vars for draw to update candy positions or shuffle candy, respectively.
 -----------------------------
 ***BUTTON***
  - **int x, int y**: Button top left coordinates  
@@ -92,7 +111,7 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **void displayButton()**: Draws the button in the right place and displays the right text 
 -----------------------------
 ***BOARD***
-~~ - **Sweet[][] board**: The actual board  
+~~- **Sweet[][] board**: The actual board~~
  - **ArrayList<Chocolate> chocolates**: Level may contain chocolate  
  - **ArrayList<Chocolate> jellies**: Level may contain jellies 
  - **xPadding**: for drawing board on screen
@@ -101,7 +120,7 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
 . . . . . . . .
  - **Board()**: constructor  
  - **void findSpecialCandies()**: finds special candies on board
- - **ArrayList<Sweet> genNewBoard()**: generayes a new board, or fills in candies
+ - **ArrayList<Sweet> genNewBoard()**: generates a new board, or fills in candies
  - **Sweet randCandy()**: for generating random candies, including regular colors, striped, and bombs
  - **ArrayList<Sweet> updateCandyPosition()**: updates candy positions for animation
  - **boolean areSwaps()**: Decide if there are swaps left on the board  
@@ -114,10 +133,11 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **animateAllBreaking()**: for animation of breaking candies
  - **Sweet hoveringOver()**: which candy you are on
  - **void display()**: displays candies, chocolates, and jellies in the board
- - **Board copyBoard()**:makes a copy of the big board
- - **ArrayList<Sweet> genNewCandy()**: Generate new candy to fill in all empty spots. Return a list of sweets broken by the generation of this new candy.  
+ - **Board copyBoard()**:makes a copy of the board object
+ - ~~**ArrayList<Sweet> genNewCandy()**: Generate new candy to fill in all empty spots. Return a list of sweets broken by the generation of this new candy.~~ 
+ Didn't end up needing once created updateCandyPos()  
  - **void animateCandyFall()**: Animate candy falling down one layer into an empty space.  
- - **ArrayList<explodeAgain()**: Explode bombs again. (Bombs explode twice)  
+ - ~~**ArrayList<explodeAgain()**: Explode bombs again. (Bombs explode twice)~~ decided not to implement 
 -----------------------------
 ***LEVEL***
  - **Button playButton**: Used in main tab to be the button that causes this level to be played  
@@ -128,8 +148,8 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **int goalXP**: xp for 3 stars (or win in XP level)
  - **int maxMoves**: max # of moves
  - **int movesLeft**: self explanatory
-~~ - **int[][] chocCoords**: So that we can set up board with the same placement of chocolates each time we make a copy ~~
-~~ - **int[][] jellyCoords**: So that we can set up board with the same placement of jellies each time we make a copy ~~
+~~- **int[][] chocCoords**: So that we can set up board with the same placement of chocolates each time we make a copy~~ didn't need
+~~- **int[][] jellyCoords**: So that we can set up board with the same placement of jellies each time we make a copy~~ didn't need
  . . . . . . . .
  - **Level()**: constructor  
  - **Level returnCopy()**: Returns a deep copy of a level to be stored and modified in activeLevel.  
@@ -145,7 +165,7 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **void keepPlaying()**: Decide whether the game is over  
  - **boolean fulfilledReq()**: Checks if the requirement to win has been fulfilled  
  ~~- **void win()**: Win the game! ~~
-~~ - **void lose()**: Lose the game :(  ~~
+~~- **void lose()**: Lose the game :(~~
 -----------------------------
 ***XPLEVEL***
  . . . . . . . .
@@ -155,7 +175,7 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
 -----------------------------
 ***CLEARLEVEL***
  - **boolean jellyMode**: if true, displays jellies, if not displays chocolates
-~~ - **Sweet clearGoal**: The sweet that needs to be wiped from the board~~  
+~~- **Sweet clearGoal**: The sweet that needs to be wiped from the board~~ 
  . . . . . . . .
  - **ClearLevel()**: constructor  
  - **Level returnCopy()**: see super
@@ -203,7 +223,7 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **Chocolate()**: Constructor  
  - **void display()**: see super
  - **void displayRaw()**: see super
-~~ - **void animateBreak()**: see super~~
+~~- **void animateBreak()**: see super~~
 -----------------------------
 ***JELLY***
  - **int layers**: Number of layers of jelly on this square  
@@ -222,13 +242,13 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **ArrayList<int[]> scanNeighbors()**: scans possibilities for a candy to swap
  - **void display()**: see super
  - **void displayRaw()**: see super
-~~ - **void animatebreak()**:see super ~~
+~~- **void animatebreak()**:see super~~
 -----------------------------
 ~~***COLORBOMB***~~
  . . . . . . . . 
-~~ - **colorBomb()**: constructor~~
-~~ - **void display()**: see super~~
-~~ - **void animateBreak()**: see super~~
+~~- **colorBomb()**: constructor~~
+~~- **void display()**: see super~~
+~~- **void animateBreak()**: see super~~
 -----------------------------
 ***STRIPED***
  - **color cColor**: Color of candy
@@ -239,7 +259,7 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **void display()**: see super
  - **void displayRaw()**: see super
  - **String getName()**: get name
-~~ - **void animateBreak()**: see super~~
+~~- **void animateBreak()**: see super~~
 -----------------------------
 ***BOMB***
 - **color cColor**: Bombs have color for display and swapping
@@ -252,136 +272,136 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
 -----------------------------
 ~~***ACTIVEBOMB***~~
  . . . . . . . .
-~~ - **ActiveBomb()**: Constructor~~
-~~ - **void animateTimer()**: Animate the bomb lighting up and going back to its normal color while it waits to explode~~
-~~ - **void display()**: see super~~
-~~ - **void animateBreak()**: see super~~
+~~- **ActiveBomb()**: Constructor~~
+~~- **void animateTimer()**: Animate the bomb lighting up and going back to its normal color while it waits to explode~~
+~~- **void display()**: see super~~
+~~- **void animateBreak()**: see super~~
 -----------------------------
  
 # OUTDATED: Old project design
 ![Alt text](olduml.png?raw=true "Old class hierarchy diagram" )
 	
-~~Levels will be created in the main tab.~~  
-~~The main tab is not part of the class hierarchy.~~  
+~~Levels will be created in the main tab.~~ 
+~~The main tab is not part of the class hierarchy.~~ 
 
-~~Each level has an abstract parent level. Every level needs to do certain things, such as~~  
-~~- Keeping track of/updating XP and moves left~~  
-~~- Keeping track of whether you've won/lost~~  
-~~- Deciding whether there are viable swaps on the board~~  
+~~Each level has an abstract parent level. Every level needs to do certain things, such as~~ 
+~~- Keeping track of/updating XP and moves left~~ 
+~~- Keeping track of whether you've won/lost~~ 
+~~- Deciding whether there are viable swaps on the board~~ 
 
-~~Key methods of the Level class:~~  
-~~- **makeNewBoard()** creates a new board---LEVEL TYPE SPECIFIC~~  
-~~- **genNewCandy()** generates new candy to fill in gaps left by previous moves~~  
-~~- **shuffle()** shuffles the board when no viable swaps are left~~  
-~~- **areSwaps()** ensures there are possible swaps left on the board~~  
-~~- **swap()** swaps the positions of two candies, then commences the breaking of the candies and refilling of the board.~~  
-~~Swaps can only be executed if they will result in candy breaking (3+ in a row get lined up). See canSwap() in Candy.~~  
-~~- **changeDifficulty()** is a basic way of changing the difficulty by decreasing/increasing the number of moves you have.~~  
-~~This function may get removed if enough unique levels are added, since they'll have varying difficulties.~~  
-~~- **fulfilledReq()** is level type specific and keeps track of whether the level has been beaten.~~  
-~~- If fulfilledReq(), **won()** is called to display a winning screen with stars and XP. Else if moves == 0, **lost()** is~~  
-~~called to display a screen with stars and XP.~~  
-~~- Everything named **get_()** is an accessor method~~  
-~~- **animateSwap()** animates a swap being made, **animateCandyFall()** animates the candy falling into place to fill a gap~~  
-~~- Keeping track of/updating XP and moves left~~  
-~~- Keeping track of whether you've won/lost~~  
-~~- Deciding whether there are viable swaps on the board so can shuffle board if needed~~  
+~~Key methods of the Level class:~~ 
+~~- **makeNewBoard()** creates a new board---LEVEL TYPE SPECIFIC~~ 
+~~- **genNewCandy()** generates new candy to fill in gaps left by previous moves~~ 
+~~- **shuffle()** shuffles the board when no viable swaps are left~~ 
+~~- **areSwaps()** ensures there are possible swaps left on the board~~ 
+~~- **swap()** swaps the positions of two candies, then commences the breaking of the candies and refilling of the board.~~ 
+~~Swaps can only be executed if they will result in candy breaking (3+ in a row get lined up). See canSwap() in Candy.~~ 
+~~- **changeDifficulty()** is a basic way of changing the difficulty by decreasing/increasing the number of moves you have.~~ 
+~~This function may get removed if enough unique levels are added, since they'll have varying difficulties.~~ 
+~~- **fulfilledReq()** is level type specific and keeps track of whether the level has been beaten.~~ 
+~~- If fulfilledReq(), **won()** is called to display a winning screen with stars and XP. Else if moves == 0, **lost()** is~~ 
+~~called to display a screen with stars and XP.~~ 
+~~- Everything named **get_()** is an accessor method~~ 
+~~- **animateSwap()** animates a swap being made, **animateCandyFall()** animates the candy falling into place to fill a gap~~ 
+~~- Keeping track of/updating XP and moves left~~ 
+~~- Keeping track of whether you've won/lost~~ 
+~~- Deciding whether there are viable swaps on the board so can shuffle board if needed~~ 
 
-~~Key methods of the Level class:~~  
-~~- **makeNewBoard()** creates a new board---LEVEL TYPE SPECIFIC~~  
-~~- **genNewCandy()** generates new candy to fill in gaps left by previous moves~~  
-~~- **shuffle()** shuffles the board when no viable swaps are left~~  
-~~- **areSwaps()** ensures there are possible swaps left on the board~~  
-~~- **swap()** swaps the positions of two candies, then gets rid of the candies involved and refilles the board.~~  
-~~Swaps can only be executed if they will result in candy breaking (variation of the 3 same candies, with one different candy. 3 possibilities. If those possibilities have more candies lined up, then special candies used). See canSwap() in Candy.~~  
-~~- **changeDifficulty()** is a basic way of changing the difficulty by decreasing/increasing the number of moves you have.~~  
-~~This function may get removed if enough unique levels are added, since they'll have varying difficulties.~~  
-~~- **fulfilledReq()** is level type specific and keeps track of whether the level has been beaten.~~  
-~~- If fulfilledReq(), **won()** is called to display a winning screen with stars and XP. Else if moves == 0, **lost()** is~~  
-~~called to display a screen with stars and XP. If completed with up to 3/4 of swaps, will show 3 stars. If completed with more than 3/4 of swaps but less than max, show 2 stars. If completed with max, show 1. If not completed, show 0.~~  
-~~- Everything named **get_()** is an accessor method~~  
-~~- **animateSwap()** animates a swap being made, **animateCandyFall()** animates the candy falling into place from top of board through the column to fill a gap~~  
-~~after a swap.~~  
+~~Key methods of the Level class:~~ 
+~~- **makeNewBoard()** creates a new board---LEVEL TYPE SPECIFIC~~ 
+~~- **genNewCandy()** generates new candy to fill in gaps left by previous moves~~ 
+~~- **shuffle()** shuffles the board when no viable swaps are left~~ 
+~~- **areSwaps()** ensures there are possible swaps left on the board~~ 
+~~- **swap()** swaps the positions of two candies, then gets rid of the candies involved and refilles the board.~~ 
+~~Swaps can only be executed if they will result in candy breaking (variation of the 3 same candies, with one different candy. 3 possibilities. If those possibilities have more candies lined up, then special candies used). See canSwap() in Candy.~~ 
+~~- **changeDifficulty()** is a basic way of changing the difficulty by decreasing/increasing the number of moves you have.~~ 
+~~This function may get removed if enough unique levels are added, since they'll have varying difficulties.~~ 
+~~- **fulfilledReq()** is level type specific and keeps track of whether the level has been beaten.~~ 
+~~- If fulfilledReq(), **won()** is called to display a winning screen with stars and XP. Else if moves == 0, **lost()** is~~ 
+~~called to display a screen with stars and XP. If completed with up to 3/4 of swaps, will show 3 stars. If completed with more than 3/4 of swaps but less than max, show 2 stars. If completed with max, show 1. If not completed, show 0.~~ 
+~~- Everything named **get_()** is an accessor method~~ 
+~~- **animateSwap()** animates a swap being made, **animateCandyFall()** animates the candy falling into place from top of board through the column to fill a gap~~ 
+~~after a swap.~~ 
 
-~~CHILDREN OF LEVEL:~~  
+~~CHILDREN OF LEVEL:~~ 
 
-~~XPLevel:~~  
-~~- **fulfilledReq()** returns whether the goal XP has been reached yet.~~  
+~~XPLevel:~~ 
+~~- **fulfilledReq()** returns whether the goal XP has been reached yet.~~ 
 
-~~ClearLevel:~~  
-~~- **fulfilledReq()** = clearedBoard()~~  
-~~- **clearedBoard() checks whether the board has been cleared in one swap/move.**~~  
-~~- **fulfilledReq()** returns whether the goal XP has been reached.~~  
+~~ClearLevel:~~ 
+~~- **fulfilledReq()** = clearedBoard()~~ 
+~~- **clearedBoard() checks whether the board has been cleared in one swap/move.**~~ 
+~~- **fulfilledReq()** returns whether the goal XP has been reached.~~ 
 
-~~CollectLevel:~~  
-~~- **fulfilledReq()** returns whether the goal number of candy has been reached yet.~~  
-~~- **getCType()**, **getGoalCs()**, and **getNumCs()** return the candy type (color) needing to be collected, the goal amount,~~  
-~~		and the current amount, respectively.~~  
-~~- **addCs()** adds a number of candy to the current sum.~~  
-~~- **swap()** is modified to add Cs during the swap (depending on how many Cs are broken).~~  
+~~CollectLevel:~~ 
+~~- **fulfilledReq()** returns whether the goal number of candy has been reached yet.~~ 
+~~- **getCType()**, **getGoalCs()**, and **getNumCs()** return the candy type (color) needing to be collected, the goal amount,~~ 
+~~		and the current amount, respectively.~~ 
+~~- **addCs()** adds a number of candy to the current sum.~~ 
+~~- **swap()** is modified to add Cs during the swap (depending on how many Cs are broken).~~ 
 
-~~JellyLevel:~~  
-~~- **fulfilledReq()** returns whether all jelly has been cleared.~~  
-~~- **getJellyLeft()** returns the amount of jelly left.~~  
-~~- **subJelly()** subtracts the amount of jelly left according to the counter.~~  
-~~- **swap()** is modified to subJelly() during swaps atop jellies.~~  
+~~JellyLevel:~~ 
+~~- **fulfilledReq()** returns whether all jelly has been cleared.~~ 
+~~- **getJellyLeft()** returns the amount of jelly left.~~ 
+~~- **subJelly()** subtracts the amount of jelly left according to the counter.~~ 
+~~- **swap()** is modified to subJelly() during swaps atop jellies.~~ 
 
-~~ChocolateLevel:~~  
-~~- **fulfilledReq()** returns whether all chocolate has been cleared.~~  
-~~- **getChocolateLeft()** returns the amount of jelly left.~~  
-~~- **swap()** is modified to break chocolate neighbors of swaps.~~  
-~~- **breakChocolate()** breaks the chocolate called to break in swap().~~  
-~~- **placeChocolate()** places a chocolate next to another chocolate after each move/swap. See placeAt() in Chocolate.~~  
-~~- **fulfilledReq()** returns whether all jelly has been cleared.~~  
-~~- **getJellyLeft()** returns the amount of jelly left.~~  
-~~- **subJelly()** subtracts the amount of jelly left according to the counter, but only if jellies are broken 2 times.~~  
-~~- **isBroken()** checks if jelly is touched 2 to be broken.~~  
-~~- **swap()** is modified to subJelly() during swaps with jellies.~~  
+~~ChocolateLevel:~~ 
+~~- **fulfilledReq()** returns whether all chocolate has been cleared.~~ 
+~~- **getChocolateLeft()** returns the amount of jelly left.~~ 
+~~- **swap()** is modified to break chocolate neighbors of swaps.~~ 
+~~- **breakChocolate()** breaks the chocolate called to break in swap().~~ 
+~~- **placeChocolate()** places a chocolate next to another chocolate after each move/swap. See placeAt() in Chocolate.~~ 
+~~- **fulfilledReq()** returns whether all jelly has been cleared.~~ 
+~~- **getJellyLeft()** returns the amount of jelly left.~~ 
+~~- **subJelly()** subtracts the amount of jelly left according to the counter, but only if jellies are broken 2 times.~~ 
+~~- **isBroken()** checks if jelly is touched 2 to be broken.~~ 
+~~- **swap()** is modified to subJelly() during swaps with jellies.~~ 
 
-~~ChocolateLevel:~~  
-~~- **fulfilledReq()** returns whether all chocolate has been cleared.~~  
-~~- **getChocolateLeft()** returns the amount of jelly left.~~  
-~~- **swap()** is modified to break chocolate neighbors of swaps.~~  
-~~- **breakChocolate()** breaks the chocolate called to break in swap().~~  
-~~- **placeChocolate()** places a chocolate next to another chocolate after each move/swap that doesn't break chocolate. See placeAt() in Chocolate.~~  
+~~ChocolateLevel:~~ 
+~~- **fulfilledReq()** returns whether all chocolate has been cleared.~~ 
+~~- **getChocolateLeft()** returns the amount of jelly left.~~ 
+~~- **swap()** is modified to break chocolate neighbors of swaps.~~ 
+~~- **breakChocolate()** breaks the chocolate called to break in swap().~~ 
+~~- **placeChocolate()** places a chocolate next to another chocolate after each move/swap that doesn't break chocolate. See placeAt() in Chocolate.~~ 
 
-~~Sweet:~~  
-~~- Candies are swappable; other sweets are not.~~  
-~~- **getX()** and **getY()** return the x and y coords, respectively, of the sweet.~~  
-~~- **break()** breaks the current candy and its neighbors that are lined up (if applicable).~~  
-~~- **animateBreak()** animates the current sweet breaking: SWEET TYPE SPECIFIC~~  
-~~- **display()** displays the sweet~~  
+~~Sweet:~~ 
+~~- Candies are swappable; other sweets are not.~~ 
+~~- **getX()** and **getY()** return the x and y coords, respectively, of the sweet.~~ 
+~~- **break()** breaks the current candy and its neighbors that are lined up (if applicable).~~ 
+~~- **animateBreak()** animates the current sweet breaking: SWEET TYPE SPECIFIC~~ 
+~~- **display()** displays the sweet~~ 
 
-~~CHILDREN OF SWEET:~~  
+~~CHILDREN OF SWEET:~~ 
 
-~~Chocolate:~~  
-~~- **placeAt()** returns the coordinates to place the next chocolate based on current chocolates on the board.~~  
+~~Chocolate:~~ 
+~~- **placeAt()** returns the coordinates to place the next chocolate based on current chocolates on the board.~~ 
 
-~~Jelly:~~  
-~~- **getLayers()** returns the number of layers of jelly on this square.~~  
-~~- **subLayer()** subtracts a layer of jelly from this square.~~  
-~~- **getLayers()** returns the number of layers of jelly on this square. Each jelly starts with 2.~~  
-~~- **subLayer()** subtracts a layer of jelly from this square. When 0, fully broken and can subtract jelly from counter.~~  
+~~Jelly:~~ 
+~~- **getLayers()** returns the number of layers of jelly on this square.~~ 
+~~- **subLayer()** subtracts a layer of jelly from this square.~~ 
+~~- **getLayers()** returns the number of layers of jelly on this square. Each jelly starts with 2.~~ 
+~~- **subLayer()** subtracts a layer of jelly from this square. When 0, fully broken and can subtract jelly from counter.~~ 
 
-~~Candy:~~  
-~~- **canSwap()** determines whether a swap the user is attempting to make is viable by scanning the neighbors of the~~  
-~~new x and y coords.~~  
-~~- **scanNeighbors()** scans to see if a swap would be productive/a viable move based on the neighbors of the new position.~~  
-~~- **setX()** and **setY()** are used when swapping a candy with its neighbor.~~  
-~~- **scanNeighbors()** scans to see if a swap would be a normal or special move based on the neighbors of the new position.~~  
-~~- **setX()** and **setY()** are used when swapping a candy with its neighbor.~~  
+~~Candy:~~ 
+~~- **canSwap()** determines whether a swap the user is attempting to make is viable by scanning the neighbors of the~~ 
+~~new x and y coords.~~ 
+~~- **scanNeighbors()** scans to see if a swap would be productive/a viable move based on the neighbors of the new position.~~ 
+~~- **setX()** and **setY()** are used when swapping a candy with its neighbor.~~ 
+~~- **scanNeighbors()** scans to see if a swap would be a normal or special move based on the neighbors of the new position.~~ 
+~~- **setX()** and **setY()** are used when swapping a candy with its neighbor.~~ 
 
-~~CHILDREN OF CANDY:~~  
+~~CHILDREN OF CANDY:~~ 
 
-~~Bomb:~~  
-~~- Breaks all candy around it in a 3x3 area---it is set off twice.~~  
-~~- Breaks all candy around it in a 3x3 area.~~  
+~~Bomb:~~ 
+~~- Breaks all candy around it in a 3x3 area---it is set off twice.~~ 
+~~- Breaks all candy around it in a 3x3 area.~~ 
 
-~~Striped:~~  
-~~- Breaks a whole row/column.~~  
+~~Striped:~~ 
+~~- Breaks a whole row/column.~~ 
 
-~~ColorBomb:~~  
-~~- Clears the whole board.~~  
+~~ColorBomb:~~ 
+~~- Clears the whole board.~~ 
 ~~- Clears the whole board. If completed level, will do this before showing winning screen.~~
 
  
