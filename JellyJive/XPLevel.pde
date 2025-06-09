@@ -7,7 +7,7 @@ class XPLevel extends Level{
   
   Level returnCopy() 
   {
-    return new XPLevel(playButton, getGoalXP(), getMaxMoves(), board);
+    return new XPLevel(playButton, getGoalXP(), getMaxMoves(), board.copyBoard());
   }
   
   boolean fulfilledReq()

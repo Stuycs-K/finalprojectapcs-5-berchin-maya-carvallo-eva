@@ -8,7 +8,7 @@ class ClearLevel extends Level{
   
   Level returnCopy() 
   {
-    return new ClearLevel(playButton, getGoalXP(), getMaxMoves(), board, jellyMode);
+    return new ClearLevel(playButton, getGoalXP(), getMaxMoves(), board.copyBoard(), jellyMode);
   }
   
   int getJellyLeft()

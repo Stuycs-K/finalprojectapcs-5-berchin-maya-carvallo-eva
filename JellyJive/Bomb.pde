@@ -1,11 +1,9 @@
-public class Striped extends Sweet
+public class Bomb extends Sweet
 {
-  boolean vertical;
   color cColor;
-  public Striped(int x, int y, color cColor, boolean vertical)
+  public Bomb(int x, int y, color cColor)
   {
-    super(x, y, true, "Striped", cColor);
-    this.vertical = vertical;
+    super(x, y, true, "Bomb", cColor);
   }
   
   void display(int xPadding, int yPadding)
@@ -41,12 +39,6 @@ public class Striped extends Sweet
   void animateBreak()
   {
     
-  }
-  
-  
-  boolean isVertical()
-  {
-     return vertical; 
   }
   
 }

@@ -13,7 +13,7 @@ class CollectLevel extends Level {
   
   Level returnCopy() 
   {
-    return new CollectLevel(playButton, getGoalXP(), getMaxMoves(), board, sType, goalSs);
+    return new CollectLevel(playButton, getGoalXP(), getMaxMoves(), board.copyBoard(), sType, goalSs);
   }
   
   int getGoalSs()
