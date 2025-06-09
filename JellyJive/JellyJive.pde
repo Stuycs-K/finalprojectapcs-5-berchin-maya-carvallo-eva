@@ -152,11 +152,8 @@ void draw()
     }
     else
     {
-      animFrames = 0;
-      gameBoard.display();
       animCandiesBreaking = false;
-      updateCandyPos = true;
-      brokenBySwapTemp = new ArrayList<Sweet>();
+      updatePosMode();
     }
   }
   //update candy positions
@@ -170,28 +167,15 @@ void draw()
     else
     {
       gameBoard.display();
-      brokenBySwapTemp = gameBoard.findToBreak();
-      if (brokenBySwapTemp.size() > 0)
-      {
-        animCandiesBreaking = true;
-        gameBoard.breakAll(brokenBySwapTemp);
-        brokenBySwapTotal.addAll(brokenBySwapTemp);
-      }
-      else
+      if (! candyBreakMode())
       {
         if (! gameBoard.areSwaps())
-        {
-          animShuffle = true;
-            for (Sweet[] row : gameBoard.board)
-              for (Sweet s : row)
-                if (s.isSwappable())
-                {
-                  s.setInMotion();
-                  toFall.add(s);
-                }
-        }
+          candyShuffleMode();
         else
+        {
           activeLevel.keepPlaying(brokenBySwapTotal);
+          brokenBySwapTotal = new ArrayList<Sweet>();
+        }
       }
     }
   }
@@ -210,7 +194,7 @@ void draw()
       {
         animFrames = 0;
         animCandiesFalling = false;
-        updateCandyPos = true;
+        updatePosMode();
         for (Sweet s : toFall)
           s.setStill();
       }
@@ -218,6 +202,14 @@ void draw()
   }
   if (animShuffle)
   {
+    if (animFrames == 0)
+    {
+      //no more possible switches, shuffling popup
+      try {
+        Thread.sleep(1200);
+      }catch(InterruptedException e)
+      {}
+    }
     if (animFrames < 5)
     {
       gameBoard.animateAllBreaking(toFall,animFrames*2); //expand into actual animation
@@ -230,27 +222,20 @@ void draw()
     }
     else
     {
-      animFrames = 0;
       animShuffle = false;
       gameBoard.shuffle();
       gameBoard.display();
-      brokenBySwapTemp = gameBoard.findToBreak();
-      if (brokenBySwapTemp.size() > 0)
+      if (candyBreakMode())
       {
-        animCandiesBreaking = true;
-        gameBoard.breakAll(brokenBySwapTemp);
-        brokenBySwapTotal.addAll(brokenBySwapTemp);
         for (Sweet s : toFall)
           s.setStill();
-        toFall = new ArrayList<Sweet>();
       }
       else if (! gameBoard.areSwaps())
-        animShuffle = true;
+        candyShuffleMode();
       else
       {
         for (Sweet s : toFall)
           s.setStill();
-        toFall = new ArrayList<Sweet>();
         activeLevel.keepPlaying(brokenBySwapTotal);
         brokenBySwapTotal = new ArrayList<Sweet>();
       }
@@ -355,13 +340,7 @@ void mouseReleased() //handle candy swaps
       target1.setStill();
     activeLevel.display();
     brokenBySwapTemp = gameBoard.findToBreak();
-    if (brokenBySwapTemp.size() > 0)
-    {
-      animCandiesBreaking = true;
-      gameBoard.breakAll(brokenBySwapTemp);
-      brokenBySwapTotal.addAll(brokenBySwapTemp);
-    }
-    else
+    if (! candyBreakMode())
       gameBoard.animateFail(target1, target2);
     target1 = null;
     target2 = null;
@@ -435,6 +414,7 @@ public void lose()
 
 void endGame()
 {
+  animFrames = 0;
   activeLevel = null;
   activelyPlaying = false;
   back.disable();
@@ -445,4 +425,38 @@ void endGame()
   animCandiesBreaking = false;
   gameWon = false;
   gameLost = false;
+}
+
+boolean candyBreakMode()
+{
+  animFrames = 0;
+  brokenBySwapTemp = gameBoard.findToBreak();
+  if (brokenBySwapTemp.size() > 0)
+  {
+    animCandiesBreaking = true;
+    gameBoard.breakAll(brokenBySwapTemp);
+    brokenBySwapTotal.addAll(brokenBySwapTemp);
+  }
+  return animCandiesBreaking;
+}
+
+void updatePosMode()
+{
+  animFrames = 0;
+  gameBoard.display();
+  updateCandyPos = true;
+  brokenBySwapTemp = new ArrayList<Sweet>();
+}
+
+void candyShuffleMode()
+{
+  animFrames = 0;
+  animShuffle = true;
+  for (Sweet[] row : gameBoard.board)
+    for (Sweet s : row)
+      if (s.isSwappable())
+      {
+        s.setInMotion();
+        toFall.add(s);
+      }
 }
