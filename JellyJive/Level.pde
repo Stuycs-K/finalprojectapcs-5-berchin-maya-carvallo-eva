@@ -5,18 +5,14 @@ abstract class Level{
   private int GOALXP;
   private int maxMoves;
   private int movesLeft;
-  private int difficulty;
-  private String goal;
   
-  public Level(Button play, String goal, int goalXP, int maxMoves, Board b)
+  public Level(Button play, int goalXP, int maxMoves, Board b)
   {
     //fields
     XP = 0;
     GOALXP = goalXP;
     movesLeft = maxMoves;
     this.maxMoves = maxMoves;
-    difficulty = maxMoves;
-    this.goal = goal;
     playButton = play;
     board = b;
   }
@@ -34,7 +30,8 @@ abstract class Level{
     {
        lose(); 
     }
-    display();
+    else
+      display();
   }
   
   void display()

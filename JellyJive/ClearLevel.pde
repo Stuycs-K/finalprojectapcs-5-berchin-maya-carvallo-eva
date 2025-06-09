@@ -2,7 +2,7 @@ class ClearLevel extends Level{
   boolean jellyMode;
   public ClearLevel(Button play, int goalXP, int maxMoves, Board b, boolean jellyMode)
   {
-    super(play, "Clears!", goalXP, maxMoves, b);
+    super(play, goalXP, maxMoves, b);
     this.jellyMode = jellyMode;
   }
   
@@ -20,9 +20,13 @@ class ClearLevel extends Level{
   {
     return board.chocolates.size();
   }
+  
   boolean fulfilledReq()
   {
-    return getJellyLeft() == 0 && getChocolatesLeft() == 0;
+    if (jellyMode)
+      return getJellyLeft() == 0;
+    System.out.println(getChocolatesLeft());
+    return getChocolatesLeft() == 0;
   }
   
   void display()

@@ -6,9 +6,10 @@ class CollectLevel extends Level {
   
   public CollectLevel(Button play, int goalXP, int maxMoves, Board b, Sweet s, int goalCollect)
   {
-    super(play, "Collect " + goalCollect + " " + s + "s!", goalXP, maxMoves, b);
+    super(play, goalXP, maxMoves, b);
     goalSs = goalCollect;
     numSs = 0;
+    sType = s;
   }
   
   Level returnCopy() 
@@ -49,7 +50,7 @@ class CollectLevel extends Level {
       textAlign(CENTER);
       textSize(30);
       fill(120,150,150);
-      text("Collect " + goalSs + " pink candies!", width*.38, height*.15); 
+      text("Collect " + goalSs + " " + sType + " candies!", width*.38, height*.15); 
       text("# collected: " + numSs, width*.38, height*.19); 
     }
   }
