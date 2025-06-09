@@ -61,7 +61,7 @@ public class Board
  }
   
   ArrayList<Sweet> findToBreak() 
- {
+  {
    ArrayList<Sweet> result = new ArrayList<Sweet>();
    //loop through rows
    for (int i = 0; i < GRID_SIZE; i++)
@@ -129,28 +129,8 @@ public class Board
    }
    ArrayList<Sweet> resultTemp = new ArrayList<Sweet>();
    //search for special candies
-   for (Sweet s : result) 
-   {
-     //striped
-     if (s.getName().contains("striped"))
-     {
-       if (s.getName().contains("vertical"))
-         for (int row = 0; row < GRID_SIZE; row++)
-           resultTemp.add(board[row][s.getX()]);
-       else
-         for (int col = 0; col < GRID_SIZE; col++)
-           resultTemp.add(board[s.getY()][col]);
-     }
-     //bomb
-     else if (s.getName().contains("bomb"))
-       for (int r = s.getY()-1; r < s.getY()+1; r++)
-         for (int c = s.getX()-1; c < s.getX()+1; c++)
-           if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE)
-             resultTemp.add(board[r][c]);
-   }
-   for (Sweet s : resultTemp)
-     if (result.indexOf(s) == -1)
-       result.add(s);
+   findSpecialCandies(result,resultTemp);
+   resultTemp = new ArrayList<Sweet>();
    //now search for jellies and chocolates that need to be broken
    for (Sweet s : result) 
    {
@@ -173,6 +153,38 @@ public class Board
    }
    result.addAll(resultTemp);
    return result;
+ }
+ 
+ private void findSpecialCandies(ArrayList<Sweet> fin, ArrayList<Sweet> temp)
+ {
+   for (Sweet s : fin) 
+   {
+     //striped
+     if (s.getName().contains("striped"))
+     {
+       if (s.getName().contains("vertical"))
+         for (int row = 0; row < GRID_SIZE; row++)
+           temp.add(board[row][s.getX()]);
+       else
+         for (int col = 0; col < GRID_SIZE; col++)
+           temp.add(board[s.getY()][col]);
+     }
+     //bomb
+     else if (s.getName().contains("bomb"))
+       for (int r = s.getY()-1; r < s.getY()+2; r++)
+         for (int c = s.getX()-1; c < s.getX()+2; c++)
+           if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE)
+             temp.add(board[r][c]);
+   }
+   boolean addedNew = false;
+   for (Sweet s : temp)
+     if (fin.indexOf(s) == -1)
+     {
+       fin.add(s);
+       addedNew = true;
+     }
+     if (addedNew)
+       findSpecialCandies(fin, new ArrayList<Sweet>());
  }
  
  public ArrayList<Sweet> genNewBoard() //wrapper method
@@ -214,19 +226,21 @@ public class Board
  {
    int colorInd = (int) (Math.random() * candyColors.length); 
    int randStr = (int)(Math.random() * 10);
-   int vertical = (int)(Math.random() * 2);
+   int mode = (int)(Math.random() * 3);
    if (randStr >=1) 
    { 
      return new Candy(x, y, candyNames[colorInd], candyColors[colorInd]);
    }
-   else if (vertical == 0) 
+   else if (mode == 0) 
    {
      return new Striped(x, y, candyColors[colorInd], true);
    } 
-   else 
+   else if (mode == 1)
    { 
      return new Striped(x, y, candyColors[colorInd], false); 
    }
+   //else
+   return new Bomb(x, y, candyColors[colorInd]);
  }
   
   void animateCandyFall(ArrayList<Sweet> toFall, int frameNum)
