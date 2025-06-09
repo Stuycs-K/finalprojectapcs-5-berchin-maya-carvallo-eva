@@ -346,7 +346,10 @@ void mouseReleased() //handle candy swaps
 
 void keyPressed()
 {
-  
+  if (key== '+')
+    activeLevel.changeDifficulty(5);
+  else if (key == '-')
+    activeLevel.changeDifficulty(-5);
 }
 
 void popUpTab(int rectWidth, int rectHeight, String text)
