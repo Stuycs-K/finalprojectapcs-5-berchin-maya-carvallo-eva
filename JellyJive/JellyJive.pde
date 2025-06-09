@@ -69,7 +69,8 @@ void setup()
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   //finally, display the main menu
   displayMain(); 
-}  //<>//
+} 
+
   ArrayList<int[]> coordinatesClear(int goalCount, int maxY) 
   {
     ArrayList<int[]> coordinates = new ArrayList<int[]>();
@@ -96,6 +97,7 @@ void setup()
     }
     return jellies;
   }
+  
     ArrayList<Chocolate> generateChocolates(int goalCount)
   {
     ArrayList<int[]> coordinates = coordinatesClear(goalCount,3);
@@ -118,7 +120,7 @@ void setup()
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
-  new XPLevel(new Button(550, 850, bSideLen, bSideLen, "L1"), 1000, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
+  new XPLevel(new Button(550, 850, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
   new ClearLevel(new Button(520, 600, bSideLen, bSideLen, "L2"), 500, 25, new Board(generateChocolates(10), new ArrayList<Jelly>()), false),
   new ClearLevel(new Button(350, 400, bSideLen, bSideLen, "L3"), 500, 25, new Board(new ArrayList<Chocolate>(), generateJellies(10)), true),
   new CollectLevel(new Button(100, 200, bSideLen, bSideLen, "L4"), 500, 15, new Board(generateChocolates(10), generateJellies(10)), new Candy(0,0, candyNames[0], candyColors[0]), 40)
