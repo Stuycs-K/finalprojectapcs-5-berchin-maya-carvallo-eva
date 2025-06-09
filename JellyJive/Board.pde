@@ -217,36 +217,40 @@ public class Board
      //but first, check if there are valid swaps on the board
      /*
      while (! areSwaps())
-     { //<>//
-       shuffle(); //<>//
+     { //<>// //<>//
+       shuffle(); //<>// //<>//
        breakThisRound.addAll(findToBreak());
      }
      if (breakThisRound.size() == 0) */
        return brokenCandies;
    }
-   //otherwise break the candies and genNewCandy to replace them //<>//
-   for (Sweet s : breakThisRound) { //<>//
-     board[s.getY()][s.getX()] = null; //<>//
-     brokenCandies.add(s); //<>//
+   //otherwise break the candies and genNewCandy to replace them //<>// //<>//
+   for (Sweet s : breakThisRound) { //<>// //<>//
+     board[s.getY()][s.getX()] = null; //<>// //<>//
+     brokenCandies.add(s); //<>// //<>//
    }
    return genNewBoard(brokenCandies);
  }
-  //<>//
- private Sweet randCandy(int x, int y) //<>//
+  //<>// //<>//
+ private Sweet randCandy(int x, int y) //<>// //<>//
  {
-   int colorInd = (int) (Math.random() * candyColors.length); //<>//
-   int randStr = (int)(Math.random() * 10);
+   int colorInd = (int) (Math.random() * candyColors.length); //<>// //<>//
+   int randStr = (int)(Math.random() * 20);
    int vertical = (int)(Math.random() * 2);
-   if (randStr >=1) //<>//
+   if (randStr >=2) //<>//
    { //<>//
      return new Candy(x, y, candyNames[colorInd], candyColors[colorInd]);
+   }
+   else if (randStr == 1) //<>//
+   {
+     return new Bomb(x, y, candyColors[colorInd]);
    }
    else if (vertical == 0) //<>//
    {
      return new Striped(x, y, candyColors[colorInd], true);
    } //<>//
    else //<>//
-   { //<>//
+   { //<>// //<>//
      return new Striped(x, y, candyColors[colorInd], false); //<>//
    }
  }
