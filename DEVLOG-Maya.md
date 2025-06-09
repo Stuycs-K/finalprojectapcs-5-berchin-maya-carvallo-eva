@@ -117,3 +117,5 @@ This document must be updated daily every time you finish a work session.
  - Worked on special candies: display, spawning, breaking, etc
  - Whatever else I forgot to put here. Did like 9-10 hours of work total today?
  - Anyway it works. Did I mention that? I never want to see this again
+
+ - i agree that this is an accurate representative of Maya's work  
