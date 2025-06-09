@@ -369,12 +369,12 @@ void popUpTab(int rectWidth, int rectHeight, String text)
 void credits()
 {
   //display/enable the correct buttons and disable others
-  background(255);
+  image(mainbg,0,0,width,height*1.5);
   credits.disable();
   for (Level l : levels)
     l.playButton.disable();
   xCredits.enable();
-  text("CREDITS GO HERE", width/2, height/2); //TEMPORARY
+  popUpTab(400,200,"Game devs: Eva Carvallo and Maya Berchin\nInspiration: Candy Crush\nBackground images: Pinterest");
 }
 
 void displayBackConfirmation() 
