@@ -112,8 +112,9 @@ void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
   new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
-  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 25, new Board(generateChocolates(10), generateJellies(10)), false),
-  new CollectLevel(new Button(width/2, height - 600, bSideLen, bSideLen, "L3"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>()), new Candy(0,0, candyNames[0], candyColors[0]), 50)
+  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 25, new Board(generateChocolates(10), new ArrayList<Jelly>()), false),
+  new ClearLevel(new Button(width/2, height - 600, bSideLen, bSideLen, "L3"), 500, 25, new Board(new ArrayList<Chocolate>(), generateJellies(10)), true),
+  new CollectLevel(new Button(width/2, height - 900, bSideLen, bSideLen, "L4"), 500, 15, new Board(generateChocolates(10), generateJellies(10)), new Candy(0,0, candyNames[0], candyColors[0]), 50)
   };
 }
 
