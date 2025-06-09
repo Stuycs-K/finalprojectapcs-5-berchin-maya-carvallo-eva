@@ -24,7 +24,5 @@ class Jelly extends Sweet{
   {
     return layers;
   }
-  
-  void animateBreak(){}
 
 }

@@ -1,10 +1,10 @@
-public class Striped extends Sweet
+public class Striped extends Candy
 {
   boolean vertical;
   color cColor;
   public Striped(int x, int y, color cColor, boolean vertical)
   {
-    super(x, y, true, "Striped", cColor);
+    super(x, y, "striped", cColor);
     this.vertical = vertical;
   }
   
@@ -14,39 +14,27 @@ public class Striped extends Sweet
     int rawY = this.getY()*SQUARE_LEN+SQUARE_LEN/2+yPadding;
     displayRaw(rawX,rawY);
   }
-    void displayRaw(int rawX, int rawY)
+  
+  void displayRaw(int rawX, int rawY)
   {
-    //set up display vars
-    float radius = SQUARE_LEN*.6;
-    color baseColor = this.getColor();
-    color darkColor = lerpColor(baseColor, color(0), .05);
-    color darkestColor = lerpColor(baseColor, color(0), .3);
-    color lightColor = lerpColor(baseColor, color(255), .3);
-    //base circle
-    stroke(darkestColor);
-    fill(baseColor);
-    circle(rawX,rawY,radius);
-    //shading
-    radius *= .65;
-    stroke(lightColor);
-    fill(darkColor);
-    circle(rawX,rawY,radius);
-    stroke(255);
-    strokeWeight(3);
-    line(rawX + 5, rawY + SQUARE_LEN/2, rawX + SQUARE_LEN - 5, rawY + SQUARE_LEN/2);
-    strokeWeight(1);
+    super.displayRaw(rawX, rawY);
+    fill(255);
     noStroke();
+    float bigSide = SQUARE_LEN*.2;
+    float smallSide = bigSide / 3;
+    if (vertical)
+      rect(rawX-smallSide/2,rawY-bigSide/2,smallSide,bigSide,5);
+    else
+      rect(rawX-bigSide/2,rawY-smallSide/2,bigSide,smallSide,5);
   }
   
-  void animateBreak()
+  String getName()
   {
-    
+    String result = super.getName();
+    if (vertical)
+      result += "vertical";
+    else
+      result += "horizontal";
+    return result + "striped";
   }
-  
-  
-  boolean isVertical()
-  {
-     return vertical; 
-  }
-  
 }

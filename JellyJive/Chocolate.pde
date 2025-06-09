@@ -14,6 +14,5 @@ class Chocolate extends Sweet{
     stroke(color(0));
     rect(rawX+SQUARE_LEN*.05, rawY+SQUARE_LEN*.05, SQUARE_LEN*.9, SQUARE_LEN*.9,10);
   }
-  void animateBreak(){};
  
 }

@@ -82,6 +82,4 @@ class Candy extends Sweet
     circle(rawX,rawY,radius);
   }
   
-  void animateBreak() {}
-  
 }

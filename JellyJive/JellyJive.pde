@@ -30,9 +30,8 @@ private boolean updateCandyPos = false;
 private boolean animCandiesFalling;
 private boolean animCandiesBreaking;
 private boolean animShuffle = false;
-private boolean gameWon = false;
-private boolean gameLost = false;
 private color popUpColor = color(255, 200, 210);
+boolean gameEnded = false;
 
 void setup()
 {
@@ -63,8 +62,8 @@ void setup()
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   //finally, display the main menu
   displayMain(); 
-} //<>//
-  ArrayList<int[]> coordinatesClear(int goalCount, int maxY) //<>//
+} 
+  ArrayList<int[]> coordinatesClear(int goalCount, int maxY) 
   {
     ArrayList<int[]> coordinates = new ArrayList<int[]>();
     while (coordinates.size() < goalCount)
@@ -152,6 +151,7 @@ void draw()
     else
     {
       animCandiesBreaking = false;
+      wait(40);
       updatePosMode();
     }
   }
@@ -203,7 +203,7 @@ void draw()
   {
     if (animFrames == 0)
     {
-      //no more possible switches, shuffling popup
+      popUpTab(300,200,"No more possible switches. Shuffling...");
       wait(1200);
     }
     if (animFrames < 5)
@@ -234,20 +234,11 @@ void draw()
       }
     }
   }
-  if (gameWon)
-  {
-    activeLevel.won();
-    endGame();
-  }
-  if (gameLost)
-  {
-    activeLevel.lost();
-    endGame();
-  }
 }
 
 void playLevel(Level playL)
 {
+  gameEnded = false;
   //store values to do with the level being played
   clickedLevel = playL;
   activeLevel = playL.returnCopy();
@@ -345,7 +336,13 @@ void mouseReleased() //handle candy swaps
 
 void keyPressed()
 {
-  
+  if (activeLevel != null)
+  {
+  if (key== '+')
+    activeLevel.changeDifficulty(5);
+  else if (key == '-')
+    activeLevel.changeDifficulty(-5);
+  }
 }
 
 void popUpTab(int rectWidth, int rectHeight, String text)
@@ -357,6 +354,7 @@ void popUpTab(int rectWidth, int rectHeight, String text)
   strokeWeight(1);
   fill(255);
   textAlign(CENTER);
+  textSize(20);
   text(text,width/2,height/2);
 }
 
@@ -404,16 +402,19 @@ void wait(int waitTime)
 
 public void win()
 {
-  gameWon = true;
+  popUpTab(200,150,"Congratulations!!");
+  endGame();
 }
 
 public void lose()
 {
-  gameLost = true;
+  popUpTab(200,150,"Oops, out of moves! :(");
+  endGame();
 }
 
 void endGame()
 {
+  gameEnded = true;
   animFrames = 0;
   activeLevel = null;
   activelyPlaying = false;
@@ -423,8 +424,7 @@ void endGame()
   updateCandyPos = false;
   animCandiesFalling = false;
   animCandiesBreaking = false;
-  gameWon = false;
-  gameLost = false;
+  animShuffle = false;
 }
 
 boolean candyBreakMode()

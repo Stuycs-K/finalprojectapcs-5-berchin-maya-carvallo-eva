@@ -39,31 +39,30 @@ abstract class Level{
   
   void display()
   { 
-    //display background of level
-    background(255);
-    //display goal and difficulty on top
-    //display board
-    board.display();
-    back.displayButton();
-    textSize(40);
-    fill(0, 0, 0);
-    text("Goal XP: " + GOALXP, 650, 50); 
-    text("Current XP: " + XP, 650, 100); 
-    text("Moves left: " + movesLeft, 650, 150); 
+    if (! gameEnded)
+    {
+      //display background of level
+      background(255);
+      //display goal and difficulty on top
+      //display board
+      board.display();
+      back.displayButton();
+      textSize(40);
+      fill(0, 0, 0);
+      text("Goal XP: " + GOALXP, 650, 50); 
+      text("Current XP: " + XP, 650, 100); 
+      text("Moves left: " + movesLeft, 650, 150); 
+    }
   }
   
-  void changeDifficulty(int dif)
+  void changeDifficulty(int plus)
   { 
-    if (dif < -3)
+    if (plus > 0 && maxMoves < 30 || plus < 0 && maxMoves > 5)
     {
-     dif = -3; 
+      maxMoves += plus;
+      movesLeft += plus;
+      display();
     }
-    if (dif > 3)
-    {
-     dif = 3; 
-    }
-    movesLeft-=dif * 5;
-    maxMoves-=dif * 5;
   }
 
   int getMovesLeft()
@@ -116,27 +115,8 @@ abstract class Level{
     XP+=5;
   }
   
-  void won()
-  {
-    int popupWidth = 200;
-    int popupHeight = 150;
-    rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
-    fill(255);
-    textSize(24);
-    text("Congratulations", (width-popupWidth)/2+35, height/2);
-  }
-  
-  void lost()
-  {
-    int popupWidth = 200;
-    int popupHeight = 150;
-    rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
-    fill(255);
-    textSize(24);
-    text("Try again", (width-popupWidth)/2+35, height/2);
-  }
-  
   abstract Level returnCopy();
+  
   boolean fulfilledReq()
   {
    return XP >= GOALXP; 
