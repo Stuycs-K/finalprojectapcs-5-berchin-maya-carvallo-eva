@@ -411,23 +411,25 @@ public class Board
   
   void display()
   {
-    //account for padding later
-    strokeWeight(3);
-    stroke(38,46,75);
-    fill(74,82,111); 
-    rect(xPadding, yPadding, boardLen, boardLen, 10); 
-    strokeWeight(1);
-    //make lines to separate different squares in grid
-    //now display actual contents of board
-    //start with jelly, since that's under the sweets
-    for (Jelly j : jellies)
-      j.display(xPadding, yPadding);
-    //now the other sweets
-    for (Sweet[] row : board)
+    if (! gameEnded)
     {
-      for (Sweet s : row)
-        if (s != null && ! s.isInMotion())
-          s.display(xPadding, yPadding); 
+      strokeWeight(3);
+      stroke(38,46,75);
+      fill(74,82,111); 
+      rect(xPadding, yPadding, boardLen, boardLen, 10); 
+      strokeWeight(1);
+      //make lines to separate different squares in grid
+      //now display actual contents of board
+      //start with jelly, since that's under the sweets
+      for (Jelly j : jellies)
+        j.display(xPadding, yPadding);
+      //now the other sweets
+      for (Sweet[] row : board)
+      {
+        for (Sweet s : row)
+          if (s != null && ! s.isInMotion())
+            s.display(xPadding, yPadding); 
+      }
     }
   }
   
