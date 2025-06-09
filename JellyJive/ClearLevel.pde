@@ -27,17 +27,20 @@ class ClearLevel extends Level{
   
   void display()
   { 
-    super.display();
-    textAlign(CENTER);
-    textSize(30);
-    fill(120,150,150);
-    if (jellyMode)
+    if (! gameEnded)
     {
-      text("Clear all the jellies!", width*.36, height*.17); 
-    }
-    else
-    {
-      text("Clear all the chocolates!", width*.39, height*.17);
+      super.display();
+      textAlign(CENTER);
+      textSize(30);
+      fill(120,150,150);
+      if (jellyMode)
+      {
+        text("Clear all the jellies!", width*.36, height*.17); 
+      }
+      else
+      {
+        text("Clear all the chocolates!", width*.39, height*.17);
+      }
     }
   }
 

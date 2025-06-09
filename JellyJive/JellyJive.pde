@@ -410,19 +410,20 @@ void wait(int waitTime)
 
 public void win()
 {
+  image(lvlbg,0,0,width,height*1.5);
   popUpTab(200,150,"Congratulations!!");
   endGame();
 }
 
 public void lose()
 {
+  image(lvlbg,0,0,width,height*1.5);
   popUpTab(200,150,"Oops, out of moves! :(");
   endGame();
 }
 
 void endGame()
 {
-  image(lvlbg,0,0,width,height*1.5);
   gameEnded = true;
   animFrames = 0;
   activeLevel = null;
