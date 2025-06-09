@@ -48,3 +48,5 @@ worked on fixing levels and main menu
 
 ### 2025-6-8 -
 worked on special candies and finalizing program
+
+I, Eva's partner, Maya Berchin, believe this is an accurate log of my teammate's contributions.
