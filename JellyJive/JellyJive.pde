@@ -32,6 +32,7 @@ private boolean animCandiesBreaking;
 private boolean animShuffle = false;
 private boolean gameWon = false;
 private boolean gameLost = false;
+private color popUpColor = color(255, 200, 210);
 
 void setup()
 {
@@ -270,7 +271,8 @@ void mouseClicked()
       return;
     }
     //check credits button and xCredits
-  else if (credits.wasPressed(mouseX, mouseY)) 
+  if (credits.wasPressed(mouseX, mouseY)) 
+
     credits();
   else if (xCredits.wasPressed(mouseX, mouseY)) 
     displayMain();
@@ -346,6 +348,18 @@ void keyPressed()
   
 }
 
+void popUpTab(int rectWidth, int rectHeight, String text)
+{
+  fill(popUpColor);
+  stroke(lerpColor(popUpColor,0,.2));
+  strokeWeight(5);
+  rect((width-rectWidth)/2, (height-rectHeight)/2, rectWidth, rectHeight, 20);
+  strokeWeight(1);
+  fill(255);
+  textAlign(CENTER);
+  text(text,width/2,height/2);
+}
+
 void credits()
 {
   //display/enable the correct buttons and disable others
@@ -360,14 +374,8 @@ void credits()
 void displayBackConfirmation() 
 {
   activelyPlaying = false;
-  background(255);
-  fill(255, 200, 210);
-  int popupWidth = 200;
-  int popupHeight = 150;
-  rect((width-popupWidth)/2, (height-popupHeight)/2, popupWidth, popupHeight, 30);
-  fill(255);
   textSize(24);
-  text("Are you sure?", (width-popupWidth)/2+35, height/2);
+  popUpTab(200, 150, "Are you sure?");
   //enable/disable the right buttons
   back.disable();
   main.enable();

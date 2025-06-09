@@ -18,13 +18,18 @@ public class Button{
  
  void displayButton()
  {
-   fill(255, 100, 200);
-   stroke(0);
    int roundedCorners = 10;
+   color baseColor = color(255, 100, 200);
+   color shadow = lerpColor(baseColor, 0 , .3);
+   stroke(shadow);
+   fill(shadow);
    rect(x,y,b,h,roundedCorners);
+   fill(baseColor);
+   rect(x,y,b*.98,h*.98,roundedCorners);
    fill(255);
+   textAlign(CENTER);
    textSize(16);
-   text(text,x+3,y+h/1.5);
+   text(text,x+b/2,y+h/1.5);
  }
  
  boolean isEnabled()
