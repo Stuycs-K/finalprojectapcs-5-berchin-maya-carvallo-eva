@@ -62,7 +62,7 @@ void setup()
   //finally, display the main menu
   displayMain(); //<>//
 }
-  ArrayList<int[]> coordinatesClear(int goalCount, int maxY)
+  ArrayList<int[]> coordinatesClear(int goalCount, int maxY) //<>//
   {
     ArrayList<int[]> coordinates = new ArrayList<int[]>();
     while (coordinates.size() < goalCount)
@@ -159,6 +159,7 @@ void draw()
     {
       gameBoard.display();
       brokenBySwapTemp = gameBoard.findToBreak();
+      
       if (brokenBySwapTemp.size() > 0)
         animCandiesBreaking = true;
       else

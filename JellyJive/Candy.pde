@@ -1,6 +1,5 @@
 class Candy extends Sweet
 {
-  
   color cColor;
   
   public Candy(int x, int y, String Ccolor, color c)
