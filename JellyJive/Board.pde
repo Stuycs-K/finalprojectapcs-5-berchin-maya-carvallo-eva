@@ -346,6 +346,8 @@ public class Board
           else if (sY > 0 && sY < GRID_SIZE-2 && board[sY-1][sX].getColor() == sColor && board[sY+1][sX].getColor() == sColor && board[sY+2][sX].getColor() == sColor)
             spawnSpecials.add(new Striped(sX,sY,sColor,false));
         }
+        else //chocolates
+          chocolates.remove(s);
         filteredCandies.add(s);
       }
     }
