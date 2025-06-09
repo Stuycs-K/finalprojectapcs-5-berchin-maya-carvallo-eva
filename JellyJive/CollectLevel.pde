@@ -41,21 +41,14 @@ class CollectLevel extends Level {
      return numSs >= goalSs; 
   }
   
-    void display()
+  void display()
   { 
-    //display background of level
-    background(255);
-    //display goal and difficulty on top
-    //display board
-    board.display();
-    back.displayButton();
-    textSize(40);
-    fill(0, 0, 0);
-    text("Collect " + goalSs + " pink candies", 550, 50); 
-    text("# collected: " + numSs, 550, 100); 
-        text("Goal XP: " + activeLevel.getGoalXP(), 270, 50); 
-    text("Current XP: " + activeLevel.getXP(), 270, 100); 
-    text("Moves left: " + activeLevel.getMovesLeft(), 270, 150); 
+    super.display();
+    textAlign(CENTER);
+    textSize(30);
+    fill(120,150,150);
+    text("Collect " + goalSs + " pink candies!", width*.38, height*.15); 
+    text("# collected: " + numSs, width*.38, height*.19); 
   }
   
     void keepPlaying(ArrayList<Sweet> brokenBySwap)

@@ -204,14 +204,6 @@ public class Board
    //return if no candies broken this round (base case)
    if (breakThisRound.size() == 0)
    {
-     //but first, check if there are valid swaps on the board
-     /*
-     while (! areSwaps())
-     { 
-       shuffle(); 
-       breakThisRound.addAll(findToBreak());
-     }
-     if (breakThisRound.size() == 0) */
        return brokenCandies;
    }
    //otherwise break the candies and genNewCandy to replace them  
@@ -255,8 +247,8 @@ public class Board
         rawX -= SQUARE_LEN/2;
         rawY -= SQUARE_LEN/2;
       }
-      float radius = SQUARE_LEN * .3; 
-      if (rawY - radius > yPadding)   
+      float diameter = SQUARE_LEN * .3; 
+      if (rawY - diameter > yPadding)   
         s.displayRaw(rawX,rawY);  
     }  
   }  
@@ -404,7 +396,7 @@ public class Board
     int sweetY = (y-yPadding)/SQUARE_LEN;
     int sweetX = (x-xPadding)/SQUARE_LEN;
     if (sweetX < GRID_SIZE && sweetX >= 0 && sweetY < GRID_SIZE && sweetY >= 0)
-      if (gameBoard.board[sweetY][sweetX].isSwappable())
+      if (gameBoard.board[sweetY][sweetX] != null && gameBoard.board[sweetY][sweetX].isSwappable())
         return gameBoard.board[sweetY][sweetX];
     return null;
   }

@@ -41,19 +41,39 @@ abstract class Level{
   { 
     if (! gameEnded)
     {
-      //display background of level
-      background(255);
       //display goal and difficulty on top
+      displayTop();
       //display board
       board.display();
       back.displayButton();
-      textSize(40);
-      fill(0, 0, 0);
-      text("Goal XP: " + GOALXP, 650, 50); 
-      text("Current XP: " + XP, 650, 100); 
-      text("Moves left: " + movesLeft, 650, 150); 
     }
   }
+  
+  void displayTop()
+  {
+    //basic level info, moves left
+    color infoCol = color(245,250,245);
+    stroke(lerpColor(infoCol,0,.2));
+    fill(infoCol);
+    float infoRectW = width*.6;
+    float infoRectH = infoRectW * .2;
+    rect((width-infoRectW)/2,height*.1,infoRectW,infoRectH,10);
+    textAlign(CENTER);
+    textSize(30);
+    fill(120,150,150);
+    text("Moves left: " + movesLeft, width*.68, height*.17); 
+    //xp bar
+    color xpBase = color(220,200,210);
+    fill(xpBase);
+    stroke(lerpColor(xpBase,0,.3));
+    rect((width-getGoalXP())/2,height*.2,getGoalXP(),50,10);
+    fill(lerpColor(xpBase,color(255,0,0),.2));
+    rect((width-getGoalXP())/2,height*.2,min(getXP(),getGoalXP()),50,10);
+    fill(255);
+    textSize(24);
+    text(getXP()+"XP / "+getGoalXP()+"XP",width/2,height*.238);
+  }
+
   
   void changeDifficulty(int plus)
   { 
