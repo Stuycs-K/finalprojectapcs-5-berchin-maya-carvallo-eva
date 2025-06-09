@@ -24,7 +24,7 @@ class ClearLevel extends Level{
   {
     return getJellyLeft() == 0 && getChocolatesLeft() == 0;
   }
-       void display()
+  void display()
   { 
     //display background of level
     background(255);

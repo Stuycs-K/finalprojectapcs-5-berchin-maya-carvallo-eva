@@ -62,7 +62,7 @@ void setup()
   main = new Button(width/2-80,height/2+30,70,40,"MAIN");
   //finally, display the main menu
   displayMain(); 
-} 
+}  //<>//
   ArrayList<int[]> coordinatesClear(int goalCount, int maxY) 
   {
     ArrayList<int[]> coordinates = new ArrayList<int[]>();

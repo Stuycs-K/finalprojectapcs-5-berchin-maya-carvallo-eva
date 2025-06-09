@@ -92,17 +92,29 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **void displayButton()**: Draws the button in the right place and displays the right text 
 -----------------------------
 ***BOARD***
- - **Sweet[][] board**: The actual board  
+~~ - **Sweet[][] board**: The actual board  
  - **ArrayList<Chocolate> chocolates**: Level may contain chocolate  
- - **ArrayList<Chocolate> jellies**: Level may contain jellies  
+ - **ArrayList<Chocolate> jellies**: Level may contain jellies 
+ - **xPadding**: for drawing board on screen
+ - **yPadding**: for drawing board on screen
+ - **boardLen**: the length of the board in pixels
 . . . . . . . .
  - **Board()**: constructor  
+ - **void findSpecialCandies()**: finds special candies on board
+ - **ArrayList<Sweet> genNewBoard()**: generayes a new board, or fills in candies
+ - **Sweet randCandy()**: for generating random candies, including regular colors, striped, and bombs
+ - **ArrayList<Sweet> updateCandyPosition()**: updates candy positions for animation
  - **boolean areSwaps()**: Decide if there are swaps left on the board  
  - **ArrayList<Sweet> shuffle()**: Shuffle the contents of the board (candy only; chocolate and jellies stay where they are). Returns a list of sweets that were broken by the shuffle.  
  - **ArrayList<Sweet> swap()**: Swap two candies on the board  
  - **ArrayList<Sweet> findToBreak()**: Helper for swap(): find the candy that needs to be broken and return it  
  - **void animateSwap()**: Animate the 2 candies swapping.  
  - **void animateFail()**: Animate a failed swap.  
+ - **void breakAll()**: breaks candies given
+ - **animateAllBreaking()**: for animation of breaking candies
+ - **Sweet hoveringOver()**: which candy you are on
+ - **void display()**: displays candies, chocolates, and jellies in the board
+ - **Board copyBoard()**:makes a copy of the big board
  - **ArrayList<Sweet> genNewCandy()**: Generate new candy to fill in all empty spots. Return a list of sweets broken by the generation of this new candy.  
  - **void animateCandyFall()**: Animate candy falling down one layer into an empty space.  
  - **ArrayList<explodeAgain()**: Explode bombs again. (Bombs explode twice)  
@@ -116,14 +128,15 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **int goalXP**: xp for 3 stars (or win in XP level)
  - **int maxMoves**: max # of moves
  - **int movesLeft**: self explanatory
- - **int[][] chocCoords**: So that we can set up board with the same placement of chocolates each time we make a copy  
- - **int[][] jellyCoords**: So that we can set up board with the same placement of jellies each time we make a copy 
+~~ - **int[][] chocCoords**: So that we can set up board with the same placement of chocolates each time we make a copy ~~
+~~ - **int[][] jellyCoords**: So that we can set up board with the same placement of jellies each time we make a copy ~~
  . . . . . . . .
  - **Level()**: constructor  
- - **Level copyLevel()**: Returns a deep copy of a level to be stored and modified in activeLevel.  
+ - **Level returnCopy()**: Returns a deep copy of a level to be stored and modified in activeLevel.  
  - **void display()**: Displays the level  
  - **void changeDifficulty()**: Changes the difficulty  
  - **int getMovesLeft()**: Return movesLeft  
+ - **void subMovesLeft()**: Subtract from moves left
  - **int getXP()**: Return XP  
  - **int addXP()**: Adds int param to XP (provided param >= 0)  
  - **int calcXP()**: Takes a list of candy that was broken in a swap and calculate the XP that should be added from the swap  
@@ -131,20 +144,24 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **void placeChocolate()**: Place a new chocolate next to an existing one  
  - **void keepPlaying()**: Decide whether the game is over  
  - **boolean fulfilledReq()**: Checks if the requirement to win has been fulfilled  
- - **void win()**: Win the game!  
- - **void lose()**: Lose the game :(  
+ ~~- **void win()**: Win the game! ~~
+~~ - **void lose()**: Lose the game :(  ~~
 -----------------------------
 ***XPLEVEL***
  . . . . . . . .
  - **XPLevel()**: constructor  
- - **XPLevel copyLevel()**: see super
+ - **Level returnCopy()**: see super
  - **boolean fulfilledReq()**: Return XP >= goalXP  
 -----------------------------
 ***CLEARLEVEL***
- - **Sweet clearGoal**: The sweet that needs to be wiped from the board  
+ - **boolean jellyMode**: if true, displays jellies, if not displays chocolates
+~~ - **Sweet clearGoal**: The sweet that needs to be wiped from the board~~  
  . . . . . . . .
  - **ClearLevel()**: constructor  
- - **ClearLevel copyLevel()**: see super
+ - **Level returnCopy()**: see super
+ - **getJellyLeft()**: returns jellies on the board
+ - **getChocolatesLeft()**: returns chocolates on the board
+ - **void display()**: overrides so displays text concerning jellies and chocolates
  - **boolean fulfilledReq()**: Return the count of clearGoal on the board == 0  
 -----------------------------
 ***COLLECTLEVEL***
@@ -153,21 +170,31 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **int numSs**: The number of goal sweets we currently have  
  . . . . . . . .
  - **CollectLevel()**: constructor  
- - **CollectLevel copyLevel()**: see super
+ - **Level returnCopy()**: see super
  - **int getGoalSs()**: Returns goalSs  
  - **int getNumSs()**: Returns numSs  
  - **void addSs()**: After each swap, adds the number of sTypes broken to numSs  
  - **Sweet getSweetType()**: Returns sType  
+ - **void display()**: overrides to display different text
+ - **void keepPlaying()**: overrides to update numS when playing
  - **boolean fulfilledReq()**: Return the count of clearGoal on the board == 0  
 -----------------------------
 ***SWEET***
  - **int x, int y**: Location of the candy on the board  
  - **boolean swappable**: Can the sweet be moved by mouseDragged()?  
+ - **boolean inMotion**: if candy in motion for animation
+ - **color cColor**: sweet color
  . . . . . . . .
  - **Sweet()**: constructor  
  - **int getX(), getY()**: Return x / y  
  - **void setX(), setY()**: Set x and y  
  - **boolean isSwappable()**: Return swappable  
+ - **boolean canSwap()**: overriden later
+ - **String getName()**: get name
+ - **color getColor()**: get color
+ - **boolean isInMotion()**: get variable
+ - **void setInMotion()**: set variable true
+ - **void setStill()**: set variable false
  - **void display()**: Display the sweet  
  - **void animateBreak()**: Animate the candy breaking  
 -----------------------------
@@ -175,7 +202,8 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  . . . . . . . .
  - **Chocolate()**: Constructor  
  - **void display()**: see super
- - **void animateBreak()**: see super
+ - **void displayRaw()**: see super
+~~ - **void animateBreak()**: see super~~
 -----------------------------
 ***JELLY***
  - **int layers**: Number of layers of jelly on this square  
@@ -184,41 +212,50 @@ OUTLINE: (Originally worked on in this google doc: https://docs.google.com/docum
  - **int getLayers()**: Return layers  
  - **void subLayer()**: layers– after a swap  
  - **void display()**: Display the jelly  
- - **void animateBreak()**: see super
+ ~~- **void animateBreak()**: see super~~
 -----------------------------
 ***CANDY***
- - **Color cColor**: Color of the candy  
+ ~~- **Color cColor**: Color of the candy~~
  . . . . . . . . 
  - **Candy()**: constructor  
+ - **boolean canSwap()**: checks if neighbors can swap
+ - **ArrayList<int[]> scanNeighbors()**: scans possibilities for a candy to swap
  - **void display()**: see super
- - **void animateBreak()**: see super
+ - **void displayRaw()**: see super
+~~ - **void animatebreak()**:see super ~~
 -----------------------------
-***COLORBOMB***
+~~***COLORBOMB***~~
  . . . . . . . . 
- - **colorBomb()**: constructor  
- - **void display()**: see super
- - **void animateBreak()**: see super
+~~ - **colorBomb()**: constructor~~
+~~ - **void display()**: see super~~
+~~ - **void animateBreak()**: see super~~
 -----------------------------
 ***STRIPED***
+ - **color cColor**: Color of candy
  - **boolean vertical**: Will the candy break a column or row when activated?  
  . . . . . . . .
  - **Striped()**: Constructor  
  - **boolean isVertical()**: Return vertical  
  - **void display()**: see super
- - **void animateBreak()**: see super
+ - **void displayRaw()**: see super
+ - **String getName()**: get name
+~~ - **void animateBreak()**: see super~~
 -----------------------------
 ***BOMB***
+- **color cColor**: Bombs have color for display and swapping
  . . . . . . . . 
  - **Bomb()**: Constructor  
  - **void display()**: see super
- - **void animateBreak()**: see super
+ - **void displayRaw()**: see super
+ - **String getName()**: get name
+ ~~- **void animateBreak()**: see super~~
 -----------------------------
-***ACTIVEBOMB***
+~~***ACTIVEBOMB***~~
  . . . . . . . .
- - **ActiveBomb()**: Constructor  
- - **void animateTimer()**: Animate the bomb lighting up and going back to its normal color while it waits to explode  
- - **void display()**: see super
- - **void animateBreak()**: see super
+~~ - **ActiveBomb()**: Constructor~~
+~~ - **void animateTimer()**: Animate the bomb lighting up and going back to its normal color while it waits to explode~~
+~~ - **void display()**: see super~~
+~~ - **void animateBreak()**: see super~~
 -----------------------------
  
 # OUTDATED: Old project design

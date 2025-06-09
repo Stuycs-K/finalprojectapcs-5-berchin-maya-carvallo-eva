@@ -217,31 +217,31 @@ public class Board
    //otherwise break the candies and genNewCandy to replace them  
    for (Sweet s : breakThisRound) {  
      board[s.getY()][s.getX()] = null;  
-     brokenCandies.add(s); 
-   }
+     brokenCandies.add(s);  //<>//
+   } //<>//
    return genNewBoard(brokenCandies);
  }
   
  private Sweet randCandy(int x, int y) 
  {
-   int colorInd = (int) (Math.random() * candyColors.length); 
-   int randStr = (int)(Math.random() * 10);
-   int mode = (int)(Math.random() * 3);
-   if (randStr >=2) 
+   int colorInd = (int) (Math.random() * candyColors.length);  //<>//
+   int randStr = (int)(Math.random() * 10); //<>//
+   int mode = (int)(Math.random() * 3); //<>//
+   if (randStr >=2)  //<>//
    { 
      return new Candy(x, y, candyNames[colorInd], candyColors[colorInd]);
    }
-   else if (mode == 0) 
-   {
+   else if (mode == 0)  //<>//
+   { //<>//
      return new Striped(x, y, candyColors[colorInd], true);
-   } 
+   }  //<>//
    else if (mode == 1)
    { 
      return new Striped(x, y, candyColors[colorInd], false); 
    }
    //else
    return new Bomb(x, y, candyColors[colorInd]);
- }
+ } //<>//
   
   void animateCandyFall(ArrayList<Sweet> toFall, int frameNum)
   { 
@@ -250,7 +250,7 @@ public class Board
       int rawX = s.getX()*SQUARE_LEN+SQUARE_LEN/2+xPadding; 
       int rawY = (s.getY()-1)*SQUARE_LEN+SQUARE_LEN/2+yPadding + frameNum;   
       if (! s.isSwappable()) //chocolate  
-      {
+      { //<>//
         //need to adjust: rect is drawn from top left corner
         rawX -= SQUARE_LEN/2;
         rawY -= SQUARE_LEN/2;
