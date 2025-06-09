@@ -204,14 +204,6 @@ public class Board
    //return if no candies broken this round (base case)
    if (breakThisRound.size() == 0)
    {
-     //but first, check if there are valid swaps on the board
-     /*
-     while (! areSwaps())
-     { 
-       shuffle(); 
-       breakThisRound.addAll(findToBreak());
-     }
-     if (breakThisRound.size() == 0) */
        return brokenCandies;
    }
    //otherwise break the candies and genNewCandy to replace them 
