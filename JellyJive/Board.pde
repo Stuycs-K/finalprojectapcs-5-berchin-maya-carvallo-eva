@@ -317,6 +317,8 @@ public class Board
   
   void breakAll(ArrayList<Sweet> toBreak)
   {
+    ArrayList<Sweet> filteredCandies = new ArrayList<Sweet>();
+    ArrayList<Sweet> spawnSpecials = new ArrayList<Sweet>();
     for (Sweet s : toBreak)
     {
       //check if this sweet is a jelly
@@ -325,15 +327,40 @@ public class Board
         Jelly thisSweet = jellies.get(jellies.indexOf(s));
         thisSweet.sublayer();
         if (thisSweet.getLayers() == 0)
-        {
           jellies.remove(thisSweet);
-          board[s.getY()][s.getX()] = null;
-        }
       }
       //regular sweet (candy, chocolate, etc)
       else
-        gameBoard.board[s.getY()][s.getX()] = null;
+      {
+        if (chocolates.indexOf(s) == -1)
+        {
+          int sX = s.getX();
+          int sY = s.getY();
+          color sColor = s.getColor();
+          //bomb
+          boolean spawnBomb = false;
+          if (sX < GRID_SIZE-2 && board[sY][sX+1].getColor() == sColor && board[sY][sX+2].getColor() == sColor)
+          {
+            spawnBomb = spawnBomb || (sY < GRID_SIZE-2 && board[sY+1][sX].getColor() == sColor && board[sY+2][sX].getColor() == sColor);
+            spawnBomb = spawnBomb || (sY > 1 && board[sY-1][sX].getColor() == sColor && board[sY-2][sX].getColor() == sColor);
+            spawnBomb = spawnBomb || (sY > 0 && sY < GRID_SIZE-1 && board[sY-1][sX].getColor() == sColor && board[sY+1][sX].getColor() == sColor);
+          }
+          if (spawnBomb)
+            spawnSpecials.add(new Bomb(sX,sY,sColor));
+          //striped vertical
+          else if (sX > 0 && sX < GRID_SIZE-2 && board[sY][sX-1].getColor() == sColor && board[sY][sX+1].getColor() == sColor && board[sY][sX+2].getColor() == sColor)
+            spawnSpecials.add(new Striped(sX,sY,sColor,true));
+          //striped horizontal
+          else if (sY > 0 && sY < GRID_SIZE-2 && board[sY-1][sX].getColor() == sColor && board[sY+1][sX].getColor() == sColor && board[sY+2][sX].getColor() == sColor)
+            spawnSpecials.add(new Striped(sX,sY,sColor,false));
+        }
+        filteredCandies.add(s);
+      }
     }
+    for (Sweet s : filteredCandies)
+      board[s.getY()][s.getX()] = null;
+    for (Sweet s : spawnSpecials)
+      board[s.getY()][s.getX()] = s;
   }
  
   void animateAllBreaking(ArrayList<Sweet> toBreak, int frameNum)

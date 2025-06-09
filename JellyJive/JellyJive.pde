@@ -152,6 +152,7 @@ void draw()
     else
     {
       animCandiesBreaking = false;
+      wait(40);
       updatePosMode();
     }
   }
