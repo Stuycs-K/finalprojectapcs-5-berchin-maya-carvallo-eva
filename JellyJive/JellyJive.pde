@@ -32,12 +32,17 @@ private boolean animCandiesBreaking;
 private boolean animShuffle = false;
 private color popUpColor = color(255, 200, 210);
 boolean gameEnded = false;
+PImage mainbg;
+PImage lvlbg;
 
 void setup()
 {
   size(980, 980);
   SQUARE_LEN = 80;
-  GRID_SIZE = 6; //LATER, CUSTOMIZE PER LEVEL
+  GRID_SIZE = 6;
+  
+  mainbg = loadImage("mainbg.png");
+  lvlbg = loadImage("lvlbg.png");
   
   //initialize certain vars to match up with main menu
   initLevels();
@@ -111,10 +116,10 @@ void setup()
 void initLevels() {
   int bSideLen = 50;
   levels = new Level[]{
-  new XPLevel(new Button(width/2, height - bSideLen, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
-  new ClearLevel(new Button(width/2, height - 300, bSideLen, bSideLen, "L2"), 500, 25, new Board(generateChocolates(10), new ArrayList<Jelly>()), false),
-  new ClearLevel(new Button(width/2, height - 600, bSideLen, bSideLen, "L3"), 500, 25, new Board(new ArrayList<Chocolate>(), generateJellies(10)), true),
-  new CollectLevel(new Button(width/2, height - 900, bSideLen, bSideLen, "L4"), 500, 15, new Board(generateChocolates(10), generateJellies(10)), new Candy(0,0, candyNames[0], candyColors[0]), 50)
+  new XPLevel(new Button(550, 850, bSideLen, bSideLen, "L1"), 500, 15, new Board(new ArrayList<Chocolate>(), new ArrayList<Jelly>())),
+  new ClearLevel(new Button(520, 600, bSideLen, bSideLen, "L2"), 500, 25, new Board(generateChocolates(10), new ArrayList<Jelly>()), false),
+  new ClearLevel(new Button(350, 400, bSideLen, bSideLen, "L3"), 500, 25, new Board(new ArrayList<Chocolate>(), generateJellies(10)), true),
+  new CollectLevel(new Button(100, 200, bSideLen, bSideLen, "L4"), 500, 15, new Board(generateChocolates(10), generateJellies(10)), new Candy(0,0, candyNames[0], candyColors[0]), 50)
   };
 }
 
@@ -122,7 +127,7 @@ void initLevels() {
 void displayMain()
 {
   //actually display the background
-  background(255);
+  image(mainbg,0,0,width,height*1.2);
   //clear bad settings
   clickedLevel = null;
   activeLevel = null;
@@ -245,6 +250,7 @@ void playLevel(Level playL)
   gameBoard = activeLevel.board;
   activelyPlaying = true;
   //display the actual level
+  image(lvlbg,0,0,width,height*1.5);
   playL.display();
   gameBoard.display();
   //enable/disable the right buttons

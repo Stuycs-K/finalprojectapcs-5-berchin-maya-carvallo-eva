@@ -19,7 +19,7 @@ public class Button{
  void displayButton()
  {
    int roundedCorners = 10;
-   color baseColor = color(255, 100, 200);
+   color baseColor = color(80, 210, 160);
    color shadow = lerpColor(baseColor, 0 , .3);
    stroke(shadow);
    fill(shadow);
