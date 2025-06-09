@@ -41,8 +41,6 @@ abstract class Level{
   { 
     if (! gameEnded)
     {
-      //display background of level
-      background(255);
       //display goal and difficulty on top
       displayTop();
       //display board

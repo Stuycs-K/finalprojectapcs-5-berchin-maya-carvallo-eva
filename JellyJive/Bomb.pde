@@ -15,6 +15,14 @@ public class Bomb extends Candy
   
   void displayRaw(int rawX, int rawY)
   {
+    //check if in bounds
+    float diameter = SQUARE_LEN*.6;
+    if ((rawX-diameter/2 < gameBoard.xPadding || rawX+diameter/2 > gameBoard.xPadding + gameBoard.boardLen || rawY-diameter/2 < gameBoard.yPadding || rawY+diameter/2 > gameBoard.yPadding + gameBoard.boardLen)
+       || (rawX-(getX()*SQUARE_LEN+gameBoard.xPadding) > 1.2*SQUARE_LEN || ((rawY-(getY()*SQUARE_LEN+gameBoard.yPadding) > 1.2*SQUARE_LEN))))
+    {
+      setStill();
+      return;
+    }
     super.displayRaw(rawX,rawY);
     fill(255);
     noStroke();

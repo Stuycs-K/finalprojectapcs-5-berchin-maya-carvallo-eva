@@ -65,8 +65,14 @@ class Candy extends Sweet
   
   void displayRaw(int rawX, int rawY)
   {
-    //set up display vars
-    float radius = SQUARE_LEN*.6;
+    //check if in bounds
+    float diameter = SQUARE_LEN*.6;
+    if ((rawX-diameter/2 < gameBoard.xPadding || rawX+diameter/2 > gameBoard.xPadding + gameBoard.boardLen || rawY-diameter/2 < gameBoard.yPadding || rawY+diameter/2 > gameBoard.yPadding + gameBoard.boardLen)
+       || (rawX-(getX()*SQUARE_LEN+gameBoard.xPadding) > 1.2*SQUARE_LEN || ((rawY-(getY()*SQUARE_LEN+gameBoard.yPadding) > 1.2*SQUARE_LEN))))
+    {
+      setStill();
+      return;
+    }
     color baseColor = this.getColor();
     color darkColor = lerpColor(baseColor, color(0), .05);
     color darkestColor = lerpColor(baseColor, color(0), .3);
@@ -74,12 +80,12 @@ class Candy extends Sweet
     //base circle
     stroke(darkestColor);
     fill(baseColor);
-    circle(rawX,rawY,radius);
+    circle(rawX,rawY,diameter);
     //shading
-    radius *= .65;
+    diameter *= .65;
     stroke(lightColor);
     fill(darkColor);
-    circle(rawX,rawY,radius);
+    circle(rawX,rawY,diameter);
   }
   
 }
