@@ -43,12 +43,15 @@ class CollectLevel extends Level {
   
   void display()
   { 
-    super.display();
-    textAlign(CENTER);
-    textSize(30);
-    fill(120,150,150);
-    text("Collect " + goalSs + " pink candies!", width*.38, height*.15); 
-    text("# collected: " + numSs, width*.38, height*.19); 
+    if (! gameEnded)
+    {
+      super.display();
+      textAlign(CENTER);
+      textSize(30);
+      fill(120,150,150);
+      text("Collect " + goalSs + " pink candies!", width*.38, height*.15); 
+      text("# collected: " + numSs, width*.38, height*.19); 
+    }
   }
   
     void keepPlaying(ArrayList<Sweet> brokenBySwap)
