@@ -4,8 +4,6 @@
 We made a version of candy crush called Jelly Jive. In our game you swap candies to collect points and to acheive different goals depending on the level.
 
 # Intended usage:
-
-A description as to how the project will be used (describe the user interface). (CHANGE THIS!!!!!)
   
 When you pull up our game, there will be a main menu. On the main menu you can choose between 4 different levels.
 The first level's goal is solely to get enough points by swapping candies to reach the goal XP. The second level 
@@ -15,4 +13,4 @@ The last level is where you have a goal of breaking candies with a certain candy
 To break candies, swap candies so that a certain kind of candy is lined up at least 3 in a row or column. If you break a striped candy, you will break the entire row or column.
 If you break a bomb, it will break all of the candies around it. If you are playing the game and want to go back to the main screen, you can press back.
 If you win or lose the game, a screen will pop up with buttons to let you play again or return to the main page. 
-If you are playing the game and want to change the difficulty, you can press the key to increase the difficulty of that level. 
+If you are playing the game and want to change the difficulty, you can press the key '-' to increase the difficulty of that level, or '+' to decrease the difficulty. 
