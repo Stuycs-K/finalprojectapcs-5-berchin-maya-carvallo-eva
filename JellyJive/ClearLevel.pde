@@ -25,7 +25,6 @@ class ClearLevel extends Level{
   {
     if (jellyMode)
       return getJellyLeft() == 0;
-    System.out.println(getChocolatesLeft());
     return getChocolatesLeft() == 0;
   }
   
