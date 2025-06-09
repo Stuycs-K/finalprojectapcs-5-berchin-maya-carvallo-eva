@@ -23,14 +23,6 @@ abstract class Level{
   
   void keepPlaying(ArrayList<Sweet> brokenBySwap)
   {
-    //process xp from input here
-    if (! board.areSwaps())
-    {
-      board.shuffle();
-      display();
-      brokenBySwap.addAll(board.findToBreak());
-    }
-    //moves--, check if fulfilledReq(), win/lose
     //later (NOT for Monday), add a way to placeChocolate if none broken this round
     addXP(brokenBySwap.size());
     movesLeft--;
