@@ -250,21 +250,6 @@ public class Board
      return new Striped(x, y, candyColors[colorInd], false); //<>//
    }
  }
-  //<>//
- ArrayList<Sweet> genNewCandy() //<>//
- { //<>//
-   ArrayList<Sweet> broken = new ArrayList<Sweet>();
-   ArrayList<Sweet> newBroken = findToBreak(); //<>//
-   while (newBroken.size() > 0)
-   {
-     animateAllBreaking(newBroken);
-     for (Sweet s : newBroken)
-       board[s.getY()][s.getX()] = null;
-     broken.addAll(newBroken);
-     newBroken = findToBreak(); //<>//
-   }
-   return broken;
- } 
   
   void animateCandyFall(ArrayList<Sweet> toFall, int frameNum)
   { 
